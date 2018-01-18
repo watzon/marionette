@@ -1,0 +1,13 @@
+name: puppet_master
+version: 0.1.0
+
+authors:
+  - Chris Watson <chris@watzon.me>
+
+dependencies:
+  cute:
+    github: Papierkorb/cute
+
+crystal: 0.24.1
+
+license: MIT
