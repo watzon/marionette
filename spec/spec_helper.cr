@@ -1,2 +1,2 @@
 require "spec"
-require "../src/puppet_master"
+require "../src/marionette"
