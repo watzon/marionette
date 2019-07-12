@@ -288,5 +288,3 @@ class Marionette
     end
   end
 end
-
-# Marionette::Launcher.launch(executable: "chromium-browser", devtools: true)
