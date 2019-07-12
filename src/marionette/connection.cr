@@ -1,10 +1,12 @@
 require "uri"
 require "json"
 require "http/web_socket"
+require "./logger"
 require "./cdp_session"
 
 class Marionette
   class Connection
+    include Logger
 
     getter url : String
     getter transport : ConnectionTransport
@@ -24,7 +26,7 @@ class Marionette
 
     # Send a message to the chrome instance. Objects will
     # be converted to JSON before sending.
-    def send(method)
+    def send(message)
       id = @last_id += 1
       message = message.to_json
       debug("SEND ► #{message}")
@@ -80,7 +82,7 @@ class Marionette
       debug("connection to browser closed")
     end
 
-    struct BrowserMessage do
+    struct BrowserMessage
       include JSON::Serializable
 
       getter id : Int32?
