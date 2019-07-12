@@ -5,8 +5,8 @@ authors:
   - Chris Watson <chris@watzon.me>
 
 dependencies:
-  cute:
-    github: Papierkorb/cute
+  strange:
+    github: hydecr/strange
 
 crystal: 0.24.1
 
