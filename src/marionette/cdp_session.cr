@@ -21,7 +21,8 @@ class Marionette
 
     def on_message(object)
       if object["id"]? && callbacks.has_key?(object["id"].as_s)
-        callback = callbacks.delete(object["id"].as_s)
+        callback = callbacks[object["id"].as_s]
+        callbacks.delete(object["id"].as_s)
         callback.call(object["result"])
       else
         raise "Object has no id" unless object["id"]?
@@ -36,7 +37,7 @@ class Marionette
       end
     end
 
-    def on_closed(&block)
+    def on_closed
       @callbacks.clear
       @connection = nil
     end

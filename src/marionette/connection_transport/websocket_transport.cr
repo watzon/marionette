@@ -13,8 +13,8 @@ class Marionette
     end
 
     def initialize(@ws : HTTP::WebSocket)
-      @ws.on_message { |message| on_message.call(message) }
-      @ws.on_close   { on_close.call }
+      @ws.on_message { |message| @on_message.call(message) }
+      @ws.on_close   { @on_close.call }
     end
 
     def send(message : String)

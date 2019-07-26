@@ -42,3 +42,12 @@ class Marionette
     Downloader.new(**options)
   end
 end
+
+marionette = Marionette.new
+browser = marionette.launch(headless: true, timeout: 10000)
+# page = browser.new_page
+# page.goto("https://neuralegion.com")
+# page.screenshot do |b64|
+#   data = Base64.decode(b64)
+#   File.write("screenshot.png", data.to_slice)
+# end

@@ -1,3 +1,4 @@
+require "event_emitter"
 require "uri"
 require "json"
 require "http/web_socket"
@@ -5,7 +6,7 @@ require "./logger"
 require "./cdp_session"
 
 class Marionette
-  class Connection
+  class Connection < EventEmitter::Base
     include Logger
 
     getter url : String
@@ -22,44 +23,52 @@ class Marionette
       @last_id = 0
       @sessions = {} of String => CDPSession
       @closed = false
+      @transport.on_message do |message|
+        puts message
+        on_message(message)
+      end
+
+      all do |e, _|
+        puts e
+      end
     end
 
     # Send a message to the chrome instance. Objects will
     # be converted to JSON before sending.
-    def send(message)
+    def send(method, params = {} of String => String)
       id = @last_id += 1
-      message = message.to_json
+      message = { method: method, params: params }.to_json
       debug("SEND ► #{message}")
       transport.send(message)
       id
     end
 
-    def on_message(message : String, &block : BrowserMessage ->)
+    def on_message(message : String)
       if ms = @message_delay
         sleep(ms)
       end
 
       debug("◀ RECV #{message}")
 
-      object = BrowserMessage.parse(message)
+      object = JSON.parse(message)
 
-      if object.method == "Target.attachedToTarget"
-        session_id = object.params["sessionId"].as_s
-        session = CDPSession.new(self, object.params["targetInfo"]["type"].as_s, session_id)
+      if object["method"] == "Target.attachedToTarget"
+        session_id = object["params"]["sessionId"].as_s
+        session = CDPSession.new(self, object["params"]["targetInfo"]["type"].as_s, session_id)
         sessions[session_id] = session
-      elsif object.method == "Target.detachedFromTarget"
-        session = sessions[object.params["sessionId"].as_s]?
+      elsif object["method"] == "Target.detachedFromTarget"
+        session = sessions[object["params"]["sessionId"].as_s]?
         if sess = session
           sess.on_closed
-          sessions.delete(object.params["sessionId"].as_s)
+          sessions.delete(object["params"]["sessionId"].as_s)
         end
       end
 
-      if session_id = object.session_id
+      if session_id = object["session_id"]?
         session = sessions[session_id]?
         session.try &.on_message(object)
       else
-        yield object
+        emit(object["method"].as_s, object["params"].as_h)
       end
     end
 
@@ -93,6 +102,8 @@ class Marionette
       getter method : String
 
       getter params : Hash(String, JSON::Any)
+
+      getter result
 
       def initialize(@id, @session_id, @method, @params)
       end

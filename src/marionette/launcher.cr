@@ -115,7 +115,7 @@ class Marionette
       },
       timeout = 30000
     )
-      debug("Launcher.launch called")
+      debug("Launching browser")
 
       executable = resolve_executable_path unless executable
       @chrome_args = build_launcher_args(args, ignore_defaults, user_data_dir, devtools, headless, pipe)
@@ -123,13 +123,18 @@ class Marionette
       stdout = IO::Memory.new
       stderr = IO::Memory.new
 
-      debug("Launching with args #{chrome_args.join(", ")}")
+      debug("Launching with args #{chrome_args.join(" ")}")
       @process = process = Process.new(executable.to_s, @chrome_args, env, output: stdout, error: stderr)
 
       set_exit_handlers(handle_sigint, handle_sigterm, handle_sighup)
 
       # TODO: Add pipe transport support
       ws_endpoint = wait_for_ws_endpoint(stderr, timeout, @preferred_revision)
+      transport = WebsocketTransport.create(ws_endpoint)
+      connection = Connection.new(ws_endpoint, transport, slowmo)
+      browser = Browser.create(connection, [] of String, ignore_https_errors, default_viewport, process)
+      browser.wait_for_target(&.type.==("page"))
+      browser
     end
 
     # Force kill the chrome process
@@ -271,20 +276,21 @@ class Marionette
       debug("Waiting for websocket endpoint")
 
       sleep(1)
-      while line = io.to_s
+      loop do
+        io.rewind
+        lines = io.gets_to_end
 
-        if match = line.match(/DevTools listening on (ws:\/\/.*)$/)
+        if match = lines.match(/(ws:\/\/.*)/)
           debug("Found chrome websocket endpoint: #{match[1]}")
-          return res = match[1]
+          return match[1]
         end
 
         if Time.now > started_at + timeout.milliseconds
+          kill_chrome
           raise "Timed out after #{timeout} ms while trying to connect to Chrome! The only Chrome revision guaranteed to work is r#{preferred_revision}"
         end
       end
 
-      kill_chrome
-      raise "Failed to read IO for chrome process"
     end
   end
 end
