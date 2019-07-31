@@ -13,10 +13,9 @@ module Marionette
       Binary
     end
 
-    getter process : Process
     getter transport : Transport
 
-    def initialize(@process, @address : String, @port : Int32, @timeout = 60000)
+    def initialize(@address : String, @port : Int32, @timeout = 60000)
       @transport = Transport.new(@timeout)
       @transport.connect(@address, @port)
     end
@@ -70,7 +69,22 @@ module Marionette
 
     # Gets the context of the server
     def context
-      @transport.request("Marionette:GetContext")
+      response = @transport.request("Marionette:GetContext")
+      case response["value"].as_s
+      when "chrome"
+        BrowserContext::Chrome
+      else
+        BrowserContext::Content
+      end
+    end
+
+    # Sets the context for the block, then returns it to
+    # its previous state.
+    def using_context(context : BrowserContext, &block)
+      scope = self.context
+      set_context(context)
+      with self yield self
+      set_context(scope)
     end
 
     # Returns the current window ID
@@ -312,7 +326,8 @@ module Marionette
 
     # Get the source for the current page.
     def page_source
-      @transport.request("WebDriver:GetPageSource")
+      response = @transport.request("WebDriver:GetPageSource")
+      response["value"].as_s
     end
 
     # Execute JS script. If `new_sandbox` is true (default) the global
@@ -323,7 +338,7 @@ module Marionette
         scriptTimeout: timeout,
         script: script,
         args: args || [] of String,
-        newSandbox: sandbox
+        newSandbox: new_sandbox
       }
 
       response = @transport.request("WebDriver:ExecuteScript", params)
@@ -369,7 +384,105 @@ module Marionette
 
     # Closes the browser
     def quit
-      @transport.request("Marionette:Quit", {flags: ["eForceQuit"]})
+      request_in_app_shutdown
+    end
+
+    # This will do an in-app restart of the browser.
+    # NOTE: Not working yet
+    def restart
+      response = request_in_app_shutdown(["eRestart"])
+      error = true
+      while error
+        begin
+          @transport.request("Marionette:AcceptConnections", {value: true})
+          error = false
+        rescue 
+        end
+      end
+      response
+    end
+
+    private def request_in_app_shutdown(flags = [] of String)
+      context = self.context
+
+      # Block marionette from accepting new connections
+      @transport.request("Marionette:AcceptConnections", {value: false})
+
+      unless flags.any?(&.includes?("Quit"))
+        flags.push("eForceQuit")
+      end
+
+      using_context(BrowserContext::Chrome) do
+        script = <<-JAVASCRIPT
+        Components.utils.import("resource://gre/modules/Services.jsm");
+        let cancelQuit = Components.classes["@mozilla.org/supports-PRBool;1"]
+            .createInstance(Components.interfaces.nsISupportsPRBool);
+        Services.obs.notifyObservers(cancelQuit, "quit-application-requested", null);
+        return cancelQuit.data;
+        JAVASCRIPT
+        canceled = execute_script(script)
+        if canceled == "true"
+          raise "Something cancelled the restart request"
+        end
+      end
+
+      response = @transport.request("Marionette:Quit", {flags: flags})
+      response["cause"].as_s
+    end
+
+    # Clear the user-defined value from the specified preference.
+    def clear_pref(pref)
+      script = <<-JAVASCRIPT
+      Components.utils.import("resource://gre/modules/Preferences.jsm");
+      Preferences.reset(arguments[0]);
+      JAVASCRIPT
+      execute_script(script, [pref])
+    end
+
+    # Get's the value of a user-defined preference.
+    def pref(pref, default_branch = false, value_type = "unspecified")
+      script = <<-JAVASCRIPT
+      Components.utils.import("resource://gre/modules/Preferences.jsm");
+
+      let pref = arguments[0];
+      let defaultBranch = arguments[1];
+      let valueType = arguments[2];
+
+      prefs = new Preferences({defaultBranch: defaultBranch});
+      return prefs.get(pref, null, Components.interfaces[valueType]);
+      JAVASCRIPT
+      execute_script(script, [pref, default_branch, value_type])
+    end
+
+    # Set the value of the specified preference.
+    def set_pref(pref, value, default_branch = false)
+      script = <<-JAVASCRIPT
+      Components.utils.import("resource://gre/modules/Preferences.jsm");
+
+      let pref = arguments[0];
+      let value = arguments[1];
+      let defaultBranch = arguments[2];
+
+      prefs = new Preferences({defaultBranch: defaultBranch});
+      prefs.set(pref, value);
+      JAVASCRIPT
+      
+      using_context(BrowserContext::Chrome) do
+        execute_script(script, [pref, value, default_branch])
+      end
+    end
+
+    # Set the value of a list of preferences.
+    def set_prefs(prefs, default_branch = false)
+      prefs.map { |(pref, value)| set_pref(pref, value, default_branch) }
+    end
+
+    # Set preferences for code executed in block, and restores them on exit.
+    def using_prefs(prefs, default_branch = false, &block)
+      original_prefs = prefs.map { |(pref, _)| pref(pref, default_branch) }
+      set_prefs(prefs, default_branch)
+      with self yield self
+      set_prefs(original_prefs, default_branch)
     end
 
     record WindowRect, x : Int32, y : Int32, width : Int32, height : Int32

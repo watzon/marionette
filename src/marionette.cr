@@ -15,6 +15,6 @@ module Marionette
   def launch(**options, &block)
     browser = Launcher.new.launch(**options)
     with browser yield browser
-    browser.quit
+    browser.quit unless options[:executable] == false
   end
 end

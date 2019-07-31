@@ -7,9 +7,6 @@ module Marionette
     DEFAULT_ARGS = ["--safe-mode", "-marionette", "-foreground", "-no-remote"]
     firefox_PROFILE_PATH = File.join(Dir.tempdir, "marionette_dev_profile-")
 
-    # The firefox browser process
-    getter process : Process?
-
     # Array of handlers to call on browser exit
     getter exit_handlers : Array(Proc(Void))
 
@@ -64,7 +61,7 @@ module Marionette
     )
       debug("Launching browser")
 
-      executable = resolve_executable_path unless executable
+      executable = resolve_executable_path if executable.nil?
       capabilities = {
         acceptInsecureCerts: accept_insecure_certs,
         proxyConfiguration: proxy_configuration,
@@ -75,19 +72,21 @@ module Marionette
         }
       }
 
-      args.concat(DEFAULT_ARGS)
-      args << "--headless" if headless
-      args << "--jsdebugger" if console
-      args << "--profile #{profile}" if profile
-      args << "--window-size {width},{height}" % default_viewport
-
-      stdout ||= Process::ORIGINAL_STDOUT
-      stderr ||= Process::ORIGINAL_STDERR
-      @process = process = Process.new(executable.to_s, args, env, output: stdout, error: stderr)
+      if executable
+        args.concat(DEFAULT_ARGS)
+        args << "--headless" if headless
+        args << "--jsdebugger" if console
+        args << "--profile #{profile}" if profile
+        args << "--window-size {width},{height}" % default_viewport
+        
+        stdout ||= Process::ORIGINAL_STDOUT
+        stderr ||= Process::ORIGINAL_STDERR
+        Process.new(executable.to_s, args, env, output: stdout, error: stderr)
+      end
 
       set_exit_handlers(handle_sigint, handle_sigterm, handle_sighup)
 
-      browser = Browser.new(process, address, port, timeout)
+      browser = Browser.new(address, port, timeout)
       browser.new_session(capabilities)
       browser
     end
