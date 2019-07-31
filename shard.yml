@@ -7,9 +7,6 @@ authors:
 dependencies:
   strange:
     github: hydecr/strange
-  event_emitter:
-    github: watzon/event_emitter.cr
-    branch: master
 
 crystal: 0.24.1
 

@@ -1,4 +1,5 @@
 require "base64"
+require "json"
 
 module Marionette
   class Browser
@@ -11,6 +12,20 @@ module Marionette
       Base64
       Hash
       Binary
+    end
+
+    enum LocatorStrategy
+      ID
+      Name
+      ClassName
+      TagName
+      LinkText
+      PartialLinkText
+      XPATH
+
+      def to_s
+        super.underscore.downcase.gsub('_', " ")
+      end
     end
 
     getter transport : Transport
@@ -253,39 +268,39 @@ module Marionette
     end
 
     # Find elements using the indicated search strategy
-    def find_elements(by, value)
+    def find_elements(by : LocatorStrategy, value)
       find_elements(by, value, nil)
     end
 
     # Find elements using the indicated search strategy and
     # starting with a particular node.
-    def find_elements(by, value, start_node)
+    def find_elements(by : LocatorStrategy, value, start_node)
       if start_node.nil? || start_node.empty?
-        params = {using: by.to_s.downcase, value: value}
+        params = {using: by.to_s, value: value}
       else
-        params = {using: by.to_s.downcase, value: value, element: start_node} 
+        params = {using: by.to_s, value: value, element: start_node} 
       end
 
       response = @transport.request("WebDriver:FindElements", params)
-      response # TODO: Make into a array of WebElement
+      response.params.as_a.map { |(_, id)| WebElement.new(id) }
     end
 
     # Find a single element using the indicated search strategy.
-    def find_element(by, value)
+    def find_element(by : LocatorStrategy, value)
       find_element(by, value, nil)
     end
 
     # Find a single element using the indicated search strategy and
     # starting with a particular node.
-    def find_elements(by, value, start_node)
+    def find_element(by : LocatorStrategy, value, start_node)
       if start_node.nil? || start_node.empty?
-        params = {using: by.to_s.downcase, value: value}
+        params = {using: by.to_s, value: value}
       else
-        params = {using: by.to_s.downcase, value: value, element: start_node} 
+        params = {using: by.to_s, value: value, element: start_node} 
       end
 
       response = @transport.request("WebDriver:FindElement", params)
-      response["value"]
+      WebElement.new(response["value"].as_h.first[1].as_s)
     end
 
     # Takes a screenshot of an element or the current frame.
@@ -342,7 +357,7 @@ module Marionette
       }
 
       response = @transport.request("WebDriver:ExecuteScript", params)
-      response["value"].as_s?
+      response["value"]
     end
 
     # Execute JS script asynchronously. See `#execute_script`.
@@ -355,7 +370,7 @@ module Marionette
       }
 
       response = @transport.request("WebDriver:ExecuteScriptAsync", params)
-      response["value"].as_s?
+      response["value"]
     end
 
     # Dismisses the dialog like clicking no/cancel.
@@ -486,6 +501,8 @@ module Marionette
     end
 
     record WindowRect, x : Int32, y : Int32, width : Int32, height : Int32
-    record WebElement, id : String
+    record WebElement, id : String do
+      include JSON::Serializable
+    end
   end
 end

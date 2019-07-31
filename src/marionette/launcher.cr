@@ -59,7 +59,6 @@ module Marionette
       timeout = 30000,
       proxy_configuration = {} of String => String
     )
-      debug("Launching browser")
 
       executable = resolve_executable_path if executable.nil?
       capabilities = {
@@ -73,12 +72,14 @@ module Marionette
       }
 
       if executable
+        debug("Launching browser")
+
         args.concat(DEFAULT_ARGS)
         args << "--headless" if headless
         args << "--jsdebugger" if console
         args << "--profile #{profile}" if profile
         args << "--window-size {width},{height}" % default_viewport
-        
+
         stdout ||= Process::ORIGINAL_STDOUT
         stderr ||= Process::ORIGINAL_STDERR
         Process.new(executable.to_s, args, env, output: stdout, error: stderr)
