@@ -1,8 +1,10 @@
 require "socket"
 require "json"
 
-class Marionette
+module Marionette
   class Transport
+    include Logger
+
     property max_packet_length : Int32
     property min_protocol_level : Int32
     
@@ -27,12 +29,7 @@ class Marionette
     # Initiates a TCP connection to a running Firefox instance
     # using the provided `address` and `port`.
     def connect(address, port)
-      begin
-        @socket.connect(address, port, @timeout)
-      rescue ex
-        # TODO: Use custom error
-        raise ex
-      end
+      try_connect(address, port, @timeout)
 
       begin
         # Utils.timeout(@timeout) do
@@ -101,9 +98,36 @@ class Marionette
       send(command, params)
       receive
     end
+
+    private def try_connect(address, port, timeout)
+      now = Time.now
+      connected = false
+      
+      until connected || Time.now >= (now + timeout.milliseconds)
+        begin
+          @socket.connect(address, port)
+          connected = true
+          debug("connected to firefox at #{address}:#{port}")
+          return
+        rescue ex
+        end
+      end
+
+      raise "Timed out while attemting to connect to firefox"
+    end
   end
 
   record Message, type : Int32, id : Int32, command : String?, params : JSON::Any do
     delegate :[], :[]?, to: params
   end
 end
+
+# require "base64"
+
+# transport = Marionette::Transport.new
+# transport.connect("127.0.0.1", 2828)
+# pp transport.request("WebDriver:NewSession", {acceptInsecureCerts: true, browserName: "firefox", timeouts: { implicit: 30000, pageLoad: 30000,  script: 30000}})
+# pp transport.request("WebDriver:Navigate", {url: "https://neuralegion.com"})
+# source = transport.request("WebDriver:TakeScreenshot", {full: true, hash: false})
+# b64 = source["value"].as_s
+# File.write("screenshot.jpg", Base64.decode_string(b64))

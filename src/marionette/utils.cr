@@ -1,4 +1,4 @@
-class Marionette
+module Marionette
   module Utils
     def self.which(cmd)
       exts = ENV["PATHEXT"]? ? ENV["PATHEXT"].split(";") : [""]

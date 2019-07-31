@@ -1,4 +1,4 @@
-class Marionette
+module Marionette
   DEVICE_DESCRIPTORS = {
     "Blackberry PlayBook" => {
       name:       "Blackberry PlayBook",

@@ -1,6 +1,6 @@
 require "http/client"
 
-class Marionette
+module Marionette
   class Downloader
     include Logger
 

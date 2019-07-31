@@ -1,8 +1,6 @@
 # Marionette
 
-Marionette is a Crystal shard which provides a high-level API to control Chrome or Chromium over the dev tools protocol. Marionette runs headless by default, and is capable of downloading a headless chrome instance to run. It can however, be configured to run with a full fledged Chrome or Chromium instance.
-
-This project is an attempt to Crystalize™ [puppeteer](https://github.com/GoogleChrome/puppeteer) and provide a very similar API. Once the API is relatively stable documentation will be added.
+Marionette is a Crystal shard that replaces the functionality of Selenium (Firefox only for now) by communicating directly with an instance of the brower. It provides a simple, but powerful API which allows everything from navigation to screenshots to executing JavaScript.
 
 ## Installation
 
@@ -18,7 +16,24 @@ dependencies:
 
 ```crystal
 require "marionette"
+
+# Marionette.launch launches a Firefox browser and exposes
+# it to the block. The browser automatically closes after
+# the block is finished.
+Marionette.launch(headless: false) do
+  goto("https://watzon.tech")
+  save_screenshot("watzon-tech.jpg")
+end
+
+# Marionette.launch can also be used without a block. This
+# method requires that you close the browser yourself.
+browser = Marionette.launch
+browser.goto("https://watzon.tech")
+browser.save_screenshot("watzon-tech.jpg")
+browser.quit
 ```
+
+More docs are coming soon!
 
 ## Contributing
 

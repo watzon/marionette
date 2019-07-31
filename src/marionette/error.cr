@@ -1,4 +1,4 @@
-class Marionette
+module Marionette
   class Error < Exception
     class ExecutableNotFound < Error; end
 

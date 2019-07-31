@@ -4,49 +4,22 @@ require "./marionette/error"
 require "./marionette/*"
 
 # TODO: Write documentation for `Marionette`
-class Marionette
-  # The launcher instance
-  getter launcher : Marionette::Launcher
-
-  # The root directory for this project
-  getter project_root : String
-
-  def initialize(project_root = nil, preferred_revision = nil)
-    @project_root = project_root || FileUtils.pwd
-    @launcher = Launcher.new(project_root.to_s, preferred_revision)
-  end
+module Marionette
+  extend self
 
   # See `Launcher#launch`
   def launch(**options)
-    @launcher.launch(**options)
+    Launcher.new.launch(**options)
   end
 
-  # See `Launcher#connect`
-  def connect(**options)
-    @launcher.connect(**options)
-  end
-
-  # Returns the path to the chrome executable being used
-  def executable_path
-    @launcher.executable_path
-  end
-
-  # Returns the launcher args
-  def launcher_args
-    @launcher.chrome_args
-  end
-
-  # See `Downloader.new`
-  def create_downloader(**options)
-    Downloader.new(**options)
+  def launch(**options, &block)
+    browser = Launcher.new.launch(**options)
+    with browser yield browser
+    browser.quit
   end
 end
 
-marionette = Marionette.new
-browser = marionette.launch(headless: false, timeout: 10000)
-# page = browser.new_page
-# page.goto("https://neuralegion.com")
-# page.screenshot do |b64|
-#   data = Base64.decode(b64)
-#   File.write("screenshot.png", data.to_slice)
-# end
+Marionette.launch(headless: false) do
+  goto("https://neuralegion.com")
+  save_screenshot("nl.jpg")
+end

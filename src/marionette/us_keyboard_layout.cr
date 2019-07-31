@@ -1,4 +1,4 @@
-class Marionette
+module Marionette
   US_KEYBOARD_LAYOUT = {
     "0"                  => {"keyCode" => 48, "key" => "0", "code" => "Digit0"},
     "1"                  => {"keyCode" => 49, "key" => "1", "code" => "Digit1"},

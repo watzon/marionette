@@ -1,7 +1,7 @@
 require "strange"
 require "strange/formatter/color_formatter"
 
-class Marionette
+module Marionette
   module Logger
     class_property logger = Strange.new(Strange::DEBUG, transports: [
       Strange::ConsoleTransport.new(formatter: Formatter.new).as(Strange::Transport),

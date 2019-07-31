@@ -1,4 +1,4 @@
-class Marionette
+module Marionette
   record Viewport, width : Int32, height : Int32, device_scale_factor : Int32?,
     is_mobile : Bool? = false, is_landscape : Bool? = false, has_touch : Bool? = false do
     def mobile?
