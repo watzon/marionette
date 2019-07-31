@@ -39,6 +39,7 @@ browser.quit
 
 - **address** - The address that Firefox is listening on. (default: 127.0.0.1)
 - **port** - The port that Firefox is listening on. (default: 2828)
+- **executable** - The executable to launch. If `nil` an executable will be searched for. If `false` no executable will be launched.
 - **args** - Arguments to pass to the Firefox process (only if **executable** is not false)
 - **profile** - User profile path to launch with (only if **executable** is not false)
 - **headless** - Launch browser in headless mode (default: true) (only if **executable** is not false)
