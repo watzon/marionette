@@ -6,9 +6,9 @@ class Marionette
 
     DOWNLOAD_URLS = {
       "linux" => "%{host}/chromium-browser-snapshots/Linux_x64/%{revision}/chrome-linux.zip",
-      "mac" => "%{host}/chromium-browser-snapshots/Mac/%{revision}/chrome-mac.zip",
+      "mac"   => "%{host}/chromium-browser-snapshots/Mac/%{revision}/chrome-mac.zip",
       "win32" => "%{host}/chromium-browser-snapshots/Win/%{revision}/chrome-win32.zip",
-      "win64" => "%{host}/chromium-browser-snapshots/Win_x64/%{revision}/chrome-win32.zip"
+      "win64" => "%{host}/chromium-browser-snapshots/Win_x64/%{revision}/chrome-win32.zip",
     }
 
     DEFAULT_DOWNLOAD_HOST = "http://storage.googleapis.com"
@@ -128,27 +128,27 @@ class Marionette
       folder_path = get_folder_path(platform, revision)
 
       exe_path = case platform.to_s
-      when "linux"
-        File.join(folder_path, "chrome-linux", "chrome")
-      when "mac"
-        File.join(folder_path, "chrome-mac", "Chromium.app", "Contents", "MacOS", "Chromium")
-      when "win32", "win64"
-        File.join(folder_path, "chrome-win32", "chrome.exe")
-      else
-        raise "Unknown platform '#{platform}'"
-      end
+                 when "linux"
+                   File.join(folder_path, "chrome-linux", "chrome")
+                 when "mac"
+                   File.join(folder_path, "chrome-mac", "Chromium.app", "Contents", "MacOS", "Chromium")
+                 when "win32", "win64"
+                   File.join(folder_path, "chrome-win32", "chrome.exe")
+                 else
+                   raise "Unknown platform '#{platform}'"
+                 end
 
       {
-        revision: revision,
+        revision:        revision,
         executable_path: exe_path,
-        folder_path: folder_path,
-        downloaded: Dir.exists?(folder_path)
+        folder_path:     folder_path,
+        downloaded:      Dir.exists?(folder_path),
       }
     end
 
     private def get_download_url(platform, revision)
       raise "Unknown platform '#{platform}'" unless DOWNLOAD_URLS.has_key?(platform)
-      DOWNLOAD_URLS[platform] % { host: @download_host, revision: revision }
+      DOWNLOAD_URLS[platform] % {host: @download_host, revision: revision}
     end
 
     private def get_folder_path(platform, revision)

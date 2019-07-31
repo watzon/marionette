@@ -5,7 +5,6 @@ require "./marionette/*"
 
 # TODO: Write documentation for `Marionette`
 class Marionette
-
   # The launcher instance
   getter launcher : Marionette::Launcher
 
@@ -44,7 +43,7 @@ class Marionette
 end
 
 marionette = Marionette.new
-browser = marionette.launch(headless: true, timeout: 10000)
+browser = marionette.launch(headless: false, timeout: 10000)
 # page = browser.new_page
 # page.goto("https://neuralegion.com")
 # page.screenshot do |b64|

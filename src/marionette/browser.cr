@@ -1,7 +1,5 @@
-require "event_emitter"
-
 class Marionette
-  class Browser < EventEmitter::Base
+  class Browser
     alias ViewportDims = NamedTuple(width: Int32, height: Int32)
 
     getter :connection, :process
@@ -14,7 +12,6 @@ class Marionette
       process : Process
     )
       browser = new(connection, context_ids, ignore_https_errors, default_viewport, process)
-      connection.send("Target.discoverTargets", { discover: true })
       browser
     end
 
@@ -25,17 +22,6 @@ class Marionette
       @default_viewport : ViewportDims,
       @process : Process
     )
-
-      @contexts = {} of String => BrowserContext
-      @targets = {} of String => Target
-
-      context_ids.each do |id|
-        @contexts[id] = BrowserContext.new(@connection, self, id)
-      end
-
-      @connection.on("Target.targetCreated") { |e| target_created(e) }
-      @connection.on("Target.targetDestroyed") { |e| target_destroyed(e) }
-      @connection.on("Target.targetInfoChanged") { |e| target_info_changed(e) }
     end
 
     def create_incognito_browser_context
@@ -54,7 +40,7 @@ class Marionette
     end
 
     private def dispose_context(context_id)
-      connection.send("Target.disposeBrowserContext", { "browserContextId" => context_id })
+      connection.send("Target.disposeBrowserContext", {"browserContextId" => context_id})
       contexts.delete(context_id)
     end
 
@@ -65,9 +51,6 @@ class Marionette
 
       target = Target.new(target_info, context, connection.create_session(target_info), ignore_https_errors, default_viewport, screenshot_task_queue)
       @targets[target_info["targetId"]] = target
-
-      emit("Events.Browser.TargetCreated", target)
-      context.emit("Events.Browser.TargetCreated", target)
     end
 
     def target_destroyed(event)
@@ -167,15 +150,15 @@ class Marionette
     end
 
     def check(target)
-
     end
 
     class Target
-
     end
 
     class BrowserContext
-
+      def initialize(a, b, c)
+        pp [a, b, c]
+      end
     end
   end
 end

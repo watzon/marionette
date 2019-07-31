@@ -133,7 +133,7 @@ class Marionette
       transport = WebsocketTransport.create(ws_endpoint)
       connection = Connection.new(ws_endpoint, transport, slowmo)
       browser = Browser.create(connection, [] of String, ignore_https_errors, default_viewport, process)
-      browser.wait_for_target(&.type.==("page"))
+      browser.wait_for_target { |target| target.type == "page" }
       browser
     end
 
@@ -290,7 +290,6 @@ class Marionette
           raise "Timed out after #{timeout} ms while trying to connect to Chrome! The only Chrome revision guaranteed to work is r#{preferred_revision}"
         end
       end
-
     end
   end
 end
