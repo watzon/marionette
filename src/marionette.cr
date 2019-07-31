@@ -18,8 +18,3 @@ module Marionette
     browser.quit
   end
 end
-
-Marionette.launch(headless: false) do
-  goto("https://neuralegion.com")
-  save_screenshot("nl.jpg")
-end

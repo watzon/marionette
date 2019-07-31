@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.29.0">
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../../js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "../../";
+</script>
+
+  <meta id="repository-name" content="github.com/watzon/marionette">
+  <title>Marionette::Error::TimeoutError - github.com/watzon/marionette</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../../index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/watzon/marionette/Marionette" data-name="marionette">
+      <a href="../../Marionette.html">Marionette</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/watzon/marionette/Marionette/Browser" data-name="marionette::browser">
+      <a href="../../Marionette/Browser.html">Browser</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/BrowserContext" data-name="marionette::browser::browsercontext">
+      <a href="../../Marionette/Browser/BrowserContext.html">BrowserContext</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/ScreenshotFormat" data-name="marionette::browser::screenshotformat">
+      <a href="../../Marionette/Browser/ScreenshotFormat.html">ScreenshotFormat</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/WebElement" data-name="marionette::browser::webelement">
+      <a href="../../Marionette/Browser/WebElement.html">WebElement</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/WindowRect" data-name="marionette::browser::windowrect">
+      <a href="../../Marionette/Browser/WindowRect.html">WindowRect</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Downloader" data-name="marionette::downloader">
+      <a href="../../Marionette/Downloader.html">Downloader</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="github.com/watzon/marionette/Marionette/Error" data-name="marionette::error">
+      <a href="../../Marionette/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Error/ExecutableNotFound" data-name="marionette::error::executablenotfound">
+      <a href="../../Marionette/Error/ExecutableNotFound.html">ExecutableNotFound</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Error/MaxPayloadSizeExceeded" data-name="marionette::error::maxpayloadsizeexceeded">
+      <a href="../../Marionette/Error/MaxPayloadSizeExceeded.html">MaxPayloadSizeExceeded</a>
+      
+    </li>
+  
+  <li class=" current" data-id="github.com/watzon/marionette/Marionette/Error/TimeoutError" data-name="marionette::error::timeouterror">
+      <a href="../../Marionette/Error/TimeoutError.html">TimeoutError</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Launcher" data-name="marionette::launcher">
+      <a href="../../Marionette/Launcher.html">Launcher</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/watzon/marionette/Marionette/Logger" data-name="marionette::logger">
+      <a href="../../Marionette/Logger.html">Logger</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Logger/Formatter" data-name="marionette::logger::formatter">
+      <a href="../../Marionette/Logger/Formatter.html">Formatter</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Message" data-name="marionette::message">
+      <a href="../../Marionette/Message.html">Message</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Transport" data-name="marionette::transport">
+      <a href="../../Marionette/Transport.html">Transport</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Utils" data-name="marionette::utils">
+      <a href="../../Marionette/Utils.html">Utils</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Marionette::Error::TimeoutError
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Marionette/Error/TimeoutError.html">Marionette::Error::TimeoutError</a></li><li class="superclass"><a href="../../Marionette/Error.html">Marionette::Error</a></li><li class="superclass">Exception</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/error.cr#L7" target="_blank">
+        marionette/error.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.29.0">
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "../";
+</script>
+
+  <meta id="repository-name" content="github.com/watzon/marionette">
+  <title>Marionette::Browser - github.com/watzon/marionette</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/watzon/marionette/Marionette" data-name="marionette">
+      <a href="../Marionette.html">Marionette</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="github.com/watzon/marionette/Marionette/Browser" data-name="marionette::browser">
+      <a href="../Marionette/Browser.html">Browser</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/BrowserContext" data-name="marionette::browser::browsercontext">
+      <a href="../Marionette/Browser/BrowserContext.html">BrowserContext</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/ScreenshotFormat" data-name="marionette::browser::screenshotformat">
+      <a href="../Marionette/Browser/ScreenshotFormat.html">ScreenshotFormat</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/WebElement" data-name="marionette::browser::webelement">
+      <a href="../Marionette/Browser/WebElement.html">WebElement</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/WindowRect" data-name="marionette::browser::windowrect">
+      <a href="../Marionette/Browser/WindowRect.html">WindowRect</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Downloader" data-name="marionette::downloader">
+      <a href="../Marionette/Downloader.html">Downloader</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/watzon/marionette/Marionette/Error" data-name="marionette::error">
+      <a href="../Marionette/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Error/ExecutableNotFound" data-name="marionette::error::executablenotfound">
+      <a href="../Marionette/Error/ExecutableNotFound.html">ExecutableNotFound</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Error/MaxPayloadSizeExceeded" data-name="marionette::error::maxpayloadsizeexceeded">
+      <a href="../Marionette/Error/MaxPayloadSizeExceeded.html">MaxPayloadSizeExceeded</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Error/TimeoutError" data-name="marionette::error::timeouterror">
+      <a href="../Marionette/Error/TimeoutError.html">TimeoutError</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Launcher" data-name="marionette::launcher">
+      <a href="../Marionette/Launcher.html">Launcher</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/watzon/marionette/Marionette/Logger" data-name="marionette::logger">
+      <a href="../Marionette/Logger.html">Logger</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Logger/Formatter" data-name="marionette::logger::formatter">
+      <a href="../Marionette/Logger/Formatter.html">Formatter</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Message" data-name="marionette::message">
+      <a href="../Marionette/Message.html">Message</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Transport" data-name="marionette::transport">
+      <a href="../Marionette/Transport.html">Transport</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Utils" data-name="marionette::utils">
+      <a href="../Marionette/Utils.html">Utils</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Marionette::Browser
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Marionette/Browser.html">Marionette::Browser</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L4" target="_blank">
+        marionette/browser.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28process%2Caddress%3AString%2Cport%3AInt32%2Ctimeout%3D60000%29-class-method" class="signature"><strong>.new</strong>(process, address : String, port : Int32, timeout = <span class="n">60000</span>)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#accept_dialog-instance-method" class="signature"><strong>#accept_dialog</strong></a>
+        
+          <div class="summary"><p>Accepts a dialog lick clicking ok/yes</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#active_frame-instance-method" class="signature"><strong>#active_frame</strong></a>
+        
+          <div class="summary"><p>Get the active frame</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#back-instance-method" class="signature"><strong>#back</strong></a>
+        
+          <div class="summary"><p>Go back</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear_element%28id%29-instance-method" class="signature"><strong>#clear_element</strong>(id)</a>
+        
+          <div class="summary"><p>Clears a clearable element</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#click_element%28id%29-instance-method" class="signature"><strong>#click_element</strong>(id)</a>
+        
+          <div class="summary"><p>Simulate a click on a particular element</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#close_window-instance-method" class="signature"><strong>#close_window</strong></a>
+        
+          <div class="summary"><p>Closes the current window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#context-instance-method" class="signature"><strong>#context</strong></a>
+        
+          <div class="summary"><p>Gets the context of the server</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cookie%28name%29-instance-method" class="signature"><strong>#cookie</strong>(name)</a>
+        
+          <div class="summary"><p>Get a specific cookie by name</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cookies-instance-method" class="signature"><strong>#cookies</strong></a>
+        
+          <div class="summary"><p>Get all cookies</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#current_chrome_window_handle-instance-method" class="signature"><strong>#current_chrome_window_handle</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#current_window_handle-instance-method" class="signature"><strong>#current_window_handle</strong></a>
+        
+          <div class="summary"><p>Returns the current window ID</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dismiss_dialog-instance-method" class="signature"><strong>#dismiss_dialog</strong></a>
+        
+          <div class="summary"><p>Dismisses the dialog like clicking no/cancel.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#element_attribute%28id%2Cname%29-instance-method" class="signature"><strong>#element_attribute</strong>(id, name)</a>
+        
+          <div class="summary"><p>Get an attribute for an element</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#element_css_property%28id%2Cproperty%29-instance-method" class="signature"><strong>#element_css_property</strong>(id, property)</a>
+        
+          <div class="summary"><p>Get a css property for an element</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#element_enabled%3F%28id%29-instance-method" class="signature"><strong>#element_enabled?</strong>(id)</a>
+        
+          <div class="summary"><p>Check if element is enabled</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#element_rect%28id%29-instance-method" class="signature"><strong>#element_rect</strong>(id)</a>
+        
+          <div class="summary"><p>Get an element's rect</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#element_selected%3F%28id%29-instance-method" class="signature"><strong>#element_selected?</strong>(id)</a>
+        
+          <div class="summary"><p>Check if the element is displayed</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#element_tag_name%28id%29-instance-method" class="signature"><strong>#element_tag_name</strong>(id)</a>
+        
+          <div class="summary"><p>Gets the tag name of an element</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#element_text%28id%29-instance-method" class="signature"><strong>#element_text</strong>(id)</a>
+        
+          <div class="summary"><p>Gets the text for an element</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#execute_script%28script%2Cargs%3Dnil%2Ctimeout%3D%40timeout%2Cnew_sandbox%3Dtrue%29-instance-method" class="signature"><strong>#execute_script</strong>(script, args = <span class="n">nil</span>, timeout = @timeout, new_sandbox = <span class="n">true</span>)</a>
+        
+          <div class="summary"><p>Execute JS script.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#execute_script_async%28script%2Cargs%3Dnil%2Ctimeout%3D%40timeout%2Cnew_sandbox%3Dtrue%29-instance-method" class="signature"><strong>#execute_script_async</strong>(script, args = <span class="n">nil</span>, timeout = @timeout, new_sandbox = <span class="n">true</span>)</a>
+        
+          <div class="summary"><p>Execute JS script asynchronously.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#find_element%28by%2Cvalue%29-instance-method" class="signature"><strong>#find_element</strong>(by, value)</a>
+        
+          <div class="summary"><p>Find a single element using the indicated search strategy.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#find_elements%28by%2Cvalue%2Cstart_node%29-instance-method" class="signature"><strong>#find_elements</strong>(by, value, start_node)</a>
+        
+          <div class="summary"><p>Find a single element using the indicated search strategy and starting with a particular node.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#find_elements%28by%2Cvalue%29-instance-method" class="signature"><strong>#find_elements</strong>(by, value)</a>
+        
+          <div class="summary"><p>Find elements using the indicated search strategy</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#forward-instance-method" class="signature"><strong>#forward</strong></a>
+        
+          <div class="summary"><p>Go forward</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#fullscreen-instance-method" class="signature"><strong>#fullscreen</strong></a>
+        
+          <div class="summary"><p>Makes the window full screen</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#goto%28url%29-instance-method" class="signature"><strong>#goto</strong>(url)</a>
+        
+          <div class="summary"><p>Navigate to the specified <code><a href="../Marionette/Browser.html#url-instance-method">#url</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#maximize_window-instance-method" class="signature"><strong>#maximize_window</strong></a>
+        
+          <div class="summary"><p>Minimizes the window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new_session%28capabilities%29-instance-method" class="signature"><strong>#new_session</strong>(capabilities)</a>
+        
+          <div class="summary"><p>Create a new browser session</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#orientation-instance-method" class="signature"><strong>#orientation</strong></a>
+        
+          <div class="summary"><p>Get the screen orientation of the current browser.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#orientation%3D%28orientation%29-instance-method" class="signature"><strong>#orientation=</strong>(orientation)</a>
+        
+          <div class="summary"><p>Set the orientation</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#page_source-instance-method" class="signature"><strong>#page_source</strong></a>
+        
+          <div class="summary"><p>Get the source for the current page.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#process%3AProcess-instance-method" class="signature"><strong>#process</strong> : Process</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#quit-instance-method" class="signature"><strong>#quit</strong></a>
+        
+          <div class="summary"><p>Closes the browser</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#refresh-instance-method" class="signature"><strong>#refresh</strong></a>
+        
+          <div class="summary"><p>Refresh the page</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#save_screenshot%28file%2C%2A%2Aoptions%29-instance-method" class="signature"><strong>#save_screenshot</strong>(file, **options)</a>
+        
+          <div class="summary"><p>Captures and saves a screenshot.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send_keys_to_dialog%28keys%29-instance-method" class="signature"><strong>#send_keys_to_dialog</strong>(keys)</a>
+        
+          <div class="summary"><p>Sends text to a dialog</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send_keys_to_element%28id%2Ckeys%29-instance-method" class="signature"><strong>#send_keys_to_element</strong>(id, keys)</a>
+        
+          <div class="summary"><p>Sends keys to an element</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_context%28context%3ABrowserContext%29-instance-method" class="signature"><strong>#set_context</strong>(context : BrowserContext)</a>
+        
+          <div class="summary"><p>Sets the context of subsequent commands to be either chrome or content.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_window_rect%28rect%3AWindowRect%29-instance-method" class="signature"><strong>#set_window_rect</strong>(rect : WindowRect)</a>
+        
+          <div class="summary"><p>Sets the size of the current window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#switch_to_frame%28by%2Cvalue%29-instance-method" class="signature"><strong>#switch_to_frame</strong>(by, value)</a>
+        
+          <div class="summary"><p>Switch to frame by id or name</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#switch_to_parent_frame-instance-method" class="signature"><strong>#switch_to_parent_frame</strong></a>
+        
+          <div class="summary"><p>Switch to the parent frame</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#switch_to_window%28name%29-instance-method" class="signature"><strong>#switch_to_window</strong>(name)</a>
+        
+          <div class="summary"><p>Switch to a specific window</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#take_screenshot%28element%3Dnil%2Chighlights%3Dnil%2Cfull%3Dtrue%2Cscroll%3Dtrue%2Cformat%3DScreenshotFormat%3A%3ABinary%29-instance-method" class="signature"><strong>#take_screenshot</strong>(element = <span class="n">nil</span>, highlights = <span class="n">nil</span>, full = <span class="n">true</span>, scroll = <span class="n">true</span>, format = <span class="t">ScreenshotFormat</span><span class="t">::</span><span class="t">Binary</span>)</a>
+        
+          <div class="summary"><p>Takes a screenshot of an element or the current frame.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#text_from_dialog-instance-method" class="signature"><strong>#text_from_dialog</strong></a>
+        
+          <div class="summary"><p>Gets the text from a dialog</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#title-instance-method" class="signature"><strong>#title</strong></a>
+        
+          <div class="summary"><p>Get the title of the current page</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transport%3ATransport-instance-method" class="signature"><strong>#transport</strong> : Transport</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#url-instance-method" class="signature"><strong>#url</strong></a>
+        
+          <div class="summary"><p>Get the current url</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#window_handles-instance-method" class="signature"><strong>#window_handles</strong></a>
+        
+          <div class="summary"><p>Return array of window IDs currently opened</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#window_rect-instance-method" class="signature"><strong>#window_rect</strong></a>
+        
+          <div class="summary"><p>Returns the current window position and size</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(process,address:String,port:Int32,timeout=60000)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(process, address : String, port : Int32, timeout = <span class="n">60000</span>)
+
+        <a class="method-permalink" href="#new%28process%2Caddress%3AString%2Cport%3AInt32%2Ctimeout%3D60000%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L19" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="accept_dialog-instance-method">
+      <div class="signature">
+        
+        def <strong>accept_dialog</strong>
+
+        <a class="method-permalink" href="#accept_dialog-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Accepts a dialog lick clicking ok/yes</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L353" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="active_frame-instance-method">
+      <div class="signature">
+        
+        def <strong>active_frame</strong>
+
+        <a class="method-permalink" href="#active_frame-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Get the active frame</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L147" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="back-instance-method">
+      <div class="signature">
+        
+        def <strong>back</strong>
+
+        <a class="method-permalink" href="#back-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Go back</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L54" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clear_element(id)-instance-method">
+      <div class="signature">
+        
+        def <strong>clear_element</strong>(id)
+
+        <a class="method-permalink" href="#clear_element%28id%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Clears a clearable element</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L236" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="click_element(id)-instance-method">
+      <div class="signature">
+        
+        def <strong>click_element</strong>(id)
+
+        <a class="method-permalink" href="#click_element%28id%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Simulate a click on a particular element</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L224" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="close_window-instance-method">
+      <div class="signature">
+        
+        def <strong>close_window</strong>
+
+        <a class="method-permalink" href="#close_window-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Closes the current window</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L129" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="context-instance-method">
+      <div class="signature">
+        
+        def <strong>context</strong>
+
+        <a class="method-permalink" href="#context-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Gets the context of the server</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L72" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cookie(name)-instance-method">
+      <div class="signature">
+        
+        def <strong>cookie</strong>(name)
+
+        <a class="method-permalink" href="#cookie%28name%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Get a specific cookie by name</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L171" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cookies-instance-method">
+      <div class="signature">
+        
+        def <strong>cookies</strong>
+
+        <a class="method-permalink" href="#cookies-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Get all cookies</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L166" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="current_chrome_window_handle-instance-method">
+      <div class="signature">
+        
+        def <strong>current_chrome_window_handle</strong>
+
+        <a class="method-permalink" href="#current_chrome_window_handle-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L82" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="current_window_handle-instance-method">
+      <div class="signature">
+        
+        def <strong>current_window_handle</strong>
+
+        <a class="method-permalink" href="#current_window_handle-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Returns the current window ID</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L77" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="dismiss_dialog-instance-method">
+      <div class="signature">
+        
+        def <strong>dismiss_dialog</strong>
+
+        <a class="method-permalink" href="#dismiss_dialog-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Dismisses the dialog like clicking no/cancel.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L347" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="element_attribute(id,name)-instance-method">
+      <div class="signature">
+        
+        def <strong>element_attribute</strong>(id, name)
+
+        <a class="method-permalink" href="#element_attribute%28id%2Cname%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Get an attribute for an element</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L206" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="element_css_property(id,property)-instance-method">
+      <div class="signature">
+        
+        def <strong>element_css_property</strong>(id, property)
+
+        <a class="method-permalink" href="#element_css_property%28id%2Cproperty%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Get a css property for an element</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L212" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="element_enabled?(id)-instance-method">
+      <div class="signature">
+        
+        def <strong>element_enabled?</strong>(id)
+
+        <a class="method-permalink" href="#element_enabled%3F%28id%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Check if element is enabled</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L176" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="element_rect(id)-instance-method">
+      <div class="signature">
+        
+        def <strong>element_rect</strong>(id)
+
+        <a class="method-permalink" href="#element_rect%28id%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Get an element's rect</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L218" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="element_selected?(id)-instance-method">
+      <div class="signature">
+        
+        def <strong>element_selected?</strong>(id)
+
+        <a class="method-permalink" href="#element_selected%3F%28id%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Check if the element is displayed</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L188" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="element_tag_name(id)-instance-method">
+      <div class="signature">
+        
+        def <strong>element_tag_name</strong>(id)
+
+        <a class="method-permalink" href="#element_tag_name%28id%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Gets the tag name of an element</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L194" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="element_text(id)-instance-method">
+      <div class="signature">
+        
+        def <strong>element_text</strong>(id)
+
+        <a class="method-permalink" href="#element_text%28id%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Gets the text for an element</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L200" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="execute_script(script,args=nil,timeout=@timeout,new_sandbox=true)-instance-method">
+      <div class="signature">
+        
+        def <strong>execute_script</strong>(script, args = <span class="n">nil</span>, timeout = @timeout, new_sandbox = <span class="n">true</span>)
+
+        <a class="method-permalink" href="#execute_script%28script%2Cargs%3Dnil%2Ctimeout%3D%40timeout%2Cnew_sandbox%3Dtrue%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Execute JS script. If <code>new_sandbox</code> is true (default) the global
+variables from the last executed script will be preserved. The
+result of executing the script is returned.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L321" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="execute_script_async(script,args=nil,timeout=@timeout,new_sandbox=true)-instance-method">
+      <div class="signature">
+        
+        def <strong>execute_script_async</strong>(script, args = <span class="n">nil</span>, timeout = @timeout, new_sandbox = <span class="n">true</span>)
+
+        <a class="method-permalink" href="#execute_script_async%28script%2Cargs%3Dnil%2Ctimeout%3D%40timeout%2Cnew_sandbox%3Dtrue%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Execute JS script asynchronously. See <code><a href="../Marionette/Browser.html#execute_script%28script%2Cargs%3Dnil%2Ctimeout%3D%40timeout%2Cnew_sandbox%3Dtrue%29-instance-method">#execute_script</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L334" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="find_element(by,value)-instance-method">
+      <div class="signature">
+        
+        def <strong>find_element</strong>(by, value)
+
+        <a class="method-permalink" href="#find_element%28by%2Cvalue%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Find a single element using the indicated search strategy.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L260" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="find_elements(by,value,start_node)-instance-method">
+      <div class="signature">
+        
+        def <strong>find_elements</strong>(by, value, start_node)
+
+        <a class="method-permalink" href="#find_elements%28by%2Cvalue%2Cstart_node%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Find a single element using the indicated search strategy and
+starting with a particular node.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L266" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="find_elements(by,value)-instance-method">
+      <div class="signature">
+        
+        def <strong>find_elements</strong>(by, value)
+
+        <a class="method-permalink" href="#find_elements%28by%2Cvalue%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Find elements using the indicated search strategy</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L242" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="forward-instance-method">
+      <div class="signature">
+        
+        def <strong>forward</strong>
+
+        <a class="method-permalink" href="#forward-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Go forward</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L60" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="fullscreen-instance-method">
+      <div class="signature">
+        
+        def <strong>fullscreen</strong>
+
+        <a class="method-permalink" href="#fullscreen-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Makes the window full screen</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L123" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="goto(url)-instance-method">
+      <div class="signature">
+        
+        def <strong>goto</strong>(url)
+
+        <a class="method-permalink" href="#goto%28url%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Navigate to the specified <code><a href="../Marionette/Browser.html#url-instance-method">#url</a></code></p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L30" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="maximize_window-instance-method">
+      <div class="signature">
+        
+        def <strong>maximize_window</strong>
+
+        <a class="method-permalink" href="#maximize_window-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Minimizes the window</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L117" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new_session(capabilities)-instance-method">
+      <div class="signature">
+        
+        def <strong>new_session</strong>(capabilities)
+
+        <a class="method-permalink" href="#new_session%28capabilities%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Create a new browser session</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L25" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="orientation-instance-method">
+      <div class="signature">
+        
+        def <strong>orientation</strong>
+
+        <a class="method-permalink" href="#orientation-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Get the screen orientation of the current browser.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L135" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="orientation=(orientation)-instance-method">
+      <div class="signature">
+        
+        def <strong>orientation=</strong>(orientation)
+
+        <a class="method-permalink" href="#orientation%3D%28orientation%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Set the orientation</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L141" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="page_source-instance-method">
+      <div class="signature">
+        
+        def <strong>page_source</strong>
+
+        <a class="method-permalink" href="#page_source-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Get the source for the current page.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L314" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="process:Process-instance-method">
+      <div class="signature">
+        
+        def <strong>process</strong> : Process
+
+        <a class="method-permalink" href="#process%3AProcess-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L18" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="quit-instance-method">
+      <div class="signature">
+        
+        def <strong>quit</strong>
+
+        <a class="method-permalink" href="#quit-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Closes the browser</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L371" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="refresh-instance-method">
+      <div class="signature">
+        
+        def <strong>refresh</strong>
+
+        <a class="method-permalink" href="#refresh-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Refresh the page</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L48" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="save_screenshot(file,**options)-instance-method">
+      <div class="signature">
+        
+        def <strong>save_screenshot</strong>(file, **options)
+
+        <a class="method-permalink" href="#save_screenshot%28file%2C%2A%2Aoptions%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Captures and saves a screenshot. See <code><a href="../Marionette/Browser.html#take_screenshot%28element%3Dnil%2Chighlights%3Dnil%2Cfull%3Dtrue%2Cscroll%3Dtrue%2Cformat%3DScreenshotFormat%3A%3ABinary%29-instance-method">#take_screenshot</a></code>.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L307" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="send_keys_to_dialog(keys)-instance-method">
+      <div class="signature">
+        
+        def <strong>send_keys_to_dialog</strong>(keys)
+
+        <a class="method-permalink" href="#send_keys_to_dialog%28keys%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Sends text to a dialog</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L365" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="send_keys_to_element(id,keys)-instance-method">
+      <div class="signature">
+        
+        def <strong>send_keys_to_element</strong>(id, keys)
+
+        <a class="method-permalink" href="#send_keys_to_element%28id%2Ckeys%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Sends keys to an element</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L230" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set_context(context:BrowserContext)-instance-method">
+      <div class="signature">
+        
+        def <strong>set_context</strong>(context : <a href="../Marionette/Browser/BrowserContext.html">BrowserContext</a>)
+
+        <a class="method-permalink" href="#set_context%28context%3ABrowserContext%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Sets the context of subsequent commands to be either
+chrome or content.</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L67" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set_window_rect(rect:WindowRect)-instance-method">
+      <div class="signature">
+        
+        def <strong>set_window_rect</strong>(rect : <a href="../Marionette/Browser/WindowRect.html">WindowRect</a>)
+
+        <a class="method-permalink" href="#set_window_rect%28rect%3AWindowRect%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Sets the size of the current window</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L105" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="switch_to_frame(by,value)-instance-method">
+      <div class="signature">
+        
+        def <strong>switch_to_frame</strong>(by, value)
+
+        <a class="method-permalink" href="#switch_to_frame%28by%2Cvalue%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Switch to frame by id or name</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L153" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="switch_to_parent_frame-instance-method">
+      <div class="signature">
+        
+        def <strong>switch_to_parent_frame</strong>
+
+        <a class="method-permalink" href="#switch_to_parent_frame-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Switch to the parent frame</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L160" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="switch_to_window(name)-instance-method">
+      <div class="signature">
+        
+        def <strong>switch_to_window</strong>(name)
+
+        <a class="method-permalink" href="#switch_to_window%28name%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Switch to a specific window</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L93" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="take_screenshot(element=nil,highlights=nil,full=true,scroll=true,format=ScreenshotFormat::Binary)-instance-method">
+      <div class="signature">
+        
+        def <strong>take_screenshot</strong>(element = <span class="n">nil</span>, highlights = <span class="n">nil</span>, full = <span class="n">true</span>, scroll = <span class="n">true</span>, format = <span class="t">ScreenshotFormat</span><span class="t">::</span><span class="t">Binary</span>)
+
+        <a class="method-permalink" href="#take_screenshot%28element%3Dnil%2Chighlights%3Dnil%2Cfull%3Dtrue%2Cscroll%3Dtrue%2Cformat%3DScreenshotFormat%3A%3ABinary%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Takes a screenshot of an element or the current frame.
+Optionally also allows you to highlight specific elements.
+Format can be <code>:hash</code>, :binary, or <code>:base64</code> (default).</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L280" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="text_from_dialog-instance-method">
+      <div class="signature">
+        
+        def <strong>text_from_dialog</strong>
+
+        <a class="method-permalink" href="#text_from_dialog-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Gets the text from a dialog</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L359" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="title-instance-method">
+      <div class="signature">
+        
+        def <strong>title</strong>
+
+        <a class="method-permalink" href="#title-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Get the title of the current page</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L36" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="transport:Transport-instance-method">
+      <div class="signature">
+        
+        def <strong>transport</strong> : <a href="../Marionette/Transport.html">Transport</a>
+
+        <a class="method-permalink" href="#transport%3ATransport-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L19" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="url-instance-method">
+      <div class="signature">
+        
+        def <strong>url</strong>
+
+        <a class="method-permalink" href="#url-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Get the current url</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L42" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="window_handles-instance-method">
+      <div class="signature">
+        
+        def <strong>window_handles</strong>
+
+        <a class="method-permalink" href="#window_handles-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Return array of window IDs currently opened</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L87" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="window_rect-instance-method">
+      <div class="signature">
+        
+        def <strong>window_rect</strong>
+
+        <a class="method-permalink" href="#window_rect-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Returns the current window position and size</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/ebb1cc32d5f5c0cade62b9f771aba303bdbc1e37/src/marionette/browser.cr#L99" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
