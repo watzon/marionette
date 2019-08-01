@@ -424,7 +424,9 @@ module Marionette
     # Gets the text from a dialog
     def text_from_dialog
       response = @transport.request("WebDriver:GetAlertText")
-      response.params.nil? ? nil : response["value"].as_s
+      if params = response.params.as_h?
+        params["value"].as_s
+      end
     end
 
     # Sends text to a dialog
