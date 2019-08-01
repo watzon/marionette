@@ -106,17 +106,25 @@ module Marionette
     end
 
     getter transport : Transport
+    getter? session_id : String?
 
     def initialize(@address : String, @port : Int32, @timeout = 60000)
       @transport = Transport.new(@timeout)
       @transport.connect(@address, @port)
+      @session_id = nil
       debug("Initialized a new browser instance")
     end
 
     # Create a new browser session
     def new_session(capabilities)
       debug("Creating new session with capabilities: #{capabilities}")
-      @transport.request("WebDriver:NewSession", capabilities)
+      response = @transport.request("WebDriver:NewSession", capabilities)
+      @session_id = response["sessionId"].as_s
+    end
+
+    # Closes the current session without shutting down the browser
+    def close_session
+      @transport.request("WebDriver:DeleteSession")
     end
 
     # Navigate to the specified `url`
@@ -415,6 +423,11 @@ module Marionette
       scroll = true,
       format = ScreenshotFormat::Binary
     )
+      element = element.is_a?(HTMLElement) ? element.id : element
+      highlights.try &.map do |el|
+        el.is_a?(HTMLElement) ? el.id : el
+      end
+
       params = {
         id: element,
         highlights: highlights,
