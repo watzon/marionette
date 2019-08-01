@@ -93,5 +93,19 @@ module Marionette
       response = @browser.transport.request("WebDriver:GetElementCSSValue", props)
       response["value"].as_s
     end
+
+    # Take a screenshot of this element.
+    # See `Browser#take_screenshot`
+    def take_screenshot(**options)
+      options = options.merge(element: @id)
+      @browser.take_screenshot(**options)
+    end
+
+    # Save a screenshot of this element to a file.
+    # See `Browser#save_screenshot`
+    def save_screenshot(file, **options)
+      options = options.merge(element: @id)
+      @browser.save_screenshot(file, **options)
+    end
   end
 end
