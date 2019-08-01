@@ -54,9 +54,9 @@ module Marionette
       response["value"].as_s
     end
 
-    # Sends syntesized keypresses to the element
+    # Sends synthesized keypresses to the element
     def send_keys(*keys)
-      @browser.transport.request("WebDriver:ElementSendKeys", {id: @id, text: keys.join(//)})
+      @browser.transport.request("WebDriver:ElementSendKeys", {id: @id, text: keys.join})
     end
 
     # Clears the input of the element

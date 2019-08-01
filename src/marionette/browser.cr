@@ -309,7 +309,13 @@ module Marionette
       end
 
       response = @transport.request("WebDriver:FindElements", params)
-      response.params.as_a.map(&.as_h.to_a).map { |a| HTMLElement.new(self, a[0][1].as_s) }
+      elements = [] of HTMLElement
+      if response.params?
+        response.params.as_a.map(&.as_h.to_a).each do |a|
+          elements << HTMLElement.new(self, a[0][1].as_s)
+        end
+      end
+      elements
     end
 
     # Find a single element using the indicated search strategy.

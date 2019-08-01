@@ -89,7 +89,7 @@ module Marionette
       data = params.to_json
       payload = [0, msg_id, command, params]
       json = payload.to_json
-      socket.send("#{json.size}:#{json}")
+      socket.send("#{json.bytesize}:#{json}")
     end
 
     # Convenience method to `send` a command with
@@ -121,6 +121,15 @@ module Marionette
 
   record Message, type : Int32, id : Int32, command : String?, params : JSON::Any do
     delegate :[], :[]?, to: params
+
+    def params?
+      begin
+        params.as_nil
+        return false
+      rescue
+        return true
+      end
+    end
   end
 end
 

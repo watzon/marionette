@@ -9,7 +9,7 @@ module Marionette
     getter port : Int32
 
     def initialize(address, port)
-      address = address
+      @address = address
       @port = port
 
       @server = HTTP::Proxy::Server.new(address, port, handlers: [
