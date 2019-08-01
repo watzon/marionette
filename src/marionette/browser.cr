@@ -386,13 +386,11 @@ module Marionette
       end
 
       response = @transport.request("WebDriver:FindElements", params)
-      elements = [] of HTMLElement
-      if response.params?
-        response.params.as_a.map(&.as_h.to_a).each do |a|
-          elements << HTMLElement.new(self, a[0][1].as_s)
-        end
+      response.params.as_a.map(&.as_h.to_a).map do |a|
+        HTMLElement.new(self, a[0][1].as_s)
       end
-      elements
+    rescue
+      [] of HTMLElement
     end
 
     # Find a single element using the indicated search strategy.
@@ -411,6 +409,8 @@ module Marionette
 
       response = @transport.request("WebDriver:FindElement", params)
       HTMLElement.new(self, response["value"].as_h.first[1].as_s)
+    rescue
+      nil
     end
 
     # Takes a screenshot of an element or the current frame.
