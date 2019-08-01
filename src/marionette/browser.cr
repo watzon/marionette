@@ -106,9 +106,12 @@ module Marionette
     end
 
     getter transport : Transport
+
+    getter proxy : Proxy
+
     getter? session_id : String?
 
-    def initialize(@address : String, @port : Int32, @timeout = 60000)
+    def initialize(@address : String, @port : Int32, @proxy : Proxy, @timeout = 60000)
       @transport = Transport.new(@timeout)
       @transport.connect(@address, @port)
       @session_id = nil
@@ -284,7 +287,7 @@ module Marionette
       @transport.request("WebDriver:SwitchToFrame", {element: frame.id, focus: true})
       nil
     end
-    
+
     # Switch to the parent frame
     def switch_to_parent_frame
       debug("Switching to parent frame")
@@ -382,7 +385,7 @@ module Marionette
       if start_node.nil? || start_node.empty?
         params = {using: by.to_s, value: value}
       else
-        params = {using: by.to_s, value: value, element: start_node} 
+        params = {using: by.to_s, value: value, element: start_node}
       end
 
       response = @transport.request("WebDriver:FindElements", params)
@@ -404,7 +407,7 @@ module Marionette
       if start_node.nil? || start_node.empty?
         params = {using: by.to_s, value: value}
       else
-        params = {using: by.to_s, value: value, element: start_node} 
+        params = {using: by.to_s, value: value, element: start_node}
       end
 
       response = @transport.request("WebDriver:FindElement", params)
@@ -473,7 +476,7 @@ module Marionette
         args: args || [] of String,
         newSandbox: new_sandbox
       }
-      
+
       debug("Executing script")
 
       response = @transport.request("WebDriver:ExecuteScript", params)
@@ -540,7 +543,7 @@ module Marionette
         begin
           @transport.request("Marionette:AcceptConnections", {value: true})
           error = false
-        rescue 
+        rescue
         end
       end
       response
@@ -612,7 +615,7 @@ module Marionette
       prefs = new Preferences({defaultBranch: defaultBranch});
       prefs.set(pref, value);
       JAVASCRIPT
-      
+
       using_context(BrowserContext::Chrome) do
         execute_script(script, [pref, value, default_branch])
       end
@@ -639,7 +642,7 @@ module Marionette
 
     # Performs an array of browser actions in order
     def perform_actions(actions)
-      debug("Preforming actions #{actions}")  
+      debug("Preforming actions #{actions}")
       @transport.request("WebDriver:PerformActions", {actions: actions})
     end
 
@@ -650,6 +653,14 @@ module Marionette
 
     def key(key)
       KEYS[key]
+    end
+
+    def last_request
+      proxy.last_request
+    end
+
+    def last_response
+      proxy.last_response
     end
   end
 end

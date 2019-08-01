@@ -1,21 +1,19 @@
-require "http_proxy"
+require "http/server"
 
 module Marionette
   class Proxy
     include Logger
-    
-    getter server : HTTP::Proxy::Server
+
+    getter server : HTTP::Server
     getter address : String
     getter port : Int32
+    getter last_request : HTTP::Request?
+    getter last_response : HTTP::Server::Response?
 
-    def initialize(address, port)
-      @address = address
-      @port = port
-
-      @server = HTTP::Proxy::Server.new(address, port, handlers: [
-        HTTP::ErrorHandler.new,
+    def initialize(@address, @port)
+      @server = HTTP::Server.new([
         HTTP::LogHandler.new,
-        TrafficHandler.new
+        TransparentHandler.new
       ])
 
       at_exit do
@@ -23,19 +21,27 @@ module Marionette
       end
     end
 
-    def start
-      @server.bind_tcp @port
-      debug("Proxy server listening at #{@address}:#{@port}")
-      spawn server.listen
+    def self.launch(address, port)
+      proxy = new(address, port)
+      proxy.start
+      proxy
     end
 
-    class TrafficHandler
-      include Logger
+    def start
+      @server.bind_tcp @address, @port
+      debug("Proxy server listening at #{@address}:#{@port}")
+      spawn do
+        server.listen
+      end
+      while server.closed?
+      end
+    end
+
+    class TransparentHandler
       include HTTP::Handler
 
       def call(context)
-        debug(context.inspect)
-        call_next(context)
+
       end
     end
   end

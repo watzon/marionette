@@ -10,6 +10,9 @@ module Marionette
     # Array of handlers to call on browser exit
     getter exit_handlers : Array(Proc(Void))
 
+    # Proxy used for viewing and modifying request info
+    getter proxy : Proxy?
+
     # Creates a new `Launcher` instance in the specified `project_root`.
     # Optionally a preferred revision can be included, which will be
     # used if no other revision information is set.
@@ -50,23 +53,24 @@ module Marionette
         height: 600,
       },
       timeout = 30000,
-      proxy = nil
+      proxy = {
+        address: "127.0.0.1",
+        port: 6868
+      }
     )
 
       executable = resolve_executable_path if executable.nil?
-      
-      proxy = proxy ? {
+      @proxy = Proxy.launch(proxy[:address], proxy[:port])
+
+      proxy_config = {
         proxyType: "manual",
         httpProxy: "#{proxy[:address]}:#{proxy[:port]}",
-        sslProxy: "#{proxy[:address]}:#{proxy[:port]}",
-        socksProxy: "#{proxy[:address]}:#{proxy[:port]}",
-      } : {
-        proxyType: "direct"
+        sslProxy: "#{proxy[:address]}:#{proxy[:port]}"
       }
-      
+
       capabilities = {
         acceptInsecureCerts: accept_insecure_certs,
-        proxy: proxy,
+        proxyConfiguration: proxy_config,
         timeouts: {
           implicit: timeout,
           pageLoad: timeout,
@@ -88,7 +92,7 @@ module Marionette
         Process.new(executable.to_s, args, env, output: stdout, error: stderr)
       end
 
-      browser = Browser.new(address, port, timeout)
+      browser = Browser.new(address, port, @proxy.not_nil!, timeout)
       browser.new_session(capabilities)
       browser
     end
