@@ -20,23 +20,19 @@ module Marionette
     # Launch a `Broswer` instance with the specified options. Configuration
     # options include:
     #
-    # - args - extra arguments to pass to the firefox process
-    # - ignore_defaults - gnore the `DEFAULT_ARGS`
-    # - user_data_dir - set the user data directory
-    # - devtools - auto open devtools (graphical only)
-    # - headless - run in a headless state
-    # - pipe - run in piped mode
-    # - executable - set the firefox executable path
-    # - env - set environment variables to be passed to firefox process
-    # - slowmo - add a connection delay (milliseconds)
-    # - std_out - set the standard out for the browser process
-    # - std_error - set the standard error for the browser process
-    # - handle_sigint - graceful browser exit on `SIGINT`
-    # - handle_sigterm - graceful browser exit on `SIGTERM`
-    # - handle_sighup - graceful browser exit on `SIGHUP`
-    # - ignore_https_errors - ignore HTTPS errors and don't report them
-    # - default_viewport - default viewport size (graphical only)
-    # - timeout - wait timeout for the browser process
+    # - **address** - The address that Firefox is listening on. (default: 127.0.0.1)
+    # - **port** - The port that Firefox is listening on. (default: 2828)
+    # - **executable** - The executable to launch. If `nil` an executable will be searched for. If `false` no executable will be launched.
+    # - **args** - Arguments to pass to the Firefox process (only if **executable** is not false)
+    # - **profile** - User profile path to launch with (only if **executable** is not false)
+    # - **headless** - Launch browser in headless mode (default: true) (only if **executable** is not false)
+    # - **stdout** - `IO` to use for STDOUT (only if **executable** is not false)
+    # - **stderr** - `IO` to use for STDERR (only if **executable** is not false)
+    # - **accept_insecure_certs** - Open all connections, even if the cert is invalid
+    # - **env** - Environment to pass to `Process` (only if **executable** is not false)
+    # - **default_viewport** - Default size of the browser window (default: {width: 800, height: 600})
+    # - **timeout** - Universal timeout (default: 60000)
+    # - **proxy** - NamedTuple with `address` and `port` for proxy.
     def launch(
       address = "127.0.0.1",
       port = 2828,

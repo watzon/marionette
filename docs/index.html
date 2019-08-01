@@ -91,11 +91,6 @@
       
     </li>
   
-  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/WindowRect" data-name="marionette::browser::windowrect">
-      <a href="Marionette/Browser/WindowRect.html">WindowRect</a>
-      
-    </li>
-  
 </ul>
 
       
@@ -161,6 +156,21 @@
       
     </li>
   
+  <li class="parent " data-id="github.com/watzon/marionette/Marionette/Proxy" data-name="marionette::proxy">
+      <a href="Marionette/Proxy.html">Proxy</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Proxy/TrafficHandler" data-name="marionette::proxy::traffichandler">
+      <a href="Marionette/Proxy/TrafficHandler.html">TrafficHandler</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
   <li class=" " data-id="github.com/watzon/marionette/Marionette/Transport" data-name="marionette::transport">
       <a href="Marionette/Transport.html">Transport</a>
       
@@ -168,6 +178,11 @@
   
   <li class=" " data-id="github.com/watzon/marionette/Marionette/Utils" data-name="marionette::utils">
       <a href="Marionette/Utils.html">Utils</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/WindowRect" data-name="marionette::windowrect">
+      <a href="Marionette/WindowRect.html">WindowRect</a>
       
     </li>
   
@@ -185,7 +200,7 @@
 <div class="main-content">
 <h1>Marionette</h1>
 
-<p>Marionette is a Crystal shard that replaces the functionality of Selenium (Firefox only for now) by communicating directly with an instance of the brower. It provides a simple, but powerful API which allows everything from navigation to screenshots to executing JavaScript.</p>
+<p>Marionette is a Crystal shard that replaces the functionality of Selenium (Firefox only for now) by communicating directly with an instance of the browser. It provides a simple, but powerful API which allows everything from navigation to screenshots to executing JavaScript.</p>
 
 <h2>Installation</h2>
 
@@ -218,11 +233,11 @@ browser.quit</code></pre>
 
 <p><code>Marionette.launch</code> accepts all the same arguments as <code>Launcher#launch</code>. These arguments are:</p>
 
-<ul><li><strong>address</strong> - The address that Firefox is listening on. (default: 127.0.0.1)</li><li><strong>port</strong> - The port that Firefox is listening on. (default: 2828)</li><li><strong>executable</strong> - The executable to launch. If <code>nil</code> an executable will be searched for. If <code>false</code> no executable will be launched.</li><li><strong>args</strong> - Arguments to pass to the Firefox process (only if <strong>executable</strong> is not false)</li><li><strong>profile</strong> - User profile path to launch with (only if <strong>executable</strong> is not false)</li><li><strong>headless</strong> - Launch browser in headless mode (default: true) (only if <strong>executable</strong> is not false)</li><li><strong>stdout</strong> - <code>IO</code> to use for STDOUT (only if <strong>executable</strong> is not false)</li><li><strong>stderr</strong> - <code>IO</code> to use for STDERR (only if <strong>executable</strong> is not false)</li><li><strong>accept_insecure_certs</strong> - Open all connections, even if the cert is invalid</li><li><strong>env</strong> - Environment to pass to <code>Process</code> (only if <strong>executable</strong> is not false)</li><li><strong>default_viewport</strong> - Default size of the browser window (default: {width: 800, height: 600})</li><li><strong>timeout</strong> - Universal timeout (default: 60000)</li><li><strong>proxy_configuration</strong> - Proxy config to pass to browser.</li></ul>
+<ul><li><strong>address</strong> - The address that Firefox is listening on. (default: 127.0.0.1)</li><li><strong>port</strong> - The port that Firefox is listening on. (default: 2828)</li><li><strong>executable</strong> - The executable to launch. If <code>nil</code> an executable will be searched for. If <code>false</code> no executable will be launched.</li><li><strong>args</strong> - Arguments to pass to the Firefox process (only if <strong>executable</strong> is not false)</li><li><strong>profile</strong> - User profile path to launch with (only if <strong>executable</strong> is not false)</li><li><strong>headless</strong> - Launch browser in headless mode (default: true) (only if <strong>executable</strong> is not false)</li><li><strong>stdout</strong> - <code>IO</code> to use for STDOUT (only if <strong>executable</strong> is not false)</li><li><strong>stderr</strong> - <code>IO</code> to use for STDERR (only if <strong>executable</strong> is not false)</li><li><strong>accept_insecure_certs</strong> - Open all connections, even if the cert is invalid</li><li><strong>env</strong> - Environment to pass to <code>Process</code> (only if <strong>executable</strong> is not false)</li><li><strong>default_viewport</strong> - Default size of the browser window (default: {width: 800, height: 600})</li><li><strong>timeout</strong> - Universal timeout (default: 60000)</li><li><strong>proxy</strong> - NamedTuple with <code>address</code> and <code>port</code> for proxy.</li></ul>
 
 <h3>Browser</h3>
 
-<p><code>Launcher#launch</code> returns a <code>Browser</code> instance which is responible for most of Marionette's functionality. It includes a number of methods which can be found <a href="https://watzon.github.io/marionette/Marionette/Browser.html" target="_blank">here</a>.</p>
+<p><code>Launcher#launch</code> returns a <code>Browser</code> instance which is responsible for most of Marionette's functionality. It includes a number of methods which can be found <a href="https://watzon.github.io/marionette/Marionette/Browser.html" target="_blank">here</a>.</p>
 
 <h2>Contributing</h2>
 

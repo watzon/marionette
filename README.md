@@ -49,7 +49,7 @@ browser.quit
 - **env** - Environment to pass to `Process` (only if **executable** is not false)
 - **default_viewport** - Default size of the browser window (default: {width: 800, height: 600})
 - **timeout** - Universal timeout (default: 60000)
-- **proxy_configuration** - Proxy config to pass to browser.
+- **proxy** - NamedTuple with `address` and `port` for proxy.
 
 ### Browser
 
