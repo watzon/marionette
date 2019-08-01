@@ -17,4 +17,10 @@ module Marionette
     with browser yield browser
     browser.quit unless options[:executable]? == false
   end
+
+  def proxy(address, port)
+    prox = Proxy.new(address, port)
+    prox.start
+    prox
+  end
 end

@@ -47,9 +47,6 @@ module Marionette
       executable = nil,
       stdout = nil,
       stderr = nil,
-      handle_sigint = true,
-      handle_sigterm = true,
-      handle_sighup = true,
       accept_insecure_certs = false,
       env = nil,
       default_viewport = {
@@ -57,13 +54,23 @@ module Marionette
         height: 600,
       },
       timeout = 30000,
-      proxy_configuration = {} of String => String
+      proxy = nil
     )
 
       executable = resolve_executable_path if executable.nil?
+      
+      proxy = proxy ? {
+        proxyType: "manual",
+        httpProxy: "#{proxy[:address]}:#{proxy[:port]}",
+        sslProxy: "#{proxy[:address]}:#{proxy[:port]}",
+        socksProxy: "#{proxy[:address]}:#{proxy[:port]}",
+      } : {
+        proxyType: "direct"
+      }
+      
       capabilities = {
         acceptInsecureCerts: accept_insecure_certs,
-        proxyConfiguration: proxy_configuration,
+        proxy: proxy,
         timeouts: {
           implicit: timeout,
           pageLoad: timeout,
@@ -84,8 +91,6 @@ module Marionette
         stderr ||= Process::ORIGINAL_STDERR
         Process.new(executable.to_s, args, env, output: stdout, error: stderr)
       end
-
-      set_exit_handlers(handle_sigint, handle_sigterm, handle_sighup)
 
       browser = Browser.new(address, port, timeout)
       browser.new_session(capabilities)

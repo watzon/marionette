@@ -7,6 +7,8 @@ authors:
 dependencies:
   strange:
     github: hydecr/strange
+  http_proxy:
+    github: mamantoha/http_proxy
 
 crystal: 0.24.1
 

@@ -389,7 +389,7 @@ module Marionette
       debug("Executing script")
 
       response = @transport.request("WebDriver:ExecuteScript", params)
-      response["value"]
+      response.try(&.["value"])
     end
 
     # Execute JS script asynchronously. See `#execute_script`.
@@ -404,7 +404,7 @@ module Marionette
       debug("Executing async script")
 
       response = @transport.request("WebDriver:ExecuteScriptAsync", params)
-      response["value"]
+      response.try(&.["value"])
     end
 
     # Dismisses the dialog like clicking no/cancel.

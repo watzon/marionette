@@ -29,6 +29,7 @@ module Marionette
     # Initiates a TCP connection to a running Firefox instance
     # using the provided `address` and `port`.
     def connect(address, port)
+      debug("Attempting TCP connection at #{address}:#{port}")
       try_connect(address, port, @timeout)
 
       begin
@@ -112,7 +113,8 @@ module Marionette
         rescue ex
         end
       end
-
+      
+      error "Timed out while attemting to connect to firefox"
       raise "Timed out while attemting to connect to firefox"
     end
   end
