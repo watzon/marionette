@@ -1,6 +1,6 @@
 # Marionette
 
-Marionette is a Crystal shard that replaces the functionality of Selenium (Firefox only for now) by communicating directly with an instance of the brower. It provides a simple, but powerful API which allows everything from navigation to screenshots to executing JavaScript.
+Marionette is a Crystal shard that replaces the functionality of Selenium (Firefox only for now) by communicating directly with an instance of the browser. It provides a simple, but powerful API which allows everything from navigation to screenshots to executing JavaScript.
 
 ## Installation
 
@@ -53,7 +53,7 @@ browser.quit
 
 ### Browser
 
-`Launcher#launch` returns a `Browser` instance which is responible for most of Marionette's functionality. It includes a number of methods which can be found [here](https://watzon.github.io/marionette/Marionette/Browser.html).
+`Launcher#launch` returns a `Browser` instance which is responsible for most of Marionette's functionality. It includes a number of methods which can be found [here](https://watzon.github.io/marionette/Marionette/Browser.html).
 
 ## Contributing
 
