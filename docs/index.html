@@ -41,6 +41,36 @@
       
         <ul>
   
+  <li class="parent " data-id="github.com/watzon/marionette/Marionette/Actions" data-name="marionette::actions">
+      <a href="Marionette/Actions.html">Actions</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Actions/Action" data-name="marionette::actions::action">
+      <a href="Marionette/Actions/Action.html">Action</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Actions/ActionType" data-name="marionette::actions::actiontype">
+      <a href="Marionette/Actions/ActionType.html">ActionType</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Actions/ActionValue" data-name="marionette::actions::actionvalue">
+      <a href="Marionette/Actions/ActionValue.html">ActionValue</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Actions/MouseButton" data-name="marionette::actions::mousebutton">
+      <a href="Marionette/Actions/MouseButton.html">MouseButton</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
   <li class="parent " data-id="github.com/watzon/marionette/Marionette/Browser" data-name="marionette::browser">
       <a href="Marionette/Browser.html">Browser</a>
       
@@ -51,13 +81,13 @@
       
     </li>
   
-  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/ScreenshotFormat" data-name="marionette::browser::screenshotformat">
-      <a href="Marionette/Browser/ScreenshotFormat.html">ScreenshotFormat</a>
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/LocatorStrategy" data-name="marionette::browser::locatorstrategy">
+      <a href="Marionette/Browser/LocatorStrategy.html">LocatorStrategy</a>
       
     </li>
   
-  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/WebElement" data-name="marionette::browser::webelement">
-      <a href="Marionette/Browser/WebElement.html">WebElement</a>
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/ScreenshotFormat" data-name="marionette::browser::screenshotformat">
+      <a href="Marionette/Browser/ScreenshotFormat.html">ScreenshotFormat</a>
       
     </li>
   
@@ -98,6 +128,11 @@
   
 </ul>
 
+      
+    </li>
+  
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/HTMLElement" data-name="marionette::htmlelement">
+      <a href="Marionette/HTMLElement.html">HTMLElement</a>
       
     </li>
   
@@ -167,7 +202,7 @@
 <span class="c"># Marionette.launch launches a Firefox browser and exposes</span>
 <span class="c"># it to the block. The browser automatically closes after</span>
 <span class="c"># the block is finished.</span>
-<span class="t">Marionette</span>.launch(headless: <span class="n">false</span>) <span class="k">do</span>
+<span class="t">Marionette</span>.launch <span class="k">do</span>
   goto(<span class="s">&quot;https://watzon.tech&quot;</span>)
   save_screenshot(<span class="s">&quot;watzon-tech.jpg&quot;</span>)
 <span class="k">end</span>
@@ -179,7 +214,15 @@ browser.goto(<span class="s">&quot;https://watzon.tech&quot;</span>)
 browser.save_screenshot(<span class="s">&quot;watzon-tech.jpg&quot;</span>)
 browser.quit</code></pre>
 
-<p>More docs are coming soon!</p>
+<h3>Launch options</h3>
+
+<p><code>Marionette.launch</code> accepts all the same arguments as <code>Launcher#launch</code>. These arguments are:</p>
+
+<ul><li><strong>address</strong> - The address that Firefox is listening on. (default: 127.0.0.1)</li><li><strong>port</strong> - The port that Firefox is listening on. (default: 2828)</li><li><strong>executable</strong> - The executable to launch. If <code>nil</code> an executable will be searched for. If <code>false</code> no executable will be launched.</li><li><strong>args</strong> - Arguments to pass to the Firefox process (only if <strong>executable</strong> is not false)</li><li><strong>profile</strong> - User profile path to launch with (only if <strong>executable</strong> is not false)</li><li><strong>headless</strong> - Launch browser in headless mode (default: true) (only if <strong>executable</strong> is not false)</li><li><strong>stdout</strong> - <code>IO</code> to use for STDOUT (only if <strong>executable</strong> is not false)</li><li><strong>stderr</strong> - <code>IO</code> to use for STDERR (only if <strong>executable</strong> is not false)</li><li><strong>accept_insecure_certs</strong> - Open all connections, even if the cert is invalid</li><li><strong>env</strong> - Environment to pass to <code>Process</code> (only if <strong>executable</strong> is not false)</li><li><strong>default_viewport</strong> - Default size of the browser window (default: {width: 800, height: 600})</li><li><strong>timeout</strong> - Universal timeout (default: 60000)</li><li><strong>proxy_configuration</strong> - Proxy config to pass to browser.</li></ul>
+
+<h3>Browser</h3>
+
+<p><code>Launcher#launch</code> returns a <code>Browser</code> instance which is responible for most of Marionette's functionality. It includes a number of methods which can be found <a href="https://watzon.github.io/marionette/Marionette/Browser.html" target="_blank">here</a>.</p>
 
 <h2>Contributing</h2>
 

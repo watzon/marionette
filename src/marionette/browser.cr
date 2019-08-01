@@ -3,6 +3,11 @@ require "json"
 
 module Marionette
   class Browser
+  CHROME_ELEMENT_KEY = "chromeelement-9fc5-4b51-a3c8-01716eedeb04"
+  FRAME_KEY = "frame-075b-4da1-b6ba-e579c2d3230a"
+  WEB_ELEMENT_KEY = "element-6066-11e4-a52e-4f735466cecf"
+  WINDOW_KEY = "window-fcc6-11e5-b4f8-330a88ab9d7f"
+
     enum BrowserContext
       Chrome
       Content
@@ -282,7 +287,7 @@ module Marionette
       end
 
       response = @transport.request("WebDriver:FindElements", params)
-      response.params.as_a.map { |(_, id)| WebElement.new(id) }
+      response.params.as_a.map(&.as_h.to_a).map { |a| HTMLElement.new(self, a[0][1].as_s) }
     end
 
     # Find a single element using the indicated search strategy.
@@ -300,7 +305,7 @@ module Marionette
       end
 
       response = @transport.request("WebDriver:FindElement", params)
-      WebElement.new(response["value"].as_h.first[1].as_s)
+      HTMLElement.new(self, response["value"].as_h.first[1].as_s)
     end
 
     # Takes a screenshot of an element or the current frame.
@@ -500,9 +505,22 @@ module Marionette
       set_prefs(original_prefs, default_branch)
     end
 
-    record WindowRect, x : Int32, y : Int32, width : Int32, height : Int32
-    record WebElement, id : String do
-      include JSON::Serializable
+    # Create an instance of `Actions` and return it.
+    def actions(type : Actions::ActionType, pointer_params = nil)
+      id = "some_id"
+      Actions.new(self, type, id, pointer_params)
     end
+
+    # Performs an array of browser actions in order
+    def perform_actions(actions)
+      pp actions
+      @transport.request("WebDriver:PerformActions", {actions: actions})
+    end
+
+    def release_actions
+      @transport.request("WebDriver:ReleaseActions")
+    end
+
+    record WindowRect, x : Int32, y : Int32, width : Int32, height : Int32
   end
 end

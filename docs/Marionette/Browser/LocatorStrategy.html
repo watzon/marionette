@@ -14,7 +14,7 @@
 </script>
 
   <meta id="repository-name" content="github.com/watzon/marionette">
-  <title>Marionette::Browser::ScreenshotFormat - github.com/watzon/marionette</title>
+  <title>Marionette::Browser::LocatorStrategy - github.com/watzon/marionette</title>
 </head>
 <body>
 
@@ -81,12 +81,12 @@
       
     </li>
   
-  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/LocatorStrategy" data-name="marionette::browser::locatorstrategy">
+  <li class=" current" data-id="github.com/watzon/marionette/Marionette/Browser/LocatorStrategy" data-name="marionette::browser::locatorstrategy">
       <a href="../../Marionette/Browser/LocatorStrategy.html">LocatorStrategy</a>
       
     </li>
   
-  <li class=" current" data-id="github.com/watzon/marionette/Marionette/Browser/ScreenshotFormat" data-name="marionette::browser::screenshotformat">
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Browser/ScreenshotFormat" data-name="marionette::browser::screenshotformat">
       <a href="../../Marionette/Browser/ScreenshotFormat.html">ScreenshotFormat</a>
       
     </li>
@@ -185,7 +185,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">enum</span> Marionette::Browser::ScreenshotFormat
+  <span class="kind">enum</span> Marionette::Browser::LocatorStrategy
 
 </h1>
 
@@ -209,7 +209,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/watzon/marionette/blob/defca211262cb21a79ca95e6f04027d952f6f692/src/marionette/browser.cr#L16" target="_blank">
+      <a href="https://github.com/watzon/marionette/blob/defca211262cb21a79ca95e6f04027d952f6f692/src/marionette/browser.cr#L22" target="_blank">
         marionette/browser.cr
       </a>
     
@@ -223,18 +223,38 @@
   
   <dl>
     
-      <dt class="entry-const" id="Base64">
-        <strong>Base64</strong> = <code><span class="n">0</span></code>
+      <dt class="entry-const" id="ID">
+        <strong>ID</strong> = <code><span class="n">0</span></code>
       </dt>
       
     
-      <dt class="entry-const" id="Hash">
-        <strong>Hash</strong> = <code><span class="n">1</span></code>
+      <dt class="entry-const" id="Name">
+        <strong>Name</strong> = <code><span class="n">1</span></code>
       </dt>
       
     
-      <dt class="entry-const" id="Binary">
-        <strong>Binary</strong> = <code><span class="n">2</span></code>
+      <dt class="entry-const" id="ClassName">
+        <strong>ClassName</strong> = <code><span class="n">2</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="TagName">
+        <strong>TagName</strong> = <code><span class="n">3</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="LinkText">
+        <strong>LinkText</strong> = <code><span class="n">4</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="PartialLinkText">
+        <strong>PartialLinkText</strong> = <code><span class="n">5</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="XPATH">
+        <strong>XPATH</strong> = <code><span class="n">6</span></code>
       </dt>
       
     
@@ -250,17 +270,42 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#base64%3F-instance-method" class="signature"><strong>#base64?</strong></a>
+        <a href="#class_name%3F-instance-method" class="signature"><strong>#class_name?</strong></a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#binary%3F-instance-method" class="signature"><strong>#binary?</strong></a>
+        <a href="#id%3F-instance-method" class="signature"><strong>#id?</strong></a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#hash%3F-instance-method" class="signature"><strong>#hash?</strong></a>
+        <a href="#link_text%3F-instance-method" class="signature"><strong>#link_text?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#name%3F-instance-method" class="signature"><strong>#name?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#partial_link_text%3F-instance-method" class="signature"><strong>#partial_link_text?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#tag_name%3F-instance-method" class="signature"><strong>#tag_name?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#xpath%3F-instance-method" class="signature"><strong>#xpath?</strong></a>
         
       </li>
     
@@ -321,50 +366,130 @@
 
   <h2>Instance Method Detail</h2>
   
-    <div class="entry-detail" id="base64?-instance-method">
+    <div class="entry-detail" id="class_name?-instance-method">
       <div class="signature">
         
-        def <strong>base64?</strong>
+        def <strong>class_name?</strong>
 
-        <a class="method-permalink" href="#base64%3F-instance-method">#</a>
+        <a class="method-permalink" href="#class_name%3F-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/defca211262cb21a79ca95e6f04027d952f6f692/src/marionette/browser.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/defca211262cb21a79ca95e6f04027d952f6f692/src/marionette/browser.cr#L25" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="binary?-instance-method">
+    <div class="entry-detail" id="id?-instance-method">
       <div class="signature">
         
-        def <strong>binary?</strong>
+        def <strong>id?</strong>
 
-        <a class="method-permalink" href="#binary%3F-instance-method">#</a>
+        <a class="method-permalink" href="#id%3F-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/defca211262cb21a79ca95e6f04027d952f6f692/src/marionette/browser.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/defca211262cb21a79ca95e6f04027d952f6f692/src/marionette/browser.cr#L23" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="hash?-instance-method">
+    <div class="entry-detail" id="link_text?-instance-method">
       <div class="signature">
         
-        def <strong>hash?</strong>
+        def <strong>link_text?</strong>
 
-        <a class="method-permalink" href="#hash%3F-instance-method">#</a>
+        <a class="method-permalink" href="#link_text%3F-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/defca211262cb21a79ca95e6f04027d952f6f692/src/marionette/browser.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/defca211262cb21a79ca95e6f04027d952f6f692/src/marionette/browser.cr#L27" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="name?-instance-method">
+      <div class="signature">
+        
+        def <strong>name?</strong>
+
+        <a class="method-permalink" href="#name%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/defca211262cb21a79ca95e6f04027d952f6f692/src/marionette/browser.cr#L24" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="partial_link_text?-instance-method">
+      <div class="signature">
+        
+        def <strong>partial_link_text?</strong>
+
+        <a class="method-permalink" href="#partial_link_text%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/defca211262cb21a79ca95e6f04027d952f6f692/src/marionette/browser.cr#L28" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="tag_name?-instance-method">
+      <div class="signature">
+        
+        def <strong>tag_name?</strong>
+
+        <a class="method-permalink" href="#tag_name%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/defca211262cb21a79ca95e6f04027d952f6f692/src/marionette/browser.cr#L26" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_s-instance-method">
+      <div class="signature">
+        
+        def <strong>to_s</strong>
+
+        <a class="method-permalink" href="#to_s-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/defca211262cb21a79ca95e6f04027d952f6f692/src/marionette/browser.cr#L31" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="xpath?-instance-method">
+      <div class="signature">
+        
+        def <strong>xpath?</strong>
+
+        <a class="method-permalink" href="#xpath%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/defca211262cb21a79ca95e6f04027d952f6f692/src/marionette/browser.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
