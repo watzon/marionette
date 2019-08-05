@@ -14,7 +14,7 @@
 </script>
 
   <meta id="repository-name" content="github.com/watzon/marionette">
-  <title>Marionette::Utils - github.com/watzon/marionette</title>
+  <title>Marionette::WindowRect - github.com/watzon/marionette</title>
 </head>
 <body>
 
@@ -166,12 +166,12 @@
       
     </li>
   
-  <li class=" current" data-id="github.com/watzon/marionette/Marionette/Utils" data-name="marionette::utils">
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Utils" data-name="marionette::utils">
       <a href="../Marionette/Utils.html">Utils</a>
       
     </li>
   
-  <li class=" " data-id="github.com/watzon/marionette/Marionette/WindowRect" data-name="marionette::windowrect">
+  <li class=" current" data-id="github.com/watzon/marionette/Marionette/WindowRect" data-name="marionette::windowrect">
       <a href="../Marionette/WindowRect.html">WindowRect</a>
       
     </li>
@@ -190,17 +190,26 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">module</span> Marionette::Utils
+  <span class="kind">struct</span> Marionette::WindowRect
 
 </h1>
 
 
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Marionette/WindowRect.html">Marionette::WindowRect</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
 
 
 
 
 
 
+
+
+  <h2>Included Modules</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type">JSON::Serializable</li>
+  
+  </ul>
 
 
 
@@ -214,8 +223,8 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/watzon/marionette/blob/55568e50e65fba0b670a0b378a17bf507fe91d1c/src/marionette/utils.cr#L2" target="_blank">
-        marionette/utils.cr
+      <a href="https://github.com/watzon/marionette/blob/55568e50e65fba0b670a0b378a17bf507fe91d1c/src/marionette/window_rect.cr#L2" target="_blank">
+        marionette/window_rect.cr
       </a>
     
     <br/>
@@ -225,18 +234,16 @@
 
 
 
-
-
-  <h2>Class Method Summary</h2>
+  <h2>Constructors</h2>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#timeout%28time%2C%26block%29-class-method" class="signature"><strong>.timeout</strong>(time, &block)</a>
+        <a href="#new%28x%3AInt32%2Cy%3AInt32%2Cwidth%3AInt32%2Cheight%3AInt32%29-class-method" class="signature"><strong>.new</strong>(x : Int32, y : Int32, width : Int32, height : Int32)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#which%28cmd%29-class-method" class="signature"><strong>.which</strong>(cmd)</a>
+        <a href="#new%28pull%3AJSON%3A%3APullParser%29-class-method" class="signature"><strong>.new</strong>(pull : JSON::PullParser)</a>
         
       </li>
     
@@ -246,51 +253,219 @@
 
 
 
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#clone-instance-method" class="signature"><strong>#clone</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#copy_with%28x_x%3D%40x%2Cy_y%3D%40y%2Cwidth_width%3D%40width%2Cheight_height%3D%40height%29-instance-method" class="signature"><strong>#copy_with</strong>(x _x = @x, y _y = @y, width _width = @width, height _height = @height)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#height%3AInt32-instance-method" class="signature"><strong>#height</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#width%3AInt32-instance-method" class="signature"><strong>#width</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#x%3AInt32-instance-method" class="signature"><strong>#x</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#y%3AInt32-instance-method" class="signature"><strong>#y</strong> : Int32</a>
+        
+      </li>
+    
+  </ul>
+
+
+
 
 
 <div class="methods-inherited">
   
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
 </div>
 
 
-
-
-  <h2>Class Method Detail</h2>
+  <h2>Constructor Detail</h2>
   
-    <div class="entry-detail" id="timeout(time,&amp;block)-class-method">
+    <div class="entry-detail" id="new(x:Int32,y:Int32,width:Int32,height:Int32)-class-method">
       <div class="signature">
         
-        def self.<strong>timeout</strong>(time, &block)
+        def self.<strong>new</strong>(x : Int32, y : Int32, width : Int32, height : Int32)
 
-        <a class="method-permalink" href="#timeout%28time%2C%26block%29-class-method">#</a>
+        <a class="method-permalink" href="#new%28x%3AInt32%2Cy%3AInt32%2Cwidth%3AInt32%2Cheight%3AInt32%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/55568e50e65fba0b670a0b378a17bf507fe91d1c/src/marionette/utils.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/55568e50e65fba0b670a0b378a17bf507fe91d1c/src/marionette/window_rect.cr#L2" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="which(cmd)-class-method">
+    <div class="entry-detail" id="new(pull:JSON::PullParser)-class-method">
       <div class="signature">
         
-        def self.<strong>which</strong>(cmd)
+        def self.<strong>new</strong>(pull : JSON::PullParser)
 
-        <a class="method-permalink" href="#which%28cmd%29-class-method">#</a>
+        <a class="method-permalink" href="#new%28pull%3AJSON%3A%3APullParser%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/55568e50e65fba0b670a0b378a17bf507fe91d1c/src/marionette/utils.cr#L3" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/55568e50e65fba0b670a0b378a17bf507fe91d1c/src/marionette/window_rect.cr#L3" target="_blank">View source</a>]
         
       </div>
     </div>
   
 
 
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="clone-instance-method">
+      <div class="signature">
+        
+        def <strong>clone</strong>
+
+        <a class="method-permalink" href="#clone-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/55568e50e65fba0b670a0b378a17bf507fe91d1c/src/marionette/window_rect.cr#L2" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="copy_with(x_x=@x,y_y=@y,width_width=@width,height_height=@height)-instance-method">
+      <div class="signature">
+        
+        def <strong>copy_with</strong>(x _x = @x, y _y = @y, width _width = @width, height _height = @height)
+
+        <a class="method-permalink" href="#copy_with%28x_x%3D%40x%2Cy_y%3D%40y%2Cwidth_width%3D%40width%2Cheight_height%3D%40height%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/55568e50e65fba0b670a0b378a17bf507fe91d1c/src/marionette/window_rect.cr#L2" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="height:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>height</strong> : Int32
+
+        <a class="method-permalink" href="#height%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="width:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>width</strong> : Int32
+
+        <a class="method-permalink" href="#width%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="x:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>x</strong> : Int32
+
+        <a class="method-permalink" href="#x%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="y:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>y</strong> : Int32
+
+        <a class="method-permalink" href="#y%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
 
 
 

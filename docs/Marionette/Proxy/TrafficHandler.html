@@ -14,7 +14,7 @@
 </script>
 
   <meta id="repository-name" content="github.com/watzon/marionette">
-  <title>Marionette::Error::ExecutableNotFound - github.com/watzon/marionette</title>
+  <title>Marionette::Proxy::TrafficHandler - github.com/watzon/marionette</title>
 </head>
 <body>
 
@@ -101,12 +101,12 @@
       
     </li>
   
-  <li class="parent open current" data-id="github.com/watzon/marionette/Marionette/Error" data-name="marionette::error">
+  <li class="parent " data-id="github.com/watzon/marionette/Marionette/Error" data-name="marionette::error">
       <a href="../../Marionette/Error.html">Error</a>
       
         <ul>
   
-  <li class=" current" data-id="github.com/watzon/marionette/Marionette/Error/ExecutableNotFound" data-name="marionette::error::executablenotfound">
+  <li class=" " data-id="github.com/watzon/marionette/Marionette/Error/ExecutableNotFound" data-name="marionette::error::executablenotfound">
       <a href="../../Marionette/Error/ExecutableNotFound.html">ExecutableNotFound</a>
       
     </li>
@@ -156,8 +156,18 @@
       
     </li>
   
-  <li class=" " data-id="github.com/watzon/marionette/Marionette/Proxy" data-name="marionette::proxy">
+  <li class="parent open current" data-id="github.com/watzon/marionette/Marionette/Proxy" data-name="marionette::proxy">
       <a href="../../Marionette/Proxy.html">Proxy</a>
+      
+        <ul>
+  
+  <li class=" current" data-id="github.com/watzon/marionette/Marionette/Proxy/TrafficHandler" data-name="marionette::proxy::traffichandler">
+      <a href="../../Marionette/Proxy/TrafficHandler.html">TrafficHandler</a>
+      
+    </li>
+  
+</ul>
+
       
     </li>
   
@@ -190,12 +200,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> Marionette::Error::ExecutableNotFound
+  <span class="kind">class</span> Marionette::Proxy::TrafficHandler
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Marionette/Error/ExecutableNotFound.html">Marionette::Error::ExecutableNotFound</a></li><li class="superclass"><a href="../../Marionette/Error.html">Marionette::Error</a></li><li class="superclass">Exception</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Marionette/Proxy/TrafficHandler.html">Marionette::Proxy::TrafficHandler</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -203,6 +213,15 @@
 
 
 
+
+  <h2>Included Modules</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type">HTTP::Handler</li>
+  
+    <li class="other-type"><a href="../../Marionette/Logger.html">Marionette::Logger</a></li>
+  
+  </ul>
 
 
 
@@ -216,8 +235,8 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/watzon/marionette/blob/55568e50e65fba0b670a0b378a17bf507fe91d1c/src/marionette/error.cr#L3" target="_blank">
-        marionette/error.cr
+      <a href="https://github.com/watzon/marionette/blob/4521aeb1e82b70151f57abda97013cd537a38859/src/marionette/proxy.cr#L32" target="_blank">
+        marionette/proxy.cr
       </a>
     
     <br/>
@@ -230,6 +249,16 @@
 
 
 
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#call%28context%29-instance-method" class="signature"><strong>#call</strong>(context)</a>
+        
+      </li>
+    
+  </ul>
 
 
 
@@ -249,11 +278,109 @@
   
     
 
+  <h3>Instance methods inherited from module <code><a href="../../Marionette/Logger.html">Marionette::Logger</a></code></h3>
+  
+  
+    <a href="../../Marionette/Logger.html#alert%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
+      <span>alert(*args, **options)<br/>alert(*args, **options, &block)</span>
+    alert</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#crit%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
+      <span>crit(*args, **options)<br/>crit(*args, **options, &block)</span>
+    crit</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#debug%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
+      <span>debug(*args, **options)<br/>debug(*args, **options, &block)</span>
+    debug</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#emerg%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
+      <span>emerg(*args, **options)<br/>emerg(*args, **options, &block)</span>
+    emerg</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#error%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
+      <span>error(*args, **options)<br/>error(*args, **options, &block)</span>
+    error</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#info%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
+      <span>info(*args, **options)<br/>info(*args, **options, &block)</span>
+    info</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#notice%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
+      <span>notice(*args, **options)<br/>notice(*args, **options, &block)</span>
+    notice</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#warning%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
+      <span>warning(*args, **options)<br/>warning(*args, **options, &block)</span>
+    warning</a>
+    
+  
+
 
     
 
 
     
+
+  <h3>Class methods inherited from module <code><a href="../../Marionette/Logger.html">Marionette::Logger</a></code></h3>
+  
+  
+    <a href="../../Marionette/Logger.html#alert%28message%29-class-method" class="tooltip">
+      <span>alert(message)</span>
+    alert</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#crit%28message%29-class-method" class="tooltip">
+      <span>crit(message)</span>
+    crit</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#debug%28message%29-class-method" class="tooltip">
+      <span>debug(message)</span>
+    debug</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#emerg%28message%29-class-method" class="tooltip">
+      <span>emerg(message)</span>
+    emerg</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#error%28message%29-class-method" class="tooltip">
+      <span>error(message)</span>
+    error</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#info%28message%29-class-method" class="tooltip">
+      <span>info(message)</span>
+    info</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#logger-class-method" class="tooltip">
+      <span>logger</span>
+    logger</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#logger%3D%28logger%29-class-method" class="tooltip">
+      <span>logger=(logger)</span>
+    logger=</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#notice%28message%29-class-method" class="tooltip">
+      <span>notice(message)</span>
+    notice</a>, 
+    
+  
+    <a href="../../Marionette/Logger.html#warning%28message%29-class-method" class="tooltip">
+      <span>warning(message)</span>
+    warning</a>
+    
+  
 
 
   
@@ -283,6 +410,25 @@
 
 
 
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="call(context)-instance-method">
+      <div class="signature">
+        
+        def <strong>call</strong>(context)
+
+        <a class="method-permalink" href="#call%28context%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/4521aeb1e82b70151f57abda97013cd537a38859/src/marionette/proxy.cr#L36" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
 
 
 

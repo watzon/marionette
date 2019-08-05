@@ -107,13 +107,16 @@ module Marionette
 
     getter transport : Transport
 
-    getter proxy : Proxy
+    getter proxy : Proxy?
+
+    getter timeout : Int32
 
     getter? session_id : String?
 
-    def initialize(@address : String, @port : Int32, @proxy : Proxy, @timeout = 60000)
+    def initialize(@address : String, @port : Int32, extended = false, @timeout = 60000)
       @transport = Transport.new(@timeout)
       @transport.connect(@address, @port)
+      @proxy = Proxy.new(self) if extended
       @session_id = nil
       debug("Initialized a new browser instance")
     end
@@ -125,6 +128,15 @@ module Marionette
       @session_id = response["sessionId"].as_s
     end
 
+    # Passes the full server context for each request to
+    # the given block. Only works if `Launcher#launch`
+    # was called with the `extended` option.
+    def on_request(&block : HTTP::Server::Context ->)
+      if proxy = @proxy
+        proxy.callback = block
+      end
+    end
+
     # Closes the current session without shutting down the browser
     def close_session
       @transport.request("WebDriver:DeleteSession")
@@ -132,6 +144,17 @@ module Marionette
 
     # Navigate to the specified `url`
     def goto(url)
+      if proxy = @proxy
+        response = proxy.get(url, body: {url: url}.to_json)
+        # debug("Marionette got #{response.body.to_s}")
+        nil
+      else
+        navigate(url)
+      end
+    end
+
+    # :nodoc:
+    def navigate(url)
       debug("Navigating to #{url}")
       @transport.request("WebDriver:Navigate", {url: url})
       nil

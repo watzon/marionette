@@ -18,10 +18,3 @@ module Marionette
     browser.quit unless options[:executable]? == false
   end
 end
-
-Marionette.launch(executable: nil) do
-  goto("https://google.com")
-  input = find_element(:xpath, "//input[@name='q']")
-  input.try &.send_keys("yay this is cool!")
-  input.try &.save_screenshot("input.jpg")
-end
