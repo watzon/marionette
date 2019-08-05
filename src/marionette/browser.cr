@@ -133,7 +133,7 @@ module Marionette
     # was called with the `extended` option.
     def on_request(&block : HTTP::Server::Context ->)
       if proxy = @proxy
-        proxy.callback = block
+        proxy.callbacks << block
       end
     end
 

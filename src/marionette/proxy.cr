@@ -13,12 +13,13 @@ module Marionette
     property request  : HTTP::Request
     property response : HTTP::Client::Response?
 
-    property callback : (HTTP::Server::Context ->)?
+    property callbacks : Array(HTTP::Server::Context ->)
 
     def initialize(@browser)
       @request = HTTP::Request.new("GET", "about:config")
       @port = 6969
       @first = true
+      @callbacks = [] of HTTP::Server::Context ->
 
       launch
     end
@@ -61,7 +62,7 @@ module Marionette
             server_headers["Cookie"] = cookie
           end
 
-          @callback.try &.call(ctx)
+          @callbacks.each &.call(ctx)
 
           if @first # Change!
             response = HTTP::Client.exec(@request.method, @request.resource, ctx.request.headers, @request.body)
