@@ -113,10 +113,13 @@ module Marionette
 
     getter? session_id : String?
 
-    def initialize(@address : String, @port : Int32, extended = false, @timeout = 60000)
+    getter? extended : Bool
+
+    def initialize(@address : String, @port : Int32, @extended = false, @timeout = 60000)
       @transport = Transport.new(@timeout)
       @transport.connect(@address, @port)
       @proxy = Proxy.new(self) if extended
+
       @session_id = nil
       debug("Initialized a new browser instance")
     end
@@ -129,11 +132,58 @@ module Marionette
     end
 
     # Passes the full server context for each request to
-    # the given block. Only works if `Launcher#launch`
-    # was called with the `extended` option.
+    # the given block. Only works if the `extended`
+    # is true option.
     def on_request(&block : HTTP::Server::Context ->)
       if proxy = @proxy
-        proxy.callbacks << block
+        proxy.on_request(&block)
+      end
+    end
+
+    # Passes each rrsponse header to the provided block.
+    # Only works if the `extended` option is true.
+    def on_headers(&block : HTTP::Headers ->)
+      if proxy = @proxy
+        proxy.on_request do |ctx|
+          block.call(ctx.response.headers)
+        end
+      end
+    end
+
+    # Passes each captured `HAR::Entries` object to the
+    # provided block. Only works if the `extended` option is true.
+    def on_har_capture(&block : HAR::Entries ->)
+      if proxy = @proxy
+        proxy.on_har_capture(&block)
+      end
+    end
+
+    # Returns all captured `HAR::Entries` objects so far.
+    # Only works if the `extended` option is true.
+    def har_entries
+      if proxy = @proxy
+        return proxy.har_entries
+      end
+      return [] of HAR::Entries
+    end
+
+    # Generates and returns a `HAR::Data` object.
+    # Only works if the `extended` option is true.
+    def generate_har
+      if proxy = @proxy
+        log = HAR::Log.new
+        log.entries = har_entries
+        HAR::Data.new(log)
+      end
+    end
+
+    # Generates and saves a har file to the provided path.
+    # You can optionally provide it a har file to save.
+    # Only works if the `extended` option is true.
+    def export_har(file, har = nil)
+      if proxy = @proxy
+        har = generate_har unless har
+        File.write(file, har.to_json)
       end
     end
 
@@ -145,6 +195,7 @@ module Marionette
     # Navigate to the specified `url`
     def goto(url)
       if proxy = @proxy
+        proxy.reset
         response = proxy.get(url, body: {url: url}.to_json)
         # debug("Marionette got #{response.body.to_s}")
         nil

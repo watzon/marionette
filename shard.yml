@@ -9,6 +9,9 @@ dependencies:
     github: hydecr/strange
   http_proxy:
     github: mamantoha/http_proxy
+  har:
+    github: NeuraLegion/har
+    branch: master
 
 crystal: 0.24.1
 

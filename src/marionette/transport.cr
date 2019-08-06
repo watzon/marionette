@@ -7,7 +7,7 @@ module Marionette
 
     property max_packet_length : Int32
     property min_protocol_level : Int32
-    
+
     getter timeout : Int32
     getter last_id : Int32
 
@@ -20,7 +20,7 @@ module Marionette
       @last_id = 0
       @max_packet_length = 2048
       @min_protocol_level = 3
-      
+
       at_exit do
         socket.close unless socket.closed?
       end
@@ -73,7 +73,7 @@ module Marionette
 
       until data.bytesize == len
         remaining = len - data.bytesize
-        num_bytes = [@max_packet_length, remaining].min        
+        num_bytes = [@max_packet_length, remaining].min
         data += socket.read_string(num_bytes)
       end
 
@@ -103,7 +103,7 @@ module Marionette
     private def try_connect(address, port, timeout)
       now = Time.now
       connected = false
-      
+
       until connected || Time.now >= (now + timeout.milliseconds)
         begin
           @socket.connect(address, port)
@@ -113,7 +113,7 @@ module Marionette
         rescue ex
         end
       end
-      
+
       error "Timed out while attemting to connect to firefox"
       raise "Timed out while attemting to connect to firefox"
     end
@@ -132,13 +132,3 @@ module Marionette
     end
   end
 end
-
-# require "base64"
-
-# transport = Marionette::Transport.new
-# transport.connect("127.0.0.1", 2828)
-# pp transport.request("WebDriver:NewSession", {acceptInsecureCerts: true, browserName: "firefox", timeouts: { implicit: 30000, pageLoad: 30000,  script: 30000}})
-# pp transport.request("WebDriver:Navigate", {url: "https://neuralegion.com"})
-# source = transport.request("WebDriver:TakeScreenshot", {full: true, hash: false})
-# b64 = source["value"].as_s
-# File.write("screenshot.jpg", Base64.decode_string(b64))

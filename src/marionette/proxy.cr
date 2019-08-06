@@ -1,3 +1,4 @@
+require "har"
 require "uri"
 require "http/client"
 require "http/server"
@@ -15,13 +16,23 @@ module Marionette
 
     property callbacks : Array(HTTP::Server::Context ->)
 
+    getter har_entries : Array(HAR::Entries)
+    getter har_capture_callbacks : Array(HAR::Entries ->)
+
     def initialize(@browser)
       @request = HTTP::Request.new("GET", "about:config")
       @port = 6969
       @first = true
+
       @callbacks = [] of HTTP::Server::Context ->
+      @har_capture_callbacks = [] of HAR::Entries ->
+      @har_entries = [] of HAR::Entries
 
       launch
+    end
+
+    def reset
+      @first = true
     end
 
     {% for method in [:get, :post, :patch, :head, :delete] %}
@@ -63,9 +74,10 @@ module Marionette
           end
 
           @callbacks.each &.call(ctx)
+          pages
 
           if @first # Change!
-            response = HTTP::Client.exec(@request.method, @request.resource, ctx.request.headers, @request.body)
+            response = HTTP::Client.exec(@request.method, @request.resource, ctx.request.headers, ctx.request.body)
             body = rewrite(response, uri)
             @response = response
             debug("Proxy Sent: #{@request.resource}")
@@ -90,6 +102,13 @@ module Marionette
           next
         end
 
+        # Add HAR entries
+        entries = build_har_entries(ctx.request, response)
+        @har_entries << entries
+        @har_capture_callbacks.each do |block|
+          block.call(entries)
+        end
+
         ctx.response.headers.merge!(response.headers)
         ctx.response.status_code = response.status_code
         ctx.response.print(body.to_s)
@@ -111,6 +130,34 @@ module Marionette
       end
 
       server
+    end
+
+    def on_request(&block : HTTP::Server::Context ->)
+      @callbacks << block
+    end
+
+    def on_har_capture(&block : HAR::Entries ->)
+      @har_capture_callbacks << block
+    end
+
+    private def build_har_entries(request, response)
+      req = HAR::Request.new(request.method.to_s.upcase, request.resource, "1.1")
+      request.headers.each { |k, v| req.headers << HAR::Header.new(name: k, value: v.first) }
+      unless request.body.to_s.empty?
+        post_data = HAR::PostData.new(request.body.to_s)
+        post_data.mime_type = request.headers["Content-Type"]?.to_s
+        req.post_data = post_data
+      end
+
+      content = HAR::Content.new(text: Base64.strict_encode(response.body.to_s))
+      content.encoding = "base64"
+      content.mime_type = response.headers["Content-Type"]?.to_s
+
+      resp = HAR::Response.new(response.status_code, response.status.description.to_s, "1.1", content)
+      entry = HAR::Entries.new(req, resp)
+      debug("Added HAR entry: #{entry.inspect}")
+
+      entry
     end
 
     private def rewrite(response : HTTP::Client::Response, uri : URI) : String
