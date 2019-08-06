@@ -14,24 +14,20 @@ dependencies:
 
 ## Usage
 
+First, of course, you need to require marionette in your project.
+
 ```crystal
 require "marionette"
-
-# Marionette.launch launches a Firefox browser and exposes
-# it to the block. The browser automatically closes after
-# the block is finished.
-Marionette.launch do
-  goto("https://watzon.tech")
-  save_screenshot("watzon-tech.jpg")
-end
-
-# Marionette.launch can also be used without a block. This
-# method requires that you close the browser yourself.
-browser = Marionette.launch
-browser.goto("https://watzon.tech")
-browser.save_screenshot("watzon-tech.jpg")
-browser.quit
 ```
+
+`Marionette` itself is a module which exposes two methods:
+
+- `launch(**options)`
+- `launch(**options, &block : Browser ->)`
+
+The first `launch` method accepts [the launch options listed below](#launch-options) and returns a new `Browser` instance. The browser will not be closed at the end of the program's execution, so it's important to remember to run `Browser#quit` if the browser process was created with marionette.
+
+The second `launch` method accepts [the same launch options](#launch-options) and a block. The newly created `Browser` instance is yielded to the block and the browser process will be closed automatically at the end of the block if the process was created with marionette.
 
 ### Launch options
 
@@ -51,9 +47,42 @@ browser.quit
 - **timeout** - Universal timeout (default: 60000)
 - **proxy** - NamedTuple with `address` and `port` for proxy.
 
-### Browser
+### The Browser Class
 
-`Launcher#launch` returns a `Browser` instance which is responsible for most of Marionette's functionality. It includes a number of methods which can be found [here](https://watzon.github.io/marionette/Marionette/Browser.html).
+Most of the time while using marionette you will be dealing directly with the `Browser` class. As its name implies, the `Browser` class represents the browser instance. It includes a plethora of methods for interacting with the browser, I'll try and document them here as best as I can.
+
+#### new_session(capabilities)
+
+Create a new browser session with provided `capabilities` and returns the `session_id`.
+
+```crystal
+browser.new_session({"browserName": "chrome", "platformName": "linux"})
+```
+
+#### on_request(&block : HTTP::Server::Context ->)
+
+> Note: To use this method the `extended` option must be set to true.
+
+Passes the full `HTTP::Server::Context` to the provided block for every request made by the browser. This method can be called more than once to add multiple handlers.
+
+```crystal
+browser.on_request do |ctx|
+  pp ctx.requst
+  pp ctx.response
+end
+```
+
+#### on_headers(&block : HTTP::Headers ->)
+
+> Note: To use this method the `extended` option must be set to true.
+
+Passes the headers for every request to the provided block. This method can be called more than once to add multiple handlers.
+
+```crystal
+browser.on_headers do |headers|
+  pp headers
+end
+```
 
 ## Contributing
 

@@ -101,16 +101,17 @@ module Marionette
           next
         end
 
+        ctx.response.headers.merge!(response.headers)
+        ctx.response.status_code = response.status_code
+        ctx.response.print(body.to_s)
+
         # Add HAR entries
+        response.headers.merge!(ctx.response.headers)
         entries = build_har_entries(ctx.request, response)
         @har_entries << entries
         @har_capture_callbacks.each do |block|
           block.call(entries)
         end
-
-        ctx.response.headers.merge!(response.headers)
-        ctx.response.status_code = response.status_code
-        ctx.response.print(body.to_s)
       end
 
       begin
