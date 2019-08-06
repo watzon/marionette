@@ -74,7 +74,6 @@ module Marionette
           end
 
           @callbacks.each &.call(ctx)
-          pages
 
           if @first # Change!
             response = HTTP::Client.exec(@request.method, @request.resource, ctx.request.headers, ctx.request.body)
