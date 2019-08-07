@@ -18,8 +18,3 @@ module Marionette
     browser.quit unless options[:executable]? == false
   end
 end
-
-Marionette.launch(extended: true) do
-  goto("https://google.com")
-  export_har("google.com.har")
-end

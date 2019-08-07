@@ -131,6 +131,11 @@ module Marionette
       @session_id = response["sessionId"].as_s
     end
 
+    # Closes the current session without shutting down the browser
+    def close_session
+      @transport.request("WebDriver:DeleteSession")
+    end
+
     # Passes the full server context for each request to
     # the given block. Only works if the `extended`
     # is true option.
@@ -185,11 +190,6 @@ module Marionette
         har = generate_har unless har
         File.write(file, har.to_json)
       end
-    end
-
-    # Closes the current session without shutting down the browser
-    def close_session
-      @transport.request("WebDriver:DeleteSession")
     end
 
     # Navigate to the specified `url`
@@ -251,7 +251,7 @@ module Marionette
       @transport.request("Marionette:SetContext", {value: context.to_s.downcase})
     end
 
-    # Gets the context of the server
+    # Gets the current browser context
     def context
       response = @transport.request("Marionette:GetContext")
       case response["value"].as_s
@@ -267,16 +267,28 @@ module Marionette
     def using_context(context : BrowserContext, &block)
       scope = self.context
       set_context(context)
-      with self yield self
+      output = with self yield self
       set_context(scope)
+      output
     end
 
-    # Returns the current window ID
+    # Returns the current window's handle.
+    #
+    # Returns an opaque server-assigned identifier to this window
+    # that uniquely identifies it within this Marionette instance.
+    # This can be used to switch to this window at a later point.
     def current_window_handle
       response = @transport.request("WebDriver:GetWindowHandle")
       response["value"].as_s
     end
 
+    # Get the current chrome window's handle. Corresponds to
+    # a chrome window that may itself contain tabs identified by
+    # window_handles.
+    #
+    # Returns an opaque server-assigned identifier to this window
+    # that uniquely identifies it within this Marionette instance.
+    # This can be used to switch to this window at a later point.
     def current_chrome_window_handle
       @transport.request("WebDriver:GetCurrentChromeWindowHandle")
     end
@@ -344,22 +356,40 @@ module Marionette
     # Set the orientation
     def set_orientation(orientation)
       debug("Setting orientation to #{orientation}")
-      @transport.request("Marionette:SetScreenOrientation", {orientation: orientation})
+      @transport.request("Marionette:SetScreenOrientation", {orientation: orientation.to_s})
       nil
     end
 
-    # Get the active frame
+    # Returns a class name representing the frame Marionette is currently acting on.
     def active_frame
       response = @transport.request("WebDriver:GetActiveFrame")
-      response["value"]
+      response["value"].as_s?
+    end
+
+    # Switch to frame by `HTMLElement` or ID
+    def switch_to_frame(frame : String | HTMLElement | Nil, focus = true)
+      body = {focus: focus}
+
+      if frame.is_a?(HTMLElement)
+        debug("Switching frame to element with id #{frame.id}")
+        body = body.merge({element: frame.id})
+      elsif frame.is_a?(String)
+        debug("Switching frame to element with id #{frame}")
+        body = body.merge({id: frame})
+      else
+        debug("Clearing frame")
+      end
+
+      @transport.request("WebDriver:SwitchToFrame", body)
+      nil
     end
 
     # Switch to frame by id or name
-    def switch_to_frame(by, value)
-      debug("Switching to frame #{value} (using #{by.to_s})")
-      frame = find_element(by, value)
-      @transport.request("WebDriver:SwitchToFrame", {element: frame.id, focus: true})
-      nil
+    def switch_to_frame(by : LocatorStrategy, value, focus = true)
+      el = find_element(by, value)
+      if el
+        switch_to_frame(el, focus)
+      end
     end
 
     # Switch to the parent frame
@@ -371,94 +401,122 @@ module Marionette
 
     # Get all cookies
     def cookies
-      @transport.request("WebDriver:GetCookies")
+      response = @transport.request("WebDriver:GetCookies")
+      cookies = response.params.as_a
+      cookies.map do |cookie|
+        expiry_date = cookie["expiry"]? ? Time.unix_ms(cookie["expiry"].as_i) : nil
+        HTTP::Cookie.new(
+          name: cookie["name"].as_s,
+          value: cookie["value"].as_s,
+          path: cookie["path"].as_s,
+          expires: expiry_date,
+          domain: cookie["domain"].as_s?,
+          secure: cookie["secure"].as_bool? || false,
+          http_only: cookie["httpOnly"].as_bool? || false
+        )
+      end
     end
 
     # Get a specific cookie by name
     def cookie(name)
-      @transport.request("WebDriver:GetCookies", {name: name})
+      cookie = cookies.select { |cookie| cookie.name == name }
+      cookie[0]?
     end
 
     # Check if element is enabled
-    def element_enabled?(id)
+    def element_enabled?(el)
+      id = el.is_a?(HTMLElement) ? el.id : el
       response = @transport.request("WebDriver:IsElementEnabled", {id: id})
-      response["value"].as_b
+      response["value"].as_bool
     end
 
     # Check if the element is selected
-    def element_selected?(id)
+    def element_selected?(el)
+      id = el.is_a?(HTMLElement) ? el.id : el
       response = @transport.request("WebDriver:IsElementSelected", {id: id})
-      response["value"].as_b
+      response["value"].as_bool
     end
 
     # Check if the element is displayed
-    def element_selected?(id)
+    def element_displayed?(el)
+      id = el.is_a?(HTMLElement) ? el.id : el
       response = @transport.request("WebDriver:IsElementDisplayed", {id: id})
-      response["value"].as_b
+      response["value"].as_bool
     end
 
     # Gets the tag name of an element
-    def element_tag_name(id)
+    def element_tag_name(el)
+      id = el.is_a?(HTMLElement) ? el.id : el
       response = @transport.request("WebDriver:GetElementTagName", {id: id})
       response["value"].as_s
     end
 
     # Gets the text for an element
-    def element_text(id)
+    def element_text(el)
+      id = el.is_a?(HTMLElement) ? el.id : el
       response = @transport.request("WebDriver:GetElementText", {id: id})
       response["value"].as_s
     end
 
     # Get an attribute for an element
-    def element_attribute(id, name)
+    def element_attribute(el, name)
+      id = el.is_a?(HTMLElement) ? el.id : el
       response = @transport.request("WebDriver:GetElementAttribute", {id: id, name: name})
       response["value"].as_s
     end
 
     # Get a css property for an element
-    def element_css_property(id, property)
+    def element_css_property(el, property)
+      id = el.is_a?(HTMLElement) ? el.id : el
       response = @transport.request("WebDriver:GetElementCSSValue", {id: id, propertyName: property})
       response["value"].as_s
     end
 
     # Get an element's rect
-    def element_rect(id)
+    def element_rect(el)
+      id = el.is_a?(HTMLElement) ? el.id : el
       response = @transport.request("WebDriver:GetElementRect", {id: id})
-      response["value"]
+      if response
+        ElementRect.new(
+          response["x"].to_s.to_f,
+          response["y"].to_s.to_f,
+          response["width"].to_s.to_f,
+          response["height"].to_s.to_f
+        )
+      end
     end
 
     # Simulate a click on a particular element
-    def click_element(id)
+    def click_element(el)
+      id = el.is_a?(HTMLElement) ? el.id : el
       debug("Clicking element with id #{id}")
-      response = @transport.request("WebDriver:ElementClick", {id: id})
-      response["value"]
+      @transport.request("WebDriver:ElementClick", {id: id})
+      nil
     end
 
     # Sends keys to an element
-    def send_keys_to_element(id, keys)
-      debug("Sending keys #{keys} to element with id #{id}")
-      response = @transport.request("WebDriver:ElementSendKeys", {id: id, keys: keys})
-      response["value"]
+    def send_keys_to_element(el, *keys)
+      id = el.is_a?(HTMLElement) ? el.id : el
+      debug("Sending keys \"#{keys}\" to element with id #{id}")
+      @transport.request("WebDriver:ElementSendKeys", {id: id, text: keys.join})
+      nil
     end
 
     # Clears a clearable element
-    def clear_element(id)
+    def clear_element(el)
+      id = el.is_a?(HTMLElement) ? el.id : el
       debug("Clearing element with id #{id}")
-      response = @transport.request("WebDriver:ElementClear", {id: id})
-      response["value"]
-    end
-
-    # Find elements using the indicated search strategy
-    def find_elements(by : LocatorStrategy, value)
-      find_elements(by, value, nil)
+      @transport.request("WebDriver:ElementClear", {id: id})
+      nil
     end
 
     # Find elements using the indicated search strategy and
     # starting with a particular node.
-    def find_elements(by : LocatorStrategy, value, start_node)
+    def find_elements(by : LocatorStrategy, value, start_node = nil)
       if start_node.nil? || start_node.empty?
         params = {using: by.to_s, value: value}
       else
+        start_node = start_node.is_a?(HTMLElement) ? start_node.id : el
         params = {using: by.to_s, value: value, element: start_node}
       end
 
@@ -470,17 +528,13 @@ module Marionette
       [] of HTMLElement
     end
 
-    # Find a single element using the indicated search strategy.
-    def find_element(by : LocatorStrategy, value)
-      find_element(by, value, nil)
-    end
-
     # Find a single element using the indicated search strategy and
     # starting with a particular node.
-    def find_element(by : LocatorStrategy, value, start_node)
+    def find_element(by : LocatorStrategy, value, start_node = nil)
       if start_node.nil? || start_node.empty?
         params = {using: by.to_s, value: value}
       else
+        start_node = start_node.is_a?(HTMLElement) ? start_node.id : el
         params = {using: by.to_s, value: value, element: start_node}
       end
 
@@ -554,7 +608,7 @@ module Marionette
       debug("Executing script")
 
       response = @transport.request("WebDriver:ExecuteScript", params)
-      response.try(&.["value"])
+      response["value"]?
     end
 
     # Execute JS script asynchronously. See `#execute_script`.
@@ -569,7 +623,7 @@ module Marionette
       debug("Executing async script")
 
       response = @transport.request("WebDriver:ExecuteScriptAsync", params)
-      response.try(&.["value"])
+      response["value"]?
     end
 
     # Dismisses the dialog like clicking no/cancel.
@@ -595,9 +649,9 @@ module Marionette
     end
 
     # Sends text to a dialog
-    def send_keys_to_dialog(keys)
+    def send_keys_to_dialog(*keys)
       debug("Sending keys #{keys} to dialog")
-      @transport.request("WebDriver:SendAlertText", {text: keys})
+      @transport.request("WebDriver:SendAlertText", {text: keys.join})
       nil
     end
 
@@ -673,7 +727,10 @@ module Marionette
       prefs = new Preferences({defaultBranch: defaultBranch});
       return prefs.get(pref, null, Components.interfaces[valueType]);
       JAVASCRIPT
-      execute_script(script, [pref, default_branch, value_type])
+
+      using_context(BrowserContext::Chrome) do
+        execute_script(script, [pref, default_branch, value_type])
+      end
     end
 
     # Set the value of the specified preference.
@@ -704,8 +761,9 @@ module Marionette
     def using_prefs(prefs, default_branch = false, &block)
       original_prefs = prefs.map { |(pref, _)| pref(pref, default_branch) }
       set_prefs(prefs, default_branch)
-      with self yield self
+      output = with self yield self
       set_prefs(original_prefs, default_branch)
+      output
     end
 
     # Create an instance of `Actions` and return it.

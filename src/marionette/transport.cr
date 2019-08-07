@@ -120,7 +120,15 @@ module Marionette
   end
 
   record Message, type : Int32, id : Int32, command : String?, params : JSON::Any do
-    delegate :[], :[]?, to: params
+    def [](key)
+      params[key]
+    end
+
+    def []?(key)
+      if params?
+        params[key]?
+      end
+    end
 
     def params?
       begin
