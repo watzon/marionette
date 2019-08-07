@@ -417,7 +417,7 @@ browser.active_frame
 
 #### switch_to_frame(by : LocatorStrategy, value, focus = true)
 
-Convenience method for finding an element and switching the active frame to it. See [`find_element`]
+Convenience method for finding an element and switching the active frame to it. See [`find_element`](#findelementby--locatorstrategy-value-startnode--nil).
 
 #### switch_to_parent_frame
 
