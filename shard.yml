@@ -7,8 +7,6 @@ authors:
 dependencies:
   strange:
     github: hydecr/strange
-  http_proxy:
-    github: mamantoha/http_proxy
   har:
     github: NeuraLegion/har
     branch: master
