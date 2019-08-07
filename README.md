@@ -589,6 +589,8 @@ Take and save the screenshot to the specified file. Accepts the same options as 
 
 Execute JavaScript on the current page. `script` should be a valid JavaScript document as a String. `args` are the arguments to provide, which can be accessed with `arguments[n]` in the script. You can also provide a `timeout` and tell the browser to execute this code in a new sandbox (true by default). If `sandbox` is false the variables from any previously executed script will still exist.
 
+Scripts are executed in the browser context and have access to [XPCOM](https://developer.mozilla.org/en-US/docs/Mozilla/Tech/XPCOM/Language_Bindings) bindings, allowing you to actually control aspects of the browser through JavaScript. Something that normally can't be done with sansboxed code executed by websites.
+
 ```crystal
 browser.execute_script("alert(arguments[0])", ["Hello world"])
 ```
