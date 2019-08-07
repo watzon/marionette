@@ -3,7 +3,7 @@ require "strange/formatter/color_formatter"
 
 module Marionette
   module Logger
-    class_property logger = Strange.new(Strange::DEBUG, transports: [
+    class_property logger = Strange.new("env", transports: [
       Strange::ConsoleTransport.new(formatter: Formatter.new).as(Strange::Transport),
     ])
 
