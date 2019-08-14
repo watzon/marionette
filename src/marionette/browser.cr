@@ -516,7 +516,7 @@ module Marionette
       if start_node.nil? || start_node.empty?
         params = {using: by.to_s, value: value}
       else
-        start_node = start_node.is_a?(HTMLElement) ? start_node.id : el
+        start_node = start_node.is_a?(HTMLElement) ? start_node.id : start_node
         params = {using: by.to_s, value: value, element: start_node}
       end
 
@@ -534,7 +534,7 @@ module Marionette
       if start_node.nil? || start_node.empty?
         params = {using: by.to_s, value: value}
       else
-        start_node = start_node.is_a?(HTMLElement) ? start_node.id : el
+        start_node = start_node.is_a?(HTMLElement) ? start_node.id : start_node
         params = {using: by.to_s, value: value, element: start_node}
       end
 
