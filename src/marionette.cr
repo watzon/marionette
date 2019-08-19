@@ -18,8 +18,3 @@ module Marionette
     browser.quit unless options[:executable]? == false
   end
 end
-
-Marionette.launch do
-  goto("https://watzon.tech")
-  save_screenshot("screen.jpg", full: true)
-end

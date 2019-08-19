@@ -66,6 +66,9 @@ module Marionette
 
           debug("Marionette called Proxy-Server with: #{ctx.request.inspect}")
 
+          @request.headers.delete("Content-Length")
+          @request.headers["Accept-Encoding"] = "identity"
+
           server_headers = ctx.request.headers
           server_headers.delete("Content-Length")
           server_headers["Accept-Encoding"] = "identity"
