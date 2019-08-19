@@ -76,7 +76,7 @@ module Marionette
           @callbacks.each &.call(ctx)
 
           if @first # Change!
-            response = HTTP::Client.exec(@request.method, @request.resource, ctx.request.headers, ctx.request.body)
+            response = HTTP::Client.exec(@request.method.upcase, @request.resource, @request.headers, ctx.request.body)
             body = rewrite(response, uri)
             @response = response
             debug("Proxy Sent: #{@request.resource}")
@@ -90,7 +90,7 @@ module Marionette
             tmp_uri.port = uri.port
             tmp_headers = server_headers
             tmp_headers["Host"] = uri.host.to_s
-            response = HTTP::Client.exec(ctx.request.method, tmp_uri.to_s, tmp_headers, ctx.request.body.to_s)
+            response = HTTP::Client.exec(ctx.request.method.upcase, tmp_uri.to_s, tmp_headers, ctx.request.body.to_s)
             body = rewrite(response, uri)
           end
         rescue ex : Exception
@@ -155,7 +155,7 @@ module Marionette
 
       resp = HAR::Response.new(response.status_code, response.status.description.to_s, "1.1", content)
       entry = HAR::Entries.new(req, resp)
-      debug("Added HAR entry: #{entry.inspect}")
+      # debug("Added HAR entry: #{entry.inspect}")
 
       entry
     end
@@ -174,4 +174,3 @@ module Marionette
 
   end
 end
-
