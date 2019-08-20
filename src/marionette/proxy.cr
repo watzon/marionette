@@ -71,6 +71,7 @@ module Marionette
 
           server_headers = ctx.request.headers
           server_headers.delete("Content-Length")
+          # server_headers.delete("Transfer-Encoding")
           server_headers["Accept-Encoding"] = "identity"
           if (cookie = ctx.request.headers["Cookie"]?)
             server_headers["Cookie"] = cookie
@@ -80,6 +81,7 @@ module Marionette
 
           if @first # Change!
             response = HTTP::Client.exec(@request.method.upcase, @request.resource, @request.headers, ctx.request.body)
+            response.headers.delete("Transfer-Encoding")
             body = rewrite(response, uri)
             @response = response
             debug("Proxy Sent: #{@request.resource}")
