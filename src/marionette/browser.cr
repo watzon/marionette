@@ -118,10 +118,15 @@ module Marionette
     def initialize(@address : String, @port : Int32, @extended = false, @timeout = 60000)
       @transport = Transport.new(@timeout)
       @transport.connect(@address, @port)
-      @proxy = Proxy.new(self) if extended
+      launch_proxy if extended
 
       @session_id = nil
       debug("Initialized a new browser instance")
+    end
+
+    # Starts the proxy server
+    def launch_proxy
+      @proxy = Proxy.new(self)
     end
 
     # Create a new browser session
@@ -134,6 +139,22 @@ module Marionette
     # Closes the current session without shutting down the browser
     def close_session
       @transport.request("WebDriver:DeleteSession")
+    end
+
+    # Disable's Firefox's inbuilt caching mechanism
+    def disable_cache
+      set_pref("browser.cache.disk.enable", false)
+      set_pref("browser.cache.memory.enable", false)
+      set_pref("browser.cache.offline.enable", false)
+      set_pref("network.http.use-cache", false)
+    end
+
+    # Enable's Firefox's inbuilt caching mechanism
+    def enable_cache
+      set_pref("browser.cache.disk.enable", true)
+      set_pref("browser.cache.memory.enable", true)
+      set_pref("browser.cache.offline.enable", true)
+      set_pref("network.http.use-cache", true)
     end
 
     # Passes the full server context for each request to

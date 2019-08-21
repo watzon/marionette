@@ -146,7 +146,14 @@ module Marionette
     end
 
     private def build_har_entries(request, response)
-      req = HAR::Request.new(request.method.to_s.upcase, request.resource, "1.1")
+      uri = URI.parse(@request.resource)
+
+      tmp_uri = URI.parse(request.resource)
+      tmp_uri.host = uri.host
+      tmp_uri.scheme = uri.scheme
+      tmp_uri.port = uri.port
+
+      req = HAR::Request.new(request.method.to_s.upcase, tmp_uri.to_s, "1.1")
       request.headers.each { |k, v| req.headers << HAR::Header.new(name: k, value: v.first) }
       unless request.body.to_s.empty?
         post_data = HAR::PostData.new(request.body.to_s)
@@ -171,6 +178,12 @@ module Marionette
       return original_body unless response.headers["Content-Type"]?.to_s.includes?("text")
 
       original_body
+        # Sub protocol relative urls with a protocol
+        .gsub(
+          /(src|href|rel)=(["'])[\/]{2,}(#{uri.to_s}[.]*\/.*)(["'])/,
+          "\\1=\\2https://\\3\\4"
+        )
+        # Sub all relative urls with absolute ones
         .gsub(
           /(src|href|rel)=(["'])((?:http|https):\/\/#{uri.to_s})?([.]*\/.*)(["'])/,
           "\\1=\\2http://127.0.0.1:#{@port}/\\3\\4\\5"
