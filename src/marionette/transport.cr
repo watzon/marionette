@@ -15,7 +15,7 @@ module Marionette
 
     # Creates a new Transport instance with the
     # provided `timeout`.
-    def initialize(addr : String, port : Int32, @timeout = 60000)
+    def initialize(addr : String, port : Int32, @timeout : Int32 | Time::Span = 60.seconds)
       @socket = TCPSocket.new(addr, port, dns_timeout: @timeout, connect_timeout: @timeout)
       @socket.read_timeout = @timeout
       @socket.write_timeout = @timeout
