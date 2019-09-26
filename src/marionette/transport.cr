@@ -17,6 +17,8 @@ module Marionette
     # provided `timeout`.
     def initialize(addr : String, port : Int32, @timeout = 60000)
       @socket = TCPSocket.new(addr, port, dns_timeout: @timeout, connect_timeout: @timeout)
+      @socket.read_timeout = @timeout
+      @socket.write_timeout = @timeout
       @last_id = 0
       @max_packet_length = 2048
       @min_protocol_level = 3
@@ -95,24 +97,6 @@ module Marionette
     def request(command, params = nil)
       send(command, params)
       receive
-    end
-
-    private def try_connect(address, port, timeout)
-      now = Time.now
-      connected = false
-
-      until connected || Time.now >= (now + timeout.milliseconds)
-        begin
-          @socket.connect(address, port)
-          connected = true
-          debug("connected to firefox at #{address}:#{port}")
-          return
-        rescue ex
-        end
-      end
-
-      error "Timed out while attemting to connect to firefox"
-      raise "Timed out while attemting to connect to firefox"
     end
   end
 
