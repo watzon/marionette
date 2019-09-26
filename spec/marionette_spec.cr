@@ -3,7 +3,7 @@ require "./spec_helper"
 describe Marionette do
   # TODO: Write tests
 
-  it "works" do
-    false.should eq(true)
+  it "Initialize" do
+    Marionette.launch
   end
 end

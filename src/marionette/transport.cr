@@ -15,8 +15,8 @@ module Marionette
 
     # Creates a new Transport instance with the
     # provided `timeout`.
-    def initialize(@timeout = 60000)
-      @socket = Socket.tcp(Socket::Family::INET)
+    def initialize(addr : String, port : Int32, @timeout = 60000)
+      @socket = TCPSocket.new(addr, port, dns_timeout: @timeout, connect_timeout: @timeout)
       @last_id = 0
       @max_packet_length = 2048
       @min_protocol_level = 3
@@ -28,10 +28,7 @@ module Marionette
 
     # Initiates a TCP connection to a running Firefox instance
     # using the provided `address` and `port`.
-    def connect(address, port)
-      debug("Attempting TCP connection at #{address}:#{port}")
-      try_connect(address, port, @timeout)
-
+    def connect
       begin
         # Utils.timeout(@timeout) do
         response = JSON.parse(receive_raw)
