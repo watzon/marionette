@@ -11,27 +11,22 @@ module Marionette
     getter timeout : Int32
     getter last_id : Int32
 
-    private getter socket : Socket
+    @socket : TCPSocket
 
     # Creates a new Transport instance with the
     # provided `timeout`.
-    def initialize(@timeout = 60000)
-      @socket = Socket.tcp(Socket::Family::INET)
+    def initialize(addr : String, port : Int32, @timeout : Int32 | Time::Span = 60.seconds)
+      @socket = TCPSocket.new(addr, port, dns_timeout: @timeout, connect_timeout: @timeout)
+      @socket.read_timeout = @timeout
+      @socket.write_timeout = @timeout
       @last_id = 0
       @max_packet_length = 2048
       @min_protocol_level = 3
-
-      at_exit do
-        socket.close unless socket.closed?
-      end
     end
 
     # Initiates a TCP connection to a running Firefox instance
     # using the provided `address` and `port`.
-    def connect(address, port)
-      debug("Attempting TCP connection at #{address}:#{port}")
-      try_connect(address, port, @timeout)
-
+    def connect
       begin
         # Utils.timeout(@timeout) do
         response = JSON.parse(receive_raw)
@@ -69,12 +64,12 @@ module Marionette
       now = Time.now
       data = ""
 
-      len = socket.gets(':').to_s.chomp(':').to_i
+      len = @socket.gets(':').to_s.chomp(':').to_i
 
       until data.bytesize == len
         remaining = len - data.bytesize
         num_bytes = [@max_packet_length, remaining].min
-        data += socket.read_string(num_bytes)
+        data += @socket.read_string(num_bytes)
       end
 
       data
@@ -89,7 +84,11 @@ module Marionette
       data = params.to_json
       payload = [0, msg_id, command, params]
       json = payload.to_json
-      socket.send("#{json.bytesize}:#{json}")
+      @socket.send("#{json.bytesize}:#{json}")
+    end
+
+    def finalize
+      @socket.close unless @socket.closed?
     end
 
     # Convenience method to `send` a command with
@@ -98,24 +97,6 @@ module Marionette
     def request(command, params = nil)
       send(command, params)
       receive
-    end
-
-    private def try_connect(address, port, timeout)
-      now = Time.now
-      connected = false
-
-      until connected || Time.now >= (now + timeout.milliseconds)
-        begin
-          @socket.connect(address, port)
-          connected = true
-          debug("connected to firefox at #{address}:#{port}")
-          return
-        rescue ex
-        end
-      end
-
-      error "Timed out while attemting to connect to firefox"
-      raise "Timed out while attemting to connect to firefox"
     end
   end
 

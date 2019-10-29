@@ -6,77 +6,77 @@ module Marionette
     include Logger
 
     CHROME_ELEMENT_KEY = "chromeelement-9fc5-4b51-a3c8-01716eedeb04"
-    FRAME_KEY = "frame-075b-4da1-b6ba-e579c2d3230a"
-    WEB_ELEMENT_KEY = "element-6066-11e4-a52e-4f735466cecf"
-    WINDOW_KEY = "window-fcc6-11e5-b4f8-330a88ab9d7f"
+    FRAME_KEY          = "frame-075b-4da1-b6ba-e579c2d3230a"
+    WEB_ELEMENT_KEY    = "element-6066-11e4-a52e-4f735466cecf"
+    WINDOW_KEY         = "window-fcc6-11e5-b4f8-330a88ab9d7f"
 
     KEYS = {
-      null: '\ue000',
-      cancel: '\ue001',  # ^break
-      help: '\ue002',
-      back_space: '\ue003',
-      tab: '\ue004',
-      clear: '\ue005',
-      return: '\ue006',
-      enter: '\ue007',
-      shift: '\ue008',
-      left_shift: '\ue008',  # alias
-      control: '\ue009',
-      left_control: '\ue009',  # alias
-      alt: '\ue00a',
-      left_alt: '\ue00a',  # alias
-      pause: '\ue00b',
-      escape: '\ue00c',
-      space: '\ue00d',
-      page_up: '\ue00e',
-      page_down: '\ue00f',
-      end: '\ue010',
-      home: '\ue011',
-      left: '\ue012',
-      arrow_left: '\ue012',  # alias
-      up: '\ue013',
-      arrow_up: '\ue013',  # alias
-      right: '\ue014',
-      arrow_right: '\ue014',  # alias
-      down: '\ue015',
-      arrow_down: '\ue015',  # alias
-      insert: '\ue016',
-      delete: '\ue017',
-      semicolon: '\ue018',
-      equals: '\ue019',
+      null:         '\ue000',
+      cancel:       '\ue001', # ^break
+      help:         '\ue002',
+      back_space:   '\ue003',
+      tab:          '\ue004',
+      clear:        '\ue005',
+      return:       '\ue006',
+      enter:        '\ue007',
+      shift:        '\ue008',
+      left_shift:   '\ue008', # alias
+      control:      '\ue009',
+      left_control: '\ue009', # alias
+      alt:          '\ue00a',
+      left_alt:     '\ue00a', # alias
+      pause:        '\ue00b',
+      escape:       '\ue00c',
+      space:        '\ue00d',
+      page_up:      '\ue00e',
+      page_down:    '\ue00f',
+      end:          '\ue010',
+      home:         '\ue011',
+      left:         '\ue012',
+      arrow_left:   '\ue012', # alias
+      up:           '\ue013',
+      arrow_up:     '\ue013', # alias
+      right:        '\ue014',
+      arrow_right:  '\ue014', # alias
+      down:         '\ue015',
+      arrow_down:   '\ue015', # alias
+      insert:       '\ue016',
+      delete:       '\ue017',
+      semicolon:    '\ue018',
+      equals:       '\ue019',
 
-      numpad0: '\ue01a',  # number pad  keys
-      numpad1: '\ue01b',
-      numpad2: '\ue01c',
-      numpad3: '\ue01d',
-      numpad4: '\ue01e',
-      numpad5: '\ue01f',
-      numpad6: '\ue020',
-      numpad7: '\ue021',
-      numpad8: '\ue022',
-      numpad9: '\ue023',
-      multiply: '\ue024',
-      add: '\ue025',
+      numpad0:   '\ue01a', # number pad  keys
+      numpad1:   '\ue01b',
+      numpad2:   '\ue01c',
+      numpad3:   '\ue01d',
+      numpad4:   '\ue01e',
+      numpad5:   '\ue01f',
+      numpad6:   '\ue020',
+      numpad7:   '\ue021',
+      numpad8:   '\ue022',
+      numpad9:   '\ue023',
+      multiply:  '\ue024',
+      add:       '\ue025',
       separator: '\ue026',
-      subtract: '\ue027',
-      decimal: '\ue028',
-      divide: '\ue029',
+      subtract:  '\ue027',
+      decimal:   '\ue028',
+      divide:    '\ue029',
 
-      f1: '\ue031',  # function  keys
-      f2: '\ue032',
-      f3: '\ue033',
-      f4: '\ue034',
-      f5: '\ue035',
-      f6: '\ue036',
-      f7: '\ue037',
-      f8: '\ue038',
-      f9: '\ue039',
+      f1:  '\ue031', # function  keys
+      f2:  '\ue032',
+      f3:  '\ue033',
+      f4:  '\ue034',
+      f5:  '\ue035',
+      f6:  '\ue036',
+      f7:  '\ue037',
+      f8:  '\ue038',
+      f9:  '\ue039',
       f10: '\ue03a',
       f11: '\ue03b',
       f12: '\ue03c',
 
-      meta: '\ue03d',
-      command: '\ue03d'
+      meta:    '\ue03d',
+      command: '\ue03d',
     }
 
     enum BrowserContext
@@ -116,8 +116,8 @@ module Marionette
     getter? extended : Bool
 
     def initialize(@address : String, @port : Int32, @extended = false, @timeout = 60000)
-      @transport = Transport.new(@timeout)
-      @transport.connect(@address, @port)
+      @transport = Transport.new(@address, @port, @timeout)
+      @transport.connect
       launch_proxy if extended
 
       @session_id = nil
@@ -581,11 +581,11 @@ module Marionette
       end
 
       params = {
-        id: element,
+        id:         element,
         highlights: highlights,
-        full: full,
-        scroll: scroll,
-        hash: format == :hash
+        full:       full,
+        scroll:     scroll,
+        hash:       format == :hash,
       }
 
       debug("Taking screenshot")
@@ -621,9 +621,9 @@ module Marionette
     def execute_script(script, args = nil, timeout = @timeout, new_sandbox = true)
       params = {
         scriptTimeout: timeout,
-        script: script,
-        args: args || [] of String,
-        newSandbox: new_sandbox
+        script:        script,
+        args:          args || [] of String,
+        newSandbox:    new_sandbox,
       }
 
       debug("Executing script")
@@ -636,9 +636,9 @@ module Marionette
     def execute_script_async(script, args = nil, timeout = @timeout, new_sandbox = true)
       params = {
         scriptTimeout: timeout,
-        script: script,
-        args: args || [] of String,
-        newSandbox: sandbox
+        script:        script,
+        args:          args || [] of String,
+        newSandbox:    sandbox,
       }
 
       debug("Executing async script")
