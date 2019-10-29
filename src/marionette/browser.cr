@@ -591,6 +591,8 @@ module Marionette
       debug("Taking screenshot")
 
       response = @transport.request("WebDriver:TakeScreenshot", params)
+      return unless response
+
       data = response["value"].as_s
 
       case format
@@ -605,6 +607,7 @@ module Marionette
     def save_screenshot(file, **options)
       options = options.merge(format: ScreenshotFormat::Binary)
       data = take_screenshot(**options)
+      raise "Failed to save screenshot" unless data
       debug("Saving screenshot as #{file}")
       File.write(file, data)
     end
