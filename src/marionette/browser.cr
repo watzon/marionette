@@ -638,7 +638,7 @@ module Marionette
         scriptTimeout: timeout,
         script:        script,
         args:          args || [] of String,
-        newSandbox:    sandbox,
+        newSandbox:    new_sandbox,
       }
 
       debug("Executing async script")
