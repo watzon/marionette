@@ -11,7 +11,7 @@ Marionette is a Crystal shard that replaces the functionality of Selenium (Firef
       - [close_session](#closesession)
       - [on_request(&block : HTTP::Server::Context ->)](#onrequestblock--httpservercontext)
       - [on_headers(&block : HTTP::Headers ->)](#onheadersblock--httpheaders)
-      - [on_har_capture(&block : HAR::Entries ->)](#onharcaptureblock--harentries)
+      - [on_har_capture(&block : HAR::Entry ->)](#onharcaptureblock--harentries)
       - [har_entries](#harentries)
       - [generate_har](#generatehar)
       - [export_har(file, har = nil)](#exportharfile-har--nil)
@@ -164,11 +164,11 @@ browser.on_headers do |headers|
 end
 ```
 
-#### on_har_capture(&block : HAR::Entries ->)
+#### on_har_capture(&block : HAR::Entry ->)
 
 > Note: To use this method the `extended` option must be set to true.
 
-When the `extended` option is set to true automatic [HAR](https://en.wikipedia.org/wiki/.har) capturing will be enabled. `on_har_capture` sends each captured `HAR::Entries` object to the provided block.
+When the `extended` option is set to true automatic [HAR](https://en.wikipedia.org/wiki/.har) capturing will be enabled. `on_har_capture` sends each captured `HAR::Entry` object to the provided block.
 
 ```crystal
 browser.on_har do |har|
@@ -180,11 +180,11 @@ end
 
 > Note: To use this method the `extended` option must be set to true.
 
-Lists each an every `HAR::Entries` object captured so far.
+Lists each an every `HAR::Entry` object captured so far.
 
 ```crystal
 browser.har_entries
-# => [] of HAR::Entries
+# => [] of HAR::Entry
 ```
 
 #### generate_har

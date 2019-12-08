@@ -176,21 +176,21 @@ module Marionette
       end
     end
 
-    # Passes each captured `HAR::Entries` object to the
+    # Passes each captured `HAR::Entry` object to the
     # provided block. Only works if the `extended` option is true.
-    def on_har_capture(&block : HAR::Entries ->)
+    def on_har_capture(&block : HAR::Entry ->)
       if proxy = @proxy
         proxy.on_har_capture(&block)
       end
     end
 
-    # Returns all captured `HAR::Entries` objects so far.
+    # Returns all captured `HAR::Entry` objects so far.
     # Only works if the `extended` option is true.
     def har_entries
       if proxy = @proxy
         return proxy.har_entries
       end
-      return [] of HAR::Entries
+      return [] of HAR::Entry
     end
 
     # Generates and returns a `HAR::Data` object.
