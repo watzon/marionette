@@ -9,7 +9,7 @@ dependencies:
     github: hydecr/strange
   har:
     github: NeuraLegion/har
-    branch: master
+    version: ~> 1.1.0
 
 crystal: 0.24.1
 
