@@ -16,8 +16,8 @@ module Marionette
 
     property callbacks : Array(HTTP::Server::Context ->)
 
-    getter har_entries : Array(HAR::Entries)
-    getter har_capture_callbacks : Array(HAR::Entries ->)
+    getter har_entries : Array(HAR::Entry)
+    getter har_capture_callbacks : Array(HAR::Entry ->)
 
     def initialize(@browser)
       @request = HTTP::Request.new("GET", "about:config")
@@ -25,8 +25,8 @@ module Marionette
       @first = true
 
       @callbacks = [] of HTTP::Server::Context ->
-      @har_capture_callbacks = [] of HAR::Entries ->
-      @har_entries = [] of HAR::Entries
+      @har_capture_callbacks = [] of HAR::Entry ->
+      @har_entries = [] of HAR::Entry
 
       launch
     end
@@ -141,7 +141,7 @@ module Marionette
       @callbacks << block
     end
 
-    def on_har_capture(&block : HAR::Entries ->)
+    def on_har_capture(&block : HAR::Entry ->)
       @har_capture_callbacks << block
     end
 
@@ -166,7 +166,7 @@ module Marionette
       content.mime_type = response.headers["Content-Type"]?.to_s
 
       resp = HAR::Response.new(response.status_code, response.status.description.to_s, "1.1", content)
-      entry = HAR::Entries.new(req, resp)
+      entry = HAR::Entry.new(req, resp)
       # debug("Added HAR entry: #{entry.inspect}")
 
       entry
