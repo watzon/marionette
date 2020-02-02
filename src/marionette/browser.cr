@@ -593,7 +593,8 @@ module Marionette
       response = @transport.request("WebDriver:TakeScreenshot", params)
       return unless response
 
-      data = response["value"].as_s
+      data = response["value"].as_s?
+      return unless data
 
       case format
       when ScreenshotFormat::Binary
