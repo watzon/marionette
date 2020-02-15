@@ -61,7 +61,6 @@ module Marionette
     # a command and returns the raw string.
     # TODO: Add timeout
     def receive_raw
-      now = Time.now
       data = ""
 
       len = @socket.gets(':').to_s.chomp(':').to_i
