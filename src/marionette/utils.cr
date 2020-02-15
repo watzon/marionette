@@ -12,10 +12,10 @@ module Marionette
     end
 
     def self.timeout(time, &block)
-      start = Time.now
+      start = Time.monotonic
       channel = Channel(Bool).new
       spawn do
-        until Time.now > (start + time.milliseconds)
+        until Time.monotonic > (start + time.milliseconds)
         end
         channel.send(false)
       end
