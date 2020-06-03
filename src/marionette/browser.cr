@@ -115,13 +115,28 @@ module Marionette
 
     getter? extended : Bool
 
-    def initialize(@address : String, @port : Int32, @extended = false, @timeout = 60000)
-      @transport = Transport.new(@address, @port, @timeout)
+    def initialize(@address : String, @port : Int32, @extended = false, @timeout = 60000, warmup_timeout = 3.seconds)
+      @transport = warmup_transport(Time.utc + warmup_timeout) || init_transport
       @transport.connect
       launch_proxy if extended
 
       @session_id = nil
       debug("Initialized a new browser instance")
+    end
+
+    def init_transport
+      Transport.new(@address, @port, @timeout)
+    end
+
+    # wait for browser to start
+    def warmup_transport(give_up_time)
+      begin
+        return init_transport
+      rescue exception : Socket::ConnectError
+        sleep 0.1
+        return nil if give_up_time < Time.utc
+        warmup_transport(give_up_time)
+      end
     end
 
     # Starts the proxy server
