@@ -13,14 +13,14 @@ module Marionette
 
     # Returns an `HTMLElement` instance that matches the specified
     # method and target, relative to the current element.
-    def find_element(method, target)
-      @browser.find_element(by : LocatorStrategy, target, @id)
+    def find_element(by, target)
+      @browser.find_element(by, target, @id)
     end
 
     # Returns an array of all `HTMLElement`s that matches the specified
     # method and target, relative to the current element.
-    def find_element(method, target)
-      @browser.find_elements(by : LocatorStrategy, target, @id)
+    def find_elements(by, target)
+      @browser.find_elements(by, target, @id)
     end
 
     # Returns the value of the requested attribute
