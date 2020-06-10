@@ -75,8 +75,8 @@ module Marionette
         args << "--profile #{profile}" if profile
         args << "--window-size {width},{height}" % default_viewport
 
-        stdout ||= Process::ORIGINAL_STDOUT
-        stderr ||= Process::ORIGINAL_STDERR
+        stdout ||= STDOUT
+        stderr ||= STDERR
         Process.new(executable.to_s, args, env, output: stdout, error: stderr)
       end
 
