@@ -95,7 +95,7 @@ module Marionette
         File.write(zip_path, response.body_io)
 
         debug("Extracting chrome to #{folder_path}")
-        Zip::File.open(zip_path) do |zip|
+        Compress::Zip::File.open(zip_path) do |zip|
           zip.extract_all(folder_path, 0x7777)
         end
 

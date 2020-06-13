@@ -1,7 +1,7 @@
 require "file_utils"
-require "zip"
+require "compress/zip"
 
-class Zip::File
+class Compress::Zip::File
   def extract(entry, dest_path = Dir.current, perms = nil)
     if entry.is_a?(String)
       entry = self.[entry]
