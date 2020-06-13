@@ -105,7 +105,7 @@ module Marionette
       end
     end
 
-    getter transport : Transport
+    getter transport : Synchronized(Transport)
 
     getter proxy : Proxy?
 
@@ -125,7 +125,7 @@ module Marionette
     end
 
     def init_transport
-      Transport.new(@address, @port, @timeout)
+      Synchronized(Transport).new(Transport.new(@address, @port, @timeout))
     end
 
     # wait for browser to start
