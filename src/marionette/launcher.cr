@@ -53,16 +53,15 @@ module Marionette
       extended = false,
       browser_capabilities = nil
     )
-
       executable = resolve_executable_path if executable.nil?
 
       capabilities = {
         acceptInsecureCerts: accept_insecure_certs,
-        timeouts: {
+        timeouts:            {
           implicit: timeout,
           pageLoad: timeout,
-          script: timeout
-        }
+          script:   timeout,
+        },
       }
       capabilities = capabilities.merge(browser_capabilities) if browser_capabilities
 

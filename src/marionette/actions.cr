@@ -39,14 +39,14 @@ module Marionette
     def pointer_move(x, y, duration = nil, origin = nil)
       action = Action{
         "type" => "pointerMove",
-        "x" => x,
-        "y" => y
+        "x"    => x,
+        "y"    => y,
       }
 
       if duration
         action = action.merge(Action{"duration" => duration})
       end
-      
+
       if origin
         if origin.is_a?(Browser::WebElement)
           action = action.merge(Action{"origin" => Action{Browser::WEB_ELEMENT_KEY => origin.id}})
@@ -108,10 +108,10 @@ module Marionette
 
     def to_h
       hash = {
-        "type" => action_type.to_s.downcase,
-        "id" => @input_id,
-        "actions" => queue,
-        "parameters" => @pointer_params
+        "type"       => action_type.to_s.downcase,
+        "id"         => @input_id,
+        "actions"    => queue,
+        "parameters" => @pointer_params,
       }
 
       hash

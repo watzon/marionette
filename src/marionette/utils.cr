@@ -19,12 +19,12 @@ module Marionette
         end
         channel.send(false)
       end
-      
+
       spawn do
         block.call
         channel.send(true)
       end
-      
+
       unless channel.receive
         raise Error::TimeoutError.new
       end

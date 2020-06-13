@@ -9,9 +9,9 @@ module Marionette
 
     getter browser : Browser
 
-    property port    : Int32?
+    property port : Int32?
 
-    property request  : HTTP::Request
+    property request : HTTP::Request
     property response : HTTP::Client::Response?
 
     property callbacks : Array(HTTP::Server::Context ->)
@@ -189,6 +189,5 @@ module Marionette
           "\\1=\\2http://127.0.0.1:#{@port}/\\3\\4\\5"
         )
     end
-
   end
 end
