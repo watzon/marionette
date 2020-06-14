@@ -248,15 +248,19 @@ module Marionette
     end
 
     # Get the title of the current page
-    def title
+    def title : String?
       response = @transport.request("WebDriver:GetTitle")
-      response["value"].as_s
+      if response
+        response["value"]?.try &.as_s?
+      end
     end
 
     # Get the current url
-    def url
+    def url : String?
       response = @transport.request("WebDriver:GetCurrentURL")
-      response["value"].as_s
+      if respose
+        response["value"]?.try &.as_s?
+      end
     end
 
     # Refresh the page
@@ -629,9 +633,11 @@ module Marionette
     end
 
     # Get the source for the current page.
-    def page_source
+    def page_source : String?
       response = @transport.request("WebDriver:GetPageSource")
-      response["value"].as_s
+      if response
+        response["value"]?.try &.as_s?
+      end
     end
 
     # Execute JS script. If `new_sandbox` is true (default) the global
@@ -684,7 +690,7 @@ module Marionette
     def text_from_dialog
       response = @transport.request("WebDriver:GetAlertText")
       if params = response.params.as_h?
-        params["value"].as_s
+        params["value"]?.try &.as_s?
       end
     end
 
