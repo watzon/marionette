@@ -111,8 +111,6 @@ If the driver for the chosen browser is installed under its usual name that shou
 
 ### Navigation
 
-> :information_source: **Note:** 
-
 #### `#navigate`
 
 The first thing you will want to do after launching a browser is to open your website. This can be achieved in a single line:
