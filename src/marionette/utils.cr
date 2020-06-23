@@ -81,16 +81,16 @@ module Marionette
 
       if w3c
         case strategy
-        when LocationStrategy::IDSelector
+        when LocationStrategy::ID
           modified_selector = "[id=\"{selector}\"]"
-          modified_strategy = LocationStrategy::CssSelector
-        when LocationStrategy::TagNameSelector
-          modified_strategy = LocationStrategy::CssSelector
-        when LocationStrategy::ClassNameSelector
-          modified_strategy = LocationStrategy::CssSelector
+          modified_strategy = LocationStrategy::Css
+        when LocationStrategy::TagName
+          modified_strategy = LocationStrategy::Css
+        when LocationStrategy::ClassName
+          modified_strategy = LocationStrategy::Css
           modified_selector = ".{selector}"
-        when LocationStrategy::NameSelector
-          modified_strategy = LocationStrategy::CssSelector
+        when LocationStrategy::Name
+          modified_strategy = LocationStrategy::Css
           modified_selector = "[name=\"{selector}\"]"
         end
       end

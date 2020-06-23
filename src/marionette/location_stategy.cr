@@ -1,16 +1,16 @@
 module Marionette
   enum LocationStrategy
-    IDSelector
-    XPathSelector
-    LinkTextSelector
-    PartialLinkTextSelector
-    NameSelector
-    TagNameSelector
-    ClassNameSelector
-    CssSelector
+    ID
+    XPath
+    LinkText
+    PartialLinkText
+    Name
+    TagName
+    ClassName
+    Css
 
     def to_s
-      super.underscore.downcase.gsub('_', " ")
+      super.underscore.downcase.gsub('_', " ") + "_selector"
     end
   end
 end

@@ -78,7 +78,7 @@ module Marionette
       end
     end
 
-    def set_size(width, height)
+    def resize_to(width, height)
       size = Size.new(width: width.to_f, height: height.to_f)
       self.size = size
     end
@@ -110,7 +110,7 @@ module Marionette
       end
     end
 
-    def set_position(x, y)
+    def move_to(x, y)
       position = Size.new(x: x.to_f, y: y.to_f)
       self.position = position
     end

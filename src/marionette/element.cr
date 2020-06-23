@@ -145,7 +145,7 @@ module Marionette
 
     def submit
       if w3c?
-        form = find_child("./ancestor-or-self::form", :x_path_selector)
+        form = find_child("./ancestor-or-self::form", :x_path)
         @session.execute_script(SUBMIT_SCRIPT, [form])
       else
         execute("SubmitElement")
@@ -164,11 +164,11 @@ module Marionette
       send_keys(value)
     end
 
-    def find_child(selector, strategy : LocationStrategy = :css_selector)
+    def find_child(selector, strategy : LocationStrategy = :css)
       @session.find_element_child(self, selector, strategy)
     end
 
-    def find_children(selector, strategy : LocationStrategy = :css_selector)
+    def find_children(selector, strategy : LocationStrategy = :css)
       @session.find_element_children(self, selector, strategy)
     end
 

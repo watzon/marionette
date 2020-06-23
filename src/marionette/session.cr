@@ -52,7 +52,7 @@ module Marionette
       execute("Quit", stop_on_exception: false)
     end
 
-    def wait(time : Time::Span)
+    def implicit_wait(time : Time::Span)
       if w3c?
         execute("SetTimeouts", {"implicit" => time.total_milliseconds.to_i})
       else
@@ -270,7 +270,7 @@ module Marionette
       Element.from_json(response.to_json)
     end
 
-    def find_element(selector, strategy : LocationStrategy = :css_selector)
+    def find_element(selector, strategy : LocationStrategy = :css)
       begin
         find_element!(selector, strategy)
       rescue ex : Error::NoSuchElement
@@ -278,13 +278,13 @@ module Marionette
       end
     end
 
-    def find_element!(selector, strategy : LocationStrategy = :css_selector)
+    def find_element!(selector, strategy : LocationStrategy = :css)
       response = execute("FindElement", Utils.selector_params(selector, strategy, w3c?), stop_on_exception: false)
       id = response.as_h.values[0].as_s
       Element.new(self, id)
     end
 
-    def find_elements(selector, strategy : LocationStrategy = :css_selector)
+    def find_elements(selector, strategy : LocationStrategy = :css)
       begin
         response = execute("FindElements", Utils.selector_params(selector, strategy, w3c?), stop_on_exception: false)
         response.as_a.map do |v|
@@ -296,7 +296,7 @@ module Marionette
       end
     end
 
-    def find_element_child(element, selector, strategy : LocationStrategy = :css_selector)
+    def find_element_child(element, selector, strategy : LocationStrategy = :css)
       begin
         find_element_child!(element, selector, strategy)
       rescue ex : Error::NoSuchElement
@@ -304,7 +304,7 @@ module Marionette
       end
     end
 
-    def find_element_child!(element, selector, strategy : LocationStrategy = :css_selector)
+    def find_element_child!(element, selector, strategy : LocationStrategy = :css)
       element_id = element.is_a?(Element) ? element.id : element
       params = Utils.selector_params(selector, strategy, w3c?)
       params["$elementId"] = element_id
@@ -314,7 +314,7 @@ module Marionette
       Element.new(self, id)
     end
 
-    def find_element_children(element, selector, strategy : LocationStrategy = :css_selector)
+    def find_element_children(element, selector, strategy : LocationStrategy = :css)
       element_id = element.is_a?(Element) ? element.id : element
       params = Utils.selector_params(selector, strategy, w3c?)
       params["$elementId"] = element_id
@@ -330,7 +330,7 @@ module Marionette
     end
 
     def wait_for_element(selector : String,
-                         strategy : LocationStrategy = :css_selector,
+                         strategy : LocationStrategy = :css,
                          timeout = 3.seconds,
                          poll_time = 50.milliseconds,
                          &block)
@@ -353,7 +353,7 @@ module Marionette
     end
 
     def wait_for_elements(selector : String,
-                          strategy : LocationStrategy = :css_selector,
+                          strategy : LocationStrategy = :css,
                           timeout = 3.seconds,
                           poll_time = 50.milliseconds,
                           &block)

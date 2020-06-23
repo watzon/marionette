@@ -297,6 +297,154 @@ When you're done inside a frame and want to get back to the normal document cont
 session.leave_frame
 ```
 
+### Window Management
+
+Screen resolution can impact how your web application renders, so WebDriver provides mechanisms for moving and resizing the browser window.
+
+#### `#size`
+
+You can fetch window dimensions either collectively or individually:
+
+```crystal
+# First get the current window
+window = session.current_window
+
+# Access dimensions individually
+width = window.width
+height = window.height
+
+# Or collectively as a Size object
+window.size
+# => Size(width: 800.0, height: 600.0)
+```
+
+#### `#resize_to`
+
+To resize the window:
+
+```crystal
+window.resize_to(600, 800)
+
+# Or using an existing Size object `size`
+
+window.size = size
+```
+
+#### `#position`
+
+You can fetch the coordinates of the top left corner of the browser window:
+
+```crystal
+window.position
+# => Location(x: 0.0, y: 0.0)
+```
+
+#### `#move_to`
+
+You can also easily set the position of the window:
+
+```crystal
+window.move_to(250, 250)
+
+# Or using a Location object `location`
+
+window.position = location
+```
+
+#### `#maximize`
+
+To maximize the given window:
+
+```crystal
+window.maximize
+```
+
+#### `#minimize`
+
+To minimize the given window:
+
+```crystal
+window.minimize
+```
+
+#### `#fullscreen`
+
+To make the given window full screen:
+
+```crystal
+window.fullscreen
+```
+
+### Element
+
+`Element` represents a DOM element. WebElements can be found by searching from the document root using a WebDriver instance, or by searching under another `Element`.
+
+WebDriver API provides built-in methods to find the WebElements which are based on different properties like ID, Name, Class, XPath, CSS Selectors, link Text, etc.
+
+#### `#active_element`
+
+Get and return the active element:
+
+```crystal
+session.active_element
+```
+
+#### `#find_element`
+
+`find_element` and `find_element!` are used to find and store references to page elements. The only difference between the two is that `find_element!` will throw an exception if the element is not found and will not be nil, whereas `find_element` will return nil if the element is not found.
+
+```crystal
+# Get the search box element by name
+search_bar = session.find_element!("q", :name)
+
+# Peform an action
+search_bar.send_keys("Crystal programming language")
+
+# Click the submit button (using the default :css option this time)
+session.find_element!("button.submit").click
+```
+
+#### `#find_elements`
+
+Used to find an array of elements matching the given selector:
+
+```crystal
+# Get all elements with the tag name "p"
+elements = session.find_elements("p", :tag_name)
+
+elements.each do |el|
+  puts el.text
+end
+```
+
+#### `#find_child`
+
+Used to find a child element within the context of parent element. Like `find_element` it has raising and non-raising varients:
+
+```crystal
+# Find the search form
+form = session.find_element!("form", :tag_name)
+
+# Find the form's child search box
+search_bar = form.find_child!("q", :name)
+
+search_bar.send_keys("Crystal programming language")
+```
+
+#### `#find_children`
+
+Just like `find_elements` and `find_child`:
+
+```crystal
+element = session.find_element!("div", :tag_name)
+
+paragraphs = element.find_children("p", :tag_name)
+
+paragraphs.each do |para|
+  puts para.text
+end
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/watzon/marionette/fork )
