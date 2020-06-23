@@ -259,14 +259,29 @@ module Marionette
     #  |_____|_|\___|_| |_| |_|\___|_| |_|\__|___/
     #
 
+    # Returns the element with focus, or the page Body if nothing has focus.
+    def active_element
+      if w3c?
+        response = execute("W3CGetActiveElement")
+      else
+        response = execute("GetActiveElement")
+      end
+
+      Element.from_json(response.to_json)
+    end
+
     def find_element(selector, strategy : LocationStrategy = :css_selector)
       begin
-        response = execute("FindElement", Utils.selector_params(selector, strategy, w3c?), stop_on_exception: false)
-        id = response.as_h.values[0].as_s
-        Element.new(self, id)
-      rescue ex
+        find_element!(selector, strategy)
+      rescue ex : Error::NoSuchElement
         nil
       end
+    end
+
+    def find_element!(selector, strategy : LocationStrategy = :css_selector)
+      response = execute("FindElement", Utils.selector_params(selector, strategy, w3c?), stop_on_exception: false)
+      id = response.as_h.values[0].as_s
+      Element.new(self, id)
     end
 
     def find_elements(selector, strategy : LocationStrategy = :css_selector)
@@ -276,22 +291,27 @@ module Marionette
           id = v.as_h.values[0].as_s
           Element.new(self, id)
         end
-      rescue ex
-        nil
+      rescue ex : Error::NoSuchElement
+        [] of Element
       end
     end
 
     def find_element_child(element, selector, strategy : LocationStrategy = :css_selector)
+      begin
+        find_element_child!(element, selector, strategy)
+      rescue ex : Error::NoSuchElement
+        nil
+      end
+    end
+
+    def find_element_child!(element, selector, strategy : LocationStrategy = :css_selector)
       element_id = element.is_a?(Element) ? element.id : element
       params = Utils.selector_params(selector, strategy, w3c?)
       params["$elementId"] = element_id
-      begin
-        response = execute("FindChildElement", params, stop_on_exception: false)
-        id = response.as_h.values[0].as_s
-        Element.new(self, id)
-      rescue ex
-        nil
-      end
+
+      response = execute("FindChildElement", params, stop_on_exception: false)
+      id = response.as_h.values[0].as_s
+      Element.new(self, id)
     end
 
     def find_element_children(element, selector, strategy : LocationStrategy = :css_selector)
@@ -304,8 +324,8 @@ module Marionette
           id = v.as_h.values[0].as_s
           Element.new(self, id)
         end
-      rescue ex
-        nil
+      rescue ex : Error::NoSuchElement
+        [] of Element
       end
     end
 
@@ -361,6 +381,14 @@ module Marionette
 
     def switch_to_frame(frame_id : Int)
       execute("SwitchToFrame", {"id" => frame_id})
+    end
+
+    def switch_to_parent_frame
+      execute("SwitchToParentFrame")
+    end
+
+    def leave_frame
+      execute("SwitchToFrame", {"id" => nil})
     end
 
     #      _    _           _

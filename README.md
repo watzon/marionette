@@ -161,6 +161,142 @@ session.title
 # => Crystal | The Crystal Programming Language
 ```
 
+### Windows and Tabs
+
+WebDriver does not make the distinction between windows and tabs. If your site opens a new tab or window, Marionette will let you work with it using a window handle. Each window has a unique identifier which remains persistent in a single session.
+
+#### `#current_window`
+
+You can get the currently active window using:
+
+```crystal
+session.current_window
+```
+
+This returns a `Window` instance containing a handle and allowing certain functions to be performed directly on the window instance.
+
+#### `#windows`
+
+You can get an array of all currently opened windows using:
+
+```crystal
+session.windows
+```
+
+#### `#new_window`
+
+You can create a new window or tab using:
+
+```crystal
+session.new_window(:window) # default
+session.new_window(:tab)
+
+# Or using the Window object
+
+Marionette::Window.new(:window) # default
+Marionette::Window.new(:tab)
+```
+
+#### `#switch_to_window`
+
+To interact with other windows you have to switch to them, this can be done with:
+
+```crystal
+session.switch_to_window(window)
+
+# Or using the Window object
+
+window.switch
+```
+
+#### `#close_window`
+
+When you are finished with a window or tab and it is not the last window or tab open in your browser, you should close it and switch back to the window you were using previously:
+
+```crystal
+session.close_window(window)
+
+# Or using the Window object
+
+window.close
+```
+
+#### `#close_current_window`
+
+Think of this is a shortcut to `#close_window` but for the currently active window:
+
+```crystal
+session.close_current_window
+```
+
+#### `#stop`
+
+When you are finished with the browser session you should call `stop`, instead of `close`:
+
+```crystal
+session.stop
+```
+
+Stop will:
+- Close all the windows and tabs associated with that WebDriver session
+- Close the browser process
+- Close the background driver process
+
+Stop will be automatically closed on process exit.
+
+### Frames and IFrames
+
+Frames are a now deprecated means of building a site layout from multiple documents on the same domain. You are unlikely to work with them unless you are working with an pre HTML5 webapp. Iframes allow the insertion of a document from an entirely different domain, and are still commonly used.
+
+If you need to work with frames or iframes, WebDriver allows you to work with them in the same way. Consider a button within an iframe. If we inspect the element using the browser development tools, we might see the following:
+
+```html
+<div id="modal">
+  <iframe id="buttonframe" name="myframe"  src="https://watzon.github.io">
+   <button>Click here</button>
+ </iframe>
+</div>
+```
+
+If it was not for the iframe we would expect to click on the button using something like:
+
+```crystal
+session.find_element!("button").click
+```
+
+However, if there are no buttons outside of the iframe, you might instead get a _no such element error_. This happens because Marionette is only aware of the elements in the top level document. To interact with the button, we will need to first switch to the frame, in a similar way to how we switch windows. WebDriver offers three ways of switching to a frame.
+
+#### `#switch_to_frame`
+
+The `switch_to_frame` session method allows us to tell the WebDriver that we want to switch the page context to the given frame/iframe:
+
+```crystal
+# Find the element
+iframe = session.find_element!("#modal>iframe")
+
+# Switch to the frame
+session.switch_to_frame(iframe)
+
+# Now we can click the button
+session.find_element!("button").click
+```
+
+#### `#switch_to_parent_frame`
+
+If you're in a nested set of frames you can switch back to the parent frame using:
+
+```crystal
+session.switch_to_parent_frame
+```
+
+#### `#leave_frame`
+
+When you're done inside a frame and want to get back to the normal document context you can use:
+
+```crystal
+session.leave_frame
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/watzon/marionette/fork )
