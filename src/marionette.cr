@@ -25,5 +25,5 @@ require "./marionette/*"
 #
 # See the README for information on getting started.
 module Marionette
-  include DriverOptions
+  extend DriverOptions
 end

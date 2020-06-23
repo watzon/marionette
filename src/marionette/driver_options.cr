@@ -5,7 +5,7 @@ module Marionette
     Eager
 
     def to_s(io)
-      super.downcase
+      io << super.downcase
     end
   end
 
@@ -14,11 +14,13 @@ module Marionette
     Bottom
 
     def to_s(io)
-      super.downcase
+      io << super.downcase
     end
   end
 
   module DriverOptions
+    extend self
+
     def chrome_options(args = [] of String,
                        extensions = [] of String,
                        binary = nil,

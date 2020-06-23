@@ -8,6 +8,10 @@ module Marionette
       if (arguments[0].dispatchEvent(e)) { arguments[0].submit() };
     JS
 
+    SCROLL_TO_SCRIPT = <<-JS
+      arguments[0].scrollIntoView({block: "center", inline: "nearest"});
+    JS
+
     LOCATION_SCRIPT = <<-JS
       return arguments[0].getBoundingClientRect();
     JS
@@ -56,6 +60,10 @@ module Marionette
 
     def displayed?
       execute("IsElementDisplayed").as_bool
+    end
+
+    def scroll_to
+      @session.execute_script(SCROLL_TO_SCRIPT, [self])
     end
 
     def location

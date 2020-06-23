@@ -14,10 +14,6 @@ module Marionette
       at_exit { stop }
     end
 
-    def w3c?
-      @driver.w3c?
-    end
-
     def local?
       !!@service
     end
@@ -44,12 +40,62 @@ module Marionette
     #  |____/ \___||___/___/_|\___/|_| |_|
     #
 
+    def w3c?
+      @driver.w3c?
+    end
+
     def status
       execute("Status")
     end
 
     def close
       execute("Quit", stop_on_exception: false)
+    end
+
+    def wait(time : Time::Span)
+      if w3c?
+        execute("SetTimeouts", {"implicit" => time.total_milliseconds.to_i})
+      else
+        execute("ImplicitWait", {"ms" => time.total_milliseconds.to_i})
+      end
+    end
+
+    def script_timeout(time : Time::Span)
+      if w3c?
+        execute("SetTimeouts", {"script" => time.total_milliseconds.to_i})
+      else
+        execute("SetScriptTimeout", {"ms" => time.total_milliseconds.to_i})
+      end
+    end
+
+    def page_load_timeout(time : Time::Span)
+      begin
+        execute("SetTimeouts", {"pageLoad" => time.total_milliseconds.to_i}, stop_on_exception: false)
+      rescue ex : Error
+        execute("SetTimeouts", {
+          "type" => "page load",
+          "ms" => time.total_milliseconds.to_i
+        })
+      end
+    end
+
+    def orientation
+      if w3c?
+        stop
+        raise Error::GenericError.new("Orientation is only supported on non-W3C compatible drivers")
+      else
+        response = execute("GetScreenOrientation")
+        Orientation.parse(response.upcase)
+      end
+    end
+
+    def orientation=(origination : Orientation)
+      if w3c?
+        stop
+        raise Error::GenericError.new("Orientation is only supported on non-W3C compatible drivers")
+      else
+        execute("SetScreenOrientation", {"orientation" => orientation.to_s})
+      end
     end
 
     #  __        ___           _
@@ -265,10 +311,11 @@ module Marionette
 
     def wait_for_element(selector : String,
                          strategy : LocationStrategy = :css_selector,
-                         timeout = 10.seconds,
+                         timeout = 3.seconds,
                          poll_time = 50.milliseconds,
                          &block)
-      wait_time = 0.0
+      start_time = Time.monotonic
+
       loop do
         begin
           if element = find_element(selector, strategy)
@@ -276,22 +323,22 @@ module Marionette
           end
         rescue ex
         end
-        sleep poll_time
-        wait_time += poll_time.total_milliseconds
-
-        if wait_time > timeout.total_milliseconds
+        if Time.monotonic - start_time > timeout
           stop
           raise Error::GenericError.new("Waiting for element '#{selector}' failed")
         end
+
+        sleep poll_time
       end
     end
 
     def wait_for_elements(selector : String,
                           strategy : LocationStrategy = :css_selector,
-                          timeout = 10.seconds,
+                          timeout = 3.seconds,
                           poll_time = 50.milliseconds,
                           &block)
-                          wait_time = 0.0
+      start_time = Time.monotonic
+
       loop do
         begin
           if elements = find_elements(selector, strategy)
@@ -299,13 +346,12 @@ module Marionette
           end
         rescue ex
         end
-        sleep poll_time
-        wait_time += poll_time.total_milliseconds
-
-        if wait_time > timeout.total_milliseconds
+        if Time.monotonic - start_time > timeout
           stop
           raise Error::GenericError.new("Waiting for elements '#{selector}' failed")
         end
+
+        sleep poll_time
       end
     end
 
@@ -315,6 +361,45 @@ module Marionette
 
     def switch_to_frame(frame_id : Int)
       execute("SwitchToFrame", {"id" => frame_id})
+    end
+
+    #      _    _           _
+    #     / \  | | ___ _ __| |_ ___
+    #    / _ \ | |/ _ \ '__| __/ __|
+    #   / ___ \| |  __/ |  | |_\__ \
+    #  /_/   \_\_|\___|_|   \__|___/
+    #
+
+    def dismiss_alert
+      if w3c?
+        execute("W3CDismissAlert")
+      else
+        execute("DismissAlert")
+      end
+    end
+
+    def accept_alert
+      if w3c?
+        execute("W3CAcceptAlert")
+      else
+        execute("AcceptAlert")
+      end
+    end
+
+    def alert_text
+      if w3c?
+        execute("W3CGetAlertText")
+      else
+        execute("GetAlertText")
+      end
+    end
+
+    def alert_value=(value)
+      if w3c?
+        execute("W3CSetAlertValue", {"value" => value.to_s, "text" => value.to_s})
+      else
+        execute("SetAlertValue", {"text" => value.to_s})
+      end
     end
 
     #   ____                               _           _
@@ -350,15 +435,15 @@ module Marionette
     end
 
     def actions(&block)
-      chain = ActionBuilder.new(session: self)
-      with chain yield chain
-      chain
+      builder = ActionBuilder.new(session: self)
+      with builder yield builder
+      builder
     end
 
     def perform_actions(debug_mouse_move = false, &block)
-      chain = ActionBuilder.new(session: self)
-      with chain yield chain
-      chain.perform(debug_mouse_move)
+      builder = ActionBuilder.new(session: self)
+      with builder yield builder
+      builder.perform(debug_mouse_move)
     end
 
     #   _____ _           __
@@ -517,6 +602,15 @@ module Marionette
     enum Type
       Local
       Remote
+    end
+
+    enum Orientation
+      Landscape
+      Portrait
+
+      def to_s(io)
+        io << super.downcase
+      end
     end
 
     record NetworkConditions,

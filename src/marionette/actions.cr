@@ -47,15 +47,15 @@ module Marionette
       Action::KeyDown.new(key)
     end
 
-    def create_mouse_down(button : MouseButton, duration = 0.seconds)
+    def create_mouse_down(button : MouseButton, duration : Time::Span = 0.seconds)
       Action::PointerDown.new(button, duration)
     end
 
-    def create_mouse_up(button : MouseButton, duration = 0.seconds)
+    def create_mouse_up(button : MouseButton, duration : Time::Span = 0.seconds)
       Action::PointerUp.new(button, duration)
     end
 
-    def mouse_button_down(button : MouseButton = :left, duration = 0.seconds)
+    def mouse_button_down(button : MouseButton = :left, duration : Time::Span = 0.seconds)
       action = create_mouse_down(button, duration)
       if @session.w3c?
         w3c_action(action)
@@ -64,7 +64,7 @@ module Marionette
       end
     end
 
-    def mouse_button_up(button : MouseButton = :left, duration = 0.seconds)
+    def mouse_button_up(button : MouseButton = :left, duration : Time::Span = 0.seconds)
       action = create_mouse_up(button, duration)
       if @session.w3c?
         w3c_action(action)
@@ -73,25 +73,25 @@ module Marionette
       end
     end
 
-    def create_pointer_move(x : Number, y : Number, duration = 0.seconds, origin = Origin::ViewPort.new)
+    def create_pointer_move(x : Number, y : Number, duration : Time::Span = 0.seconds, origin = Origin::ViewPort.new)
       Action::PointerMove.new(x.to_f, y.to_f, duration, origin)
     end
 
-    def create_pointer_move(x : Number, y : Number, element : Element, duration = 0.seconds)
+    def create_pointer_move(x : Number, y : Number, element : Element, duration : Time::Span = 0.seconds)
       origin = Origin::Element.new(element.id)
       Action::PointerMove.new(x.to_f, y.to_f, duration, origin)
     end
 
-    def create_pointer_move(x : Number, y : Number, selector : String, duration = 0.seconds, location_strategy : LocationStrategy = :css_selector)
+    def create_pointer_move(x : Number, y : Number, selector : String, duration : Time::Span = 0.seconds, location_strategy : LocationStrategy = :css_selector)
       origin = Origin::ElementSelector.new(selector.to_s, location_strategy)
       Action::PointerMove.new(x.to_f, y.to_f, duration, origin)
     end
 
-    def create_pointer_move(element : Element, duration = 0.seconds)
+    def create_pointer_move(element : Element, duration : Time::Span = 0.seconds)
       create_pointer_move(-1.0, -1.0, element, duration)
     end
 
-    def create_pointer_move(selector : String, duration = 0.seconds, location_strategy : LocationStrategy = :css_selector)
+    def create_pointer_move(selector : String, duration : Time::Span = 0.seconds, location_strategy : LocationStrategy = :css_selector)
       Action::PointerMove.new(
         x: -1, y: -1,
         move_duration: duration,
@@ -100,7 +100,7 @@ module Marionette
           location_strategy: location_strategy))
     end
 
-    def move_mouse(x : Number, y : Number, duration = 0.seconds, origin = Origin::ViewPort.new)
+    def move_mouse(x : Number, y : Number, duration : Time::Span = 0.seconds, origin = Origin::ViewPort.new)
       if @session.w3c?
         w3c_action(create_pointer_move(x, y, duration, origin))
       else
@@ -108,11 +108,19 @@ module Marionette
       end
     end
 
-    def move_mouse_to(x : Number, y : Number, duration = 0.seconds)
+    def move_mouse_to(x : Number, y : Number, duration : Time::Span = 0.seconds)
       move_mouse(x, y, duration, Origin::ViewPort.new)
     end
 
-    def move_mouse_to(element : Element, delta_x : Number, delta_y : Number, duration = 0.seconds)
+    def move_mouse_to(element : Element)
+      if @session.w3c?
+        move_mouse_to(element, 0.seconds)
+      else
+        action("MoveTo", create_pointer_move(element, 0.seconds))
+      end
+    end
+
+    def move_mouse_to(element : Element, delta_x : Number, delta_y : Number, duration : Time::Span = 0.seconds)
       if @session.w3c?
         w3c_action(create_pointer_move(delta_x, delta_y, element, duration))
       else
@@ -137,7 +145,7 @@ module Marionette
       end
     end
 
-    def move_mouse_to(element : Element, duration = 0.seconds)
+    def move_mouse_to(element : Element, duration : Time::Span = 0.seconds)
       if @session.w3c?
         w3c_action(create_pointer_move(0, 0, element, duration))
       else
@@ -145,19 +153,11 @@ module Marionette
       end
     end
 
-    def move_mouse_to(selector : String, duration = 0.seconds, location_strategy : LocationStrategy = :css_selector)
+    def move_mouse_to(selector : String, duration : Time::Span = 0.seconds, location_strategy : LocationStrategy = :css_selector)
       if @session.w3c?
         w3c_action(create_pointer_move(0, 0, selector, duration: duration, location_strategy: location_strategy))
       else
         raise "moveMouseTo with duration is not supported for non-W3C drivers"
-      end
-    end
-
-    def move_mouse_to(element : Element)
-      if @session.w3c?
-        move_mouse_to(element, 0.seconds)
-      else
-        action("MoveTo", create_pointer_move(element, 0.seconds))
       end
     end
 
@@ -181,7 +181,7 @@ module Marionette
       end
     end
 
-    def pause(duration = 0.seconds)
+    def pause(duration : Time::Span = 0.seconds)
       if @session.w3c?
         w3c_action(Action::PointerPause.new(duration: duration))
         w3c_action(Action::KeyPause.new(duration: duration))
@@ -204,6 +204,10 @@ module Marionette
       move_mouse_to(selector, location_strategy).click(button)
     end
 
+    def click(selector : String, delta_x : Number, delta_y : Number, button : MouseButton = :left, location_strategy : LocationStrategy = :css_selector)
+      move_mouse_to(selector, delta_x, delta_y, location_strategy).click(button)
+    end
+
     def right_click
       click(:right)
     end
@@ -214,6 +218,10 @@ module Marionette
 
     def right_click(selector : String, location_strategy : LocationStrategy = :css_selector)
       click(selector, button: :right, location_strategy: location_strategy)
+    end
+
+    def right_click(selector : String, delta_x : Number, delta_y : Number, location_strategy : LocationStrategy = :css_selector)
+      move_mouse_to(selector, delta_x, delta_y, location_strategy).right_click(:right)
     end
 
     def click_and_hold(button : MouseButton = :left)
@@ -228,6 +236,10 @@ module Marionette
       move_mouse_to(selector, location_strategy).click_and_hold(button)
     end
 
+    def click_and_hold(selector : String, delta_x : Number, delta_y : Number, button : MouseButton = :left, location_strategy : LocationStrategy = :css_selector)
+      move_mouse_to(selector, delta_x, delta_y, location_strategy).click_and_hold(button)
+    end
+
     def right_click_and_hold
       mouse_button_down(:right)
     end
@@ -238,6 +250,10 @@ module Marionette
 
     def right_click_and_hold(selector : String, location_strategy : LocationStrategy = :css_selector)
       move_mouse_to(selector, location_strategy).right_click_and_hold
+    end
+
+    def right_click_and_hold(selector : String, delta_x : Number, delta_y : Number, location_strategy : LocationStrategy = :css_selector)
+      move_mouse_to(selector, delta_x, delta_y, location_strategy).right_click_and_hold(:right)
     end
 
     def double_click(button : MouseButton = :left)
@@ -252,6 +268,10 @@ module Marionette
       move_mouse_to(selector, location_strategy).double_click(button)
     end
 
+    def double_click(selector : String, delta_x : Number, delta_y : Number, button : MouseButton = :left, location_strategy : LocationStrategy = :css_selector)
+      move_mouse_to(selector, delta_x, delta_y, location_strategy).double_click(button)
+    end
+
     def double_right_click
       click(:right).click(button)
     end
@@ -262,6 +282,10 @@ module Marionette
 
     def double_right_click(selector : String, location_strategy : LocationStrategy = :css_selector)
       move_mouse_to(selector, location_strategy).double_right_click
+    end
+
+    def double_right_click(selector : String, delta_x : Number, delta_y : Number, button : MouseButton = :left, location_strategy : LocationStrategy = :css_selector)
+      move_mouse_to(selector, delta_x, delta_y, location_strategy).double_right_click(:right)
     end
 
     def release(button : MouseButton = :left)
@@ -276,8 +300,16 @@ module Marionette
       mouse_mouse_to(selector, location_strategy).mouse_button_up(button, 0.seconds)
     end
 
+    def release(selector : String, delta_x : Number, delta_y : Number, button : MouseButton = :left, location_strategy : LocationStrategy = :css_selector)
+      move_mouse_to(selector, delta_x, delta_y, location_strategy).mouse_button_up(button, 0.seconds)
+    end
+
     def release_right(selector : String, location_strategy : LocationStrategy = :css_selector)
       mouse_mouse_to(selector, location_strategy).mouse_button_up(:right, 0.seconds)
+    end
+
+    def release_right(selector : String, delta_x : Number, delta_y : Number, location_strategy : LocationStrategy = :css_selector)
+      move_mouse_to(selector, delta_x, delta_y, location_strategy).mouse_button_up(:right, 0.seconds)
     end
 
     def drag_and_drop(source : Element, dest : Element)
