@@ -14,6 +14,24 @@ Marionette is a one-size-fits-all approach to WebDriver adapters. It works with 
 - [x] WPE Webkit
 - [x] Android
 
+## Table of Contents
+
+- [Installation](#installation)
+- [WebDriver](#webdriver)
+  - [Firefox](#firefox)
+  - [Chrome](#chrome)
+  - [Opera](#opera)
+  - [Safari](#safari)
+  - [Edge](#edge)
+  - [Internet Explorer](#internet-explorer)
+- [Getting Started](#getting-started)
+- [Browser Manipulation](#browser-manipulation)
+  - [Navigation](#navigation)
+  - [Windows and Tabs](#windows-and-tabs)
+  - [Frames and IFrames](#frames-and-iframes)
+  - [Window Management](#window-management)
+- [Element](#element)
+
 ## Installation
 
 1. Make sure you have Crystal installed. This is a Crystal project and Crystal is required for usage. If you don't have it installed, see https://crystal-lang.org.
@@ -375,7 +393,7 @@ To make the given window full screen:
 window.fullscreen
 ```
 
-### Element
+## Element
 
 `Element` represents a DOM element. WebElements can be found by searching from the document root using a WebDriver instance, or by searching under another `Element`.
 
