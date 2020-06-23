@@ -52,6 +52,61 @@ module Marionette
       execute("Quit", stop_on_exception: false)
     end
 
+    #  __        ___           _
+    #  \ \      / (_)_ __   __| | _____      _____
+    #   \ \ /\ / /| | '_ \ / _` |/ _ \ \ /\ / / __|
+    #    \ V  V / | | | | | (_| | (_) \ V  V /\__ \
+    #     \_/\_/  |_|_| |_|\__,_|\___/ \_/\_/ |___/
+    #
+
+    def current_window
+      if w3c?
+        handle = execute("W3CGetCurrentWindowHandle").as_s
+      else
+        handle = execute("GetCurrentWindowHandle").as_s
+      end
+
+      Window.new(self, handle, :window)
+    end
+
+    def windows
+      if w3c?
+        handles = execute("W3CGetWindowHandles").as_a.map(&.as_s)
+      else
+        handles = execute("GetWindowHandles").as_a.map(&.as_s)
+      end
+
+      handles.map do |handle|
+        Window.new(self, handle, :window)
+      end
+    end
+
+    def switch_to_window(window : Window)
+      execute("SwitchToWindow", {"handle" => window.handle})
+    end
+
+    def switch_to_window(handle : String)
+      execute("SwitchToWindow", {"handle" => handle})
+    end
+
+    def new_window(type : Window::Type = :window)
+      response = execute("NewWindow", {"type" => type.to_s.downcase})
+      Window.new(
+        self,
+        response["handle"].as_s,
+        Window::Type.parse(response["type"].as_s.downcase)
+      )
+    end
+
+    def close_current_window
+      execute("Close")
+    end
+
+    def close_window(window : Window)
+      switch_to_window(window)
+      close_current_window
+    end
+
     #   _   _             _             _   _
     #  | \ | | __ ___   _(_) __ _  __ _| |_(_) ___  _ __
     #  |  \| |/ _` \ \ / / |/ _` |/ _` | __| |/ _ \| '_ \
@@ -81,6 +136,45 @@ module Marionette
 
     def title
       execute("GetTitle").as_s
+    end
+
+    #    ____            _    _
+    #   / ___|___   ___ | | _(_) ___  ___
+    #  | |   / _ \ / _ \| |/ / |/ _ \/ __|
+    #  | |__| (_) | (_) |   <| |  __/\__ \
+    #   \____\___/ \___/|_|\_\_|\___||___/
+    #
+
+    def get_cookie(cookie : HTTP::Cookie)
+      get_cookie(cookie.name)
+    end
+
+    def get_cookie(name : String)
+      begin
+        value = execute("GetCookie", {"name" => name}, stop_on_exception: false)
+        HTTP::Cookie.from_json(value.to_json)
+      rescue ex : Error::NoSuchCookie
+        Log.warn { "Cookie not found with name '#{name}'" }
+        nil
+      end
+    end
+
+    def delete_cookie(name : String)
+      begin
+        execute("DeleteCookie", {"name" => name}, stop_on_exception: false)
+      rescue ex : Error::NoSuchCookie
+        Log.warn { "Cookie not found with name '#{name}'" }
+        nil
+      end
+    end
+
+    def all_cookies
+      cookies = execute("GetAllCookies")
+      cookies.as_a.map { |c| HTTP::Cookie.from_json(c.to_json) }
+    end
+
+    def delete_all_cookies
+      execute("DeleteAllCookies")
     end
 
     #   ____                                        _
@@ -169,7 +263,11 @@ module Marionette
       end
     end
 
-    def wait_for_element(selector : String, strategy : LocationStrategy = :css_selector, timeout = 10.seconds, poll_time = 50.milliseconds, &block)
+    def wait_for_element(selector : String,
+                         strategy : LocationStrategy = :css_selector,
+                         timeout = 10.seconds,
+                         poll_time = 50.milliseconds,
+                         &block)
       wait_time = 0.0
       loop do
         begin
@@ -183,9 +281,40 @@ module Marionette
 
         if wait_time > timeout.total_milliseconds
           stop
-          raise "Waiting for element '#{selector}' failed"
+          raise Error::GenericError.new("Waiting for element '#{selector}' failed")
         end
       end
+    end
+
+    def wait_for_elements(selector : String,
+                          strategy : LocationStrategy = :css_selector,
+                          timeout = 10.seconds,
+                          poll_time = 50.milliseconds,
+                          &block)
+                          wait_time = 0.0
+      loop do
+        begin
+          if elements = find_elements(selector, strategy)
+            return yield elements
+          end
+        rescue ex
+        end
+        sleep poll_time
+        wait_time += poll_time.total_milliseconds
+
+        if wait_time > timeout.total_milliseconds
+          stop
+          raise Error::GenericError.new("Waiting for elements '#{selector}' failed")
+        end
+      end
+    end
+
+    def switch_to_frame(frame : Element)
+      execute("SwitchToFrame", {"id" => frame})
+    end
+
+    def switch_to_frame(frame_id : Int)
+      execute("SwitchToFrame", {"id" => frame_id})
     end
 
     #   ____                               _           _
@@ -221,13 +350,13 @@ module Marionette
     end
 
     def actions(&block)
-      chain = ActionChain.new(session: self)
+      chain = ActionBuilder.new(session: self)
       with chain yield chain
       chain
     end
 
     def perform_actions(debug_mouse_move = false, &block)
-      chain = ActionChain.new(session: self)
+      chain = ActionBuilder.new(session: self)
       with chain yield chain
       chain.perform(debug_mouse_move)
     end
@@ -363,7 +492,6 @@ module Marionette
       end
 
       begin
-        pp new_params
         result = @driver.execute(command, new_params)
       rescue ex
         if stop_on_exception
@@ -381,7 +509,7 @@ module Marionette
 
     def assert_browser(browser : Browser)
       if service.browser != browser
-        raise "Invalid command for #{service.browser}. Command is valid for #{browser} only."
+        raise Error::UnknownMethod.new("Command is valid for #{browser} only.")
       end
     end
 

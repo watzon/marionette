@@ -35,6 +35,10 @@ module Marionette
     end
 
     def text
+      property("innerText").as_s
+    end
+
+    def visible_text
       execute("GetElementText").as_s
     end
 
@@ -43,15 +47,15 @@ module Marionette
     end
 
     def selected?
-      execute("IsElementSelected").as_s
+      execute("IsElementSelected").as_bool
     end
 
     def enabled?
-      execute("IsElementEnabled").as_s
+      execute("IsElementEnabled").as_bool
     end
 
     def displayed?
-      execute("IsElementDisplayed").as_s
+      execute("IsElementDisplayed").as_bool
     end
 
     def location
@@ -189,18 +193,6 @@ module Marionette
         @session.stop
         raise ex
       end
-    end
-
-    record Size, height : Float64, width : Float64 do
-      include JSON::Serializable
-    end
-
-    record Rect, height : Float64, width : Float64, x : Float64, y : Float64 do
-      include JSON::Serializable
-    end
-
-    record Location, x : Float64, y : Float64 do
-      include JSON::Serializable
     end
   end
 end

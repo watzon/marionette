@@ -27,11 +27,11 @@ module Marionette
                             port = nil,
                             env = ENV.to_h,
                             args = [] of String,
-                            browser_options = {} of String => String)
+                            options = {} of String => String)
       service = Service.new(browser, exe_path, port, "127.0.0.1", args, env)
       service.start
       driver = browser.new_remote_web_driver(service.url, keep_alive: true)
-      result = driver.get_session(browser_options)
+      result = driver.get_session(options)
       result.service = service
       result
     end
@@ -46,20 +46,24 @@ module Marionette
       }
 
       response = execute("NewSession", params)
+
       if !response["sessionId"]?
         response = response["value"]
       end
 
-      session_id = response["sessionId"].as_s
-      @capabilities = response["value"]?
+      if session_id = response["sessionId"]?
+        @capabilities = response["value"]?
 
-      if !@capabilities
-        @capabilities = response["capabilities"]?
+        if !@capabilities
+          @capabilities = response["capabilities"]?
+        end
+
+        @w3c = !response["status"]?
+
+        Session.new(self, id: session_id.as_s, type: :local)
+      else
+        raise "Failed to start session"
       end
-
-      @w3c = !response["status"]?
-
-      Session.new(self, id: session_id, type: :local)
     end
 
     def connection_headers(url : String | URI, keep_alive : Bool = false)
@@ -107,8 +111,13 @@ module Marionette
       end
 
       data = params.to_a.reject { |k, _| k.starts_with?('$') }.to_h
-
       response = request(method, path, data)
+
+      if response["value"].as_h? && (error = response.dig?("value", "error"))
+        error = response.dig?("value", "message") || error
+        raise Error.from_json(error)
+      end
+
       response
     end
   end

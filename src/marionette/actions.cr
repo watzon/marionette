@@ -1,194 +1,6 @@
 module Marionette
-  enum MouseButton
-    Left
-    Middle
-    Right
-  end
-
-  enum PointerType
-    Mouse
-    Touch
-    Pen
-  end
-
-  abstract class Origin
-    include JSON::Serializable
-
-    class ViewPort < Origin
-      getter name = "viewport"
-    end
-
-    class Pointer < Origin
-      getter name = "pointer"
-    end
-
-    class ElementSelector < Origin
-      getter name = "elementselector"
-
-      property selector : String
-
-      property location_strategy : LocationStrategy
-
-      def initialize(@selector : String, @location_strategy : LocationStrategy)
-      end
-    end
-
-    class Element < Origin
-      getter name = "element"
-
-      property element_id : String
-
-      def initialize(@element_id : String)
-      end
-    end
-  end
-
-  abstract class Action
-    def source_type
-      case self
-      when KeyUp, KeyDown, KeyPause
-        SourceType::Key
-      when PointerCancel, PointerDown, PointerMove, PointerPause, PointerUp
-        SourceType::Pointer
-      else
-        raise "Unreachable"
-      end
-    end
-
-    class KeyUp < Action
-      getter name = "keyUp"
-
-      property value : String
-
-      def initialize(@value : String)
-      end
-    end
-
-    class KeyDown < Action
-      getter name = "keyDown"
-
-      property value : String
-
-      def initialize(@value : String)
-      end
-    end
-
-    class PointerPause < Action
-      getter name = "pause"
-
-      property duration : Time::Span
-
-      def initialize(@duration : Time::Span = 0.seconds)
-      end
-    end
-
-    class KeyPause < Action
-      getter name = "pause"
-
-      property duration : Time::Span
-
-      def initialize(@duration : Time::Span = 0.seconds)
-      end
-    end
-
-    class PointerUp < Action
-      getter name = "pointerUp"
-
-      property click_duration : Time::Span
-
-      property button : MouseButton
-
-      def initialize(@button : MouseButton, @click_duration : Time::Span)
-      end
-    end
-
-    class PointerDown < Action
-      getter name = "pointerDown"
-
-      property click_duration : Time::Span
-
-      property button : MouseButton
-
-      def initialize(@button : MouseButton, @click_duration : Time::Span)
-      end
-    end
-
-    class PointerMove < Action
-      getter name = "pointerMove"
-
-      property move_duration : Time::Span
-
-      property x : Float64
-
-      property y : Float64
-
-      property origin : Origin
-
-      def initialize(@x : Float64, @y : Float64, @move_duration : Time::Span, @origin : Origin)
-      end
-    end
-
-    class PointerCancel
-      getter name = "pointerCancel"
-    end
-
-    enum SourceType
-      Key
-      Pointer
-    end
-  end
-
-  class ActionChain
-    DEBUG_MOUSE_MOVE_SCRIPT = <<-JS
-      var id = "marionetteMouseDebugging";
-      var dotID = "marionetteMouseDebuggingDot";
-      var descID = "marionetteMouseDebuggingDescription";
-      var element = arguments[0];
-      var x = arguments[1];
-      var y = arguments[2];
-      var rect = element.getBoundingClientRect();
-      var el, redDot, description;
-      if (document.getElementById(id) == null) {
-        el = document.createElement("div");
-        redDot = document.createElement("div");
-        description = document.createElement("div");
-        el.appendChild(redDot);
-        el.appendChild(description);
-        el.id = id;
-        redDot.id = dotID;
-        description.id = descID;
-        el.style.position = "absolute";
-        el.style.zIndex = "100000000";
-        el.style.display = "flex";
-        el.style.pointerEvents = "none";
-        redDot.style.borderRadius = "5px";
-        redDot.style.border = "2px solid red";
-        redDot.style.backgroundColor = "red";
-        redDot.style.width = "5px";
-        redDot.style.height = "5px";
-        redDot.style.display = "inline-block";
-        redDot.style.pointerEvents = "none";
-        redDot.style.marginRight = "5px";
-        description.style.display = "inline-block";
-        description.style.border = "1px solid black";
-        description.style.backgroundColor = "white";
-        description.style.borderRadius = "3px";
-        description.style.pointerEvents = "none";
-        description.style.paddingLeft = "5px";
-        description.style.paddingRight = "5px";
-        document.body.appendChild(el);
-      } else {
-        el = document.getElementById(id);
-        redDot = document.getElementById(dotID);
-        description = document.getElementById(descID);
-      }
-      el.style.top = (rect.top + y) + "px";
-      el.style.left = (rect.left + x) + "px";
-      description.innerHTML = "Moved to (x: " + el.style.left + ", y: " + el.style.top + ")";
-      console.log(x);
-      console.log(y);
-      console.log(element);
-    JS
+  class ActionBuilder
+    DEBUG_MOUSE_MOVE_SCRIPT = {{ read_file("src/marionette/scripts/debug_mouse_move.js") }}
 
     getter session : Session
 
@@ -624,6 +436,9 @@ module Marionette
           {
             type: "pointer",
             id: UUID.random.to_s,
+            parameters: {
+              pointerType: pointer_type.to_s
+            },
             actions: pointer_actions.map { |a| make_action_object(a, debug_mouse_move: debug_mouse_move) }
           }
         ]
@@ -643,8 +458,8 @@ module Marionette
         if is_w3c
           {
             type: action.name,
-            value: action.duration.total_seconds,
-            duration: action.duration.total_seconds
+            value: action.duration.total_milliseconds.to_i,
+            duration: action.duration.total_milliseconds.to_i
           }
         else
           NamedTuple.new
@@ -657,7 +472,7 @@ module Marionette
         end
       when Action::PointerUp, Action::PointerDown
         if is_w3c
-          {type: action.name, duration: action.click_duration.total_seconds, button: action.button.value}
+          {type: action.name, duration: action.click_duration.total_milliseconds.to_i, button: action.button.value}
         else
           NamedTuple.new
         end
@@ -668,23 +483,23 @@ module Marionette
           if is_w3c
             {
               type:     action.name,
-              duration: action.move_duration.total_seconds,
-              x:        action.x,
-              y:        action.y,
+              duration: action.move_duration.total_milliseconds.to_i,
+              x:        action.x.to_i,
+              y:        action.y.to_i,
               origin:   origin.name,
             }
           else
             {
-              xoffset: action.x,
-              yoffset: action.y,
+              xoffset: action.x.to_i,
+              yoffset: action.y.to_i,
             }
           end
         when Origin::ElementSelector
           selector = origin.selector
           location_strategy = origin.location_strategy
           @session.wait_for_element(selector, location_strategy) do |element|
-            x = action.x
-            y = action.y
+            x = action.x.to_i
+            y = action.y.to_i
 
             if debug_mouse_move
               @session.execute_script(DEBUG_MOUSE_MOVE_SCRIPT, [element, x, y])
@@ -693,7 +508,7 @@ module Marionette
             if is_w3c
               {
                 type:     action.name,
-                duration: action.move_duration.total_seconds,
+                duration: action.move_duration.total_milliseconds.to_i,
                 x:        x,
                 y:        y,
                 origin:   element,
@@ -714,8 +529,8 @@ module Marionette
           end
         when Origin::Element
           element = Element.new(id: origin.element_id, session: @session)
-          x = action.x
-          y = action.y
+          x = action.x.to_i
+          y = action.y.to_i
 
           if debug_mouse_move
             @session.execute_script(DEBUG_MOUSE_MOVE_SCRIPT, [element, x, y])
@@ -724,7 +539,7 @@ module Marionette
           if is_w3c
             {
               type:     action.name,
-              duration: action.move_duration.total_seconds,
+              duration: action.move_duration.total_milliseconds.to_i,
               x:        x,
               y:        y,
               origin:   {
@@ -750,6 +565,153 @@ module Marionette
       else
         raise "Unreachable"
       end
+    end
+  end
+
+  enum MouseButton
+    Left
+    Middle
+    Right
+
+    def to_s
+      super.downcase
+    end
+  end
+
+  enum PointerType
+    Mouse
+    Touch
+    Pen
+
+    def to_s
+      super.downcase
+    end
+  end
+
+  abstract class Origin
+    include JSON::Serializable
+
+    class ViewPort < Origin
+      getter name = "viewport"
+    end
+
+    class Pointer < Origin
+      getter name = "pointer"
+    end
+
+    class ElementSelector < Origin
+      getter name = "elementselector"
+
+      property selector : String
+
+      property location_strategy : LocationStrategy
+
+      def initialize(@selector : String, @location_strategy : LocationStrategy)
+      end
+    end
+
+    class Element < Origin
+      getter name = "element"
+
+      property element_id : String
+
+      def initialize(@element_id : String)
+      end
+    end
+  end
+
+  abstract class Action
+    def source_type
+      case self
+      when KeyUp, KeyDown, KeyPause
+        SourceType::Key
+      when PointerCancel, PointerDown, PointerMove, PointerPause, PointerUp
+        SourceType::Pointer
+      else
+        raise "Unreachable"
+      end
+    end
+
+    class KeyUp < Action
+      getter name = "keyUp"
+
+      property value : String
+
+      def initialize(@value : String)
+      end
+    end
+
+    class KeyDown < Action
+      getter name = "keyDown"
+
+      property value : String
+
+      def initialize(@value : String)
+      end
+    end
+
+    class PointerPause < Action
+      getter name = "pause"
+
+      property duration : Time::Span
+
+      def initialize(@duration : Time::Span = 0.seconds)
+      end
+    end
+
+    class KeyPause < Action
+      getter name = "pause"
+
+      property duration : Time::Span
+
+      def initialize(@duration : Time::Span = 0.seconds)
+      end
+    end
+
+    class PointerUp < Action
+      getter name = "pointerUp"
+
+      property click_duration : Time::Span
+
+      property button : MouseButton
+
+      def initialize(@button : MouseButton, @click_duration : Time::Span)
+      end
+    end
+
+    class PointerDown < Action
+      getter name = "pointerDown"
+
+      property click_duration : Time::Span
+
+      property button : MouseButton
+
+      def initialize(@button : MouseButton, @click_duration : Time::Span)
+      end
+    end
+
+    class PointerMove < Action
+      getter name = "pointerMove"
+
+      property move_duration : Time::Span
+
+      property x : Float64
+
+      property y : Float64
+
+      property origin : Origin
+
+      def initialize(@x : Float64, @y : Float64, @move_duration : Time::Span, @origin : Origin)
+      end
+    end
+
+    class PointerCancel
+      getter name = "pointerCancel"
+    end
+
+    enum SourceType
+      Key
+      Pointer
     end
   end
 end
