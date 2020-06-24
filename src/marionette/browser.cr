@@ -37,7 +37,7 @@ module Marionette
     end
 
     def desired_capabilities
-      case self
+      caps = case self
       in Firefox
         {
           "browserName" => "firefox",
@@ -99,6 +99,8 @@ module Marionette
           "platform" => "ANY"
         }
       end
+
+      caps.transform_values { |v| JSON::Any.new(v) }
     end
 
     def default_exe

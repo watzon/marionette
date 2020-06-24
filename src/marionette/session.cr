@@ -14,12 +14,13 @@ module Marionette
 
     getter capabilities : Hash(String, JSON::Any)
 
-    private def initialize(@driver : WebDriver,
-                           @id : String,
-                           @type : Type,
-                           @capabilities : Hash(String, JSON::Any),
-                           @service = nil,
-                           @w3c = false)
+    # :nodoc:
+    def initialize(@driver : WebDriver,
+                   @id : String,
+                   @type : Type,
+                   @capabilities : Hash(String, JSON::Any),
+                   @service = nil,
+                   @w3c = false)
       at_exit do
         if (svc = @service) && !svc.closed?
           stop
