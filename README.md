@@ -1,5 +1,9 @@
 # Marionette
 
+<div align="center">
+  <img src="./assets/code.png">
+</div>
+
 Marionette is a one-size-fits-all approach to WebDriver adapters. It works with most all web driver implementations, including:
 
 - [x] Chrome

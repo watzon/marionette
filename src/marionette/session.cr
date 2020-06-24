@@ -86,7 +86,7 @@ module Marionette
       rescue ex : Error
         execute("SetTimeouts", {
           "type" => "page load",
-          "ms" => time.total_milliseconds.to_i
+          "ms"   => time.total_milliseconds.to_i,
         })
       end
     end
@@ -414,6 +414,14 @@ module Marionette
       end
     end
 
+    # :ditto:
+    def wait_for_element(selector : String,
+                         strategy : LocationStrategy = :css,
+                         timeout = 3.seconds,
+                         poll_time = 50.milliseconds)
+      wait_for_element(selector, strategy, timeout, poll_time) { |e| e }
+    end
+
     # Wait the given amount of time for elements to be available.
     # If no element is found an exception will be raised.
     def wait_for_elements(selector : String,
@@ -437,6 +445,15 @@ module Marionette
 
         sleep poll_time
       end
+    end
+
+    # :ditto:
+    def wait_for_elements(selector : String,
+                          strategy : LocationStrategy = :css,
+                          timeout = 3.seconds,
+                          poll_time = 50.milliseconds,
+                          &block)
+      wait_for_elements(selector, strategy, timeout, poll_time) { |e| e }
     end
 
     # Switch the context to the given `frame` or `iframe` element.
@@ -766,7 +783,6 @@ module Marionette
       end
     end
 
-
     enum Type
       Local
       Remote
@@ -782,10 +798,10 @@ module Marionette
     end
 
     record NetworkConditions,
-        offline : Bool,
-        latency : Int32,
-        download_throughput : Int32,
-        upload_throughput : Int32 do
+      offline : Bool,
+      latency : Int32,
+      download_throughput : Int32,
+      upload_throughput : Int32 do
       include JSON::Serializable
     end
   end
