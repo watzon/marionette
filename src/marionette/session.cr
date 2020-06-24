@@ -11,7 +11,7 @@ module Marionette
     getter id : String
 
     def initialize(@driver : WebDriver, @id : String, @type : Type)
-      at_exit { stop }
+      at_exit { stop unless service.closed? }
     end
 
     # Returns true if this is a local session.

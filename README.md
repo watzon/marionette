@@ -109,8 +109,8 @@ session.navigate("https://crystal-lang.org")
 
 # Start an action chain and perform it
 session.perform_actions do
-  # Click the "INSTALL" link, offsetting by 25 pixels so we make sure we hit it
-  click ".main-actions a:nth-child(1)", 25, 25
+  # Click the "INSTALL" link
+  click ".main-actions a:nth-child(1)"
 end
 
 sleep 5

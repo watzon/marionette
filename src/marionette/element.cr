@@ -135,7 +135,8 @@ module Marionette
       execute("GetElementValueOfCssProperty", {"name" => name})
     end
 
-    def send_keys(text : String)
+    def send_keys(*keys)
+      text = keys.map { |k| k.is_a?(Key) ? k.value.chr : k }.join
       execute("SendKeysToElement", {"text" => text})
     end
 

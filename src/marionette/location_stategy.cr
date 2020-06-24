@@ -25,7 +25,7 @@ module Marionette
     Css
 
     def to_s
-      super.underscore.downcase.gsub('_', " ") + "_selector"
+      super.underscore.downcase.gsub('_', " ") + " selector"
     end
   end
 end

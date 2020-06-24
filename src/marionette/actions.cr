@@ -107,12 +107,12 @@ module Marionette
     end
 
     def create_pointer_move(element : Element, duration : Time::Span = 0.seconds)
-      create_pointer_move(-1.0, -1.0, element, duration)
+      create_pointer_move(1, 1, element, duration)
     end
 
     def create_pointer_move(selector : String, duration : Time::Span = 0.seconds, location_strategy : LocationStrategy = :css)
       Action::PointerMove.new(
-        x: -1, y: -1,
+        x: 1, y: 1,
         move_duration: duration,
         origin: Origin::ElementSelector.new(
           selector: selector,
