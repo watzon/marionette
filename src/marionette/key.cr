@@ -66,5 +66,9 @@ module Marionette
 
     Meta    = 0xE03d
     Command = 0xE03d
+
+    def to_s(io)
+      io << value.chr
+    end
   end
 end

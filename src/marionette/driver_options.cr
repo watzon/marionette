@@ -22,27 +22,38 @@ module Marionette
     extend self
 
     def chrome_options(args = [] of String,
-                       extensions = [] of String,
+                       extensions = [] of String | IO,
                        binary = nil,
                        debugger_address = nil,
                        page_load_strategy : PageLoadStrategy? = nil,
-                       experimental_options = {} of String => String)
-      opts = experimental_options.transform_values { |o| JSON.parse(o.to_json) }
-      opts["args"] = JSON.parse(args.to_json)
-      opts["pageLoadStrategy"] = JSON::Any.new(page_load_strategy.to_s) if page_load_strategy
-      opts["binary"] = JSON::Any.new(binary) if binary
-      opts["debuggerAddress"] = JSON::Any.new(debugger_address) if debugger_address
+                       experimental_options = {} of String => String,
+                       logging_prefs = {} of String => String,
+                       capabilities = {} of String => String)
+      caps = capabilities
+      opts = experimental_options
+
+      opts = opts.merge({"args" => args}) unless args.empty?
+      opts = opts.merge({"pageLoadStrategy" => page_load_strategy}) if page_load_strategy
+      opts = opts.merge({"binary" => binary}) if binary
+      opts = opts.merge({"debuggerAddress" => debugger_address}) if debugger_address
 
       loaded_extensions = [] of String
       extensions.each do |ext|
-        expanded = File.expand_path(ext)
-        if File.exists?(ext)
-          loaded_extensions << Base64.encode(File.read(expanded))
+        case ext
+        in IO
+          loaded_extensions << Base64.encode(ext.rewind.gets_to_end)
+        in String
+          expanded = File.expand_path(ext)
+          if File.exists?(ext)
+            loaded_extensions << Base64.encode(File.read(expanded))
+          end
         end
       end
 
-      opts["extensions"] = JSON.parse(loaded_extensions.to_json) unless loaded_extensions.empty?
-      {"goog:chromeOptions" => opts}
+      opts = opts.merge({"extensions" => loaded_extensions}) unless loaded_extensions.empty?
+
+      caps = caps.merge({"goog:loggingPrefs" => logging_prefs}) unless logging_prefs.empty?
+      caps.merge({"goog:chromeOptions" => opts})
     end
 
     def firefox_options(args = [] of String,

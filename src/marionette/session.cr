@@ -10,8 +10,65 @@ module Marionette
 
     getter id : String
 
-    def initialize(@driver : WebDriver, @id : String, @type : Type)
-      at_exit { stop unless service.closed? }
+    getter middleware : Array(String)
+
+    getter? w3c : Bool
+
+    getter capabilities : Hash(String, JSON::Any)
+
+    private def initialize(@driver : WebDriver,
+                           @id : String,
+                           @type : Type,
+                           @capabilities : Hash(String, JSON::Any),
+                           @service = nil,
+                           @w3c = false,
+                           @middleware = [] of String)
+      at_exit do
+        if (svc = @service) && !svc.closed?
+          stop
+        end
+      end
+    end
+
+    # Start a new Session using the given `driver` and `type`. You can pass in any
+    # `capabilities` you want here, and they'll be merged with the browser's
+    # desired capabilities.
+    def self.start(driver : WebDriver,
+                   type : Type,
+                   capabilities = {} of String => String,
+                   service = nil,
+                   middleware = [] of String)
+      # Merge user capabilities with the desired capabilities
+      # for the given browser.
+      caps = driver.browser.desired_capabilities
+      caps = capabilities.merge(capabilities)
+
+      params = {
+        "capabilities"         => Utils.to_w3c_caps(caps),
+        "desired_capabilities" => caps,
+      }
+
+      # Create a new session using the requested capabilities
+      response = driver.execute("NewSession", 9)
+      response = response["value"] unless response["sessionId"]?
+
+      # If we were given a sessionId we're golden
+      if session_id = response["sessionId"]?
+        capabilities = response["value"]? || response["capabilities"]
+        w3c = response["status"]?.nil?
+
+        Session.new(
+          driver,
+          id: session_id.as_s,
+          type: type,
+          capabilities: capabilities.as_h,
+          service: service,
+          w3c: w3c,
+          middleware: middleware
+        )
+      else
+        raise "Session creation failed"
+      end
     end
 
     # Returns true if this is a local session.
@@ -37,17 +94,17 @@ module Marionette
       result
     end
 
+    # Add a middleware instance to the middleware chain.
+    def use(middleware : String)
+      @middleware << middleware
+    end
+
     #   ____                _
     #  / ___|  ___  ___ ___(_) ___  _ __
     #  \___ \ / _ \/ __/ __| |/ _ \| '_ \
     #   ___) |  __/\__ \__ \ | (_) | | | |
     #  |____/ \___||___/___/_|\___/|_| |_|
     #
-
-    # Return's true if the driver being used is W3C compatible.
-    def w3c?
-      @driver.w3c?
-    end
 
     # Return the status of the current driver as a JSON object.
     def status
@@ -114,6 +171,15 @@ module Marionette
       else
         execute("SetScreenOrientation", {"orientation" => orientation.to_s})
       end
+    end
+
+    def log(log_type : String)
+      response = execute("GetLog", {"type" => log_type})
+      logs = Array(LogItem).from_json(response.to_json)
+    end
+
+    def log_types
+      execute("GetAvailableLogTypes")
     end
 
     #  __        ___           _

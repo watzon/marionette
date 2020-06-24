@@ -12,8 +12,7 @@ module Marionette
     WPEWebkit
     Android
 
-    def new_remote_web_driver(url = nil, keep_alive = true)
-      url ||= URI.parse("http://localhost:4444")
+    def new_remote_web_driver(url, keep_alive = true)
       WebDriver.new(browser: self, url: url(url.host, url.port), client: HTTP::Client.new(url), keep_alive: keep_alive)
     end
 

@@ -8,18 +8,12 @@ module Marionette
 
     getter client : HTTP::Client
 
-    getter? w3c : Bool
-
     getter? keep_alive : Bool
-
-    property capabilities : JSON::Any?
 
     def initialize(@browser : Browser,
                    @url : URI,
                    @client : HTTP::Client,
-                   @keep_alive = false,
-                   @w3c = false,
-                   @capabilities = nil)
+                   @keep_alive = false)
     end
 
     # Create a new `Session` instance using the given `browser`. If the driver is
@@ -41,43 +35,17 @@ module Marionette
                             port = nil,
                             env = ENV.to_h,
                             args = [] of String,
-                            options = {} of String => String)
+                            **options)
       service = Service.new(browser, exe_path, port, "127.0.0.1", args, env)
       service.start
       driver = browser.new_remote_web_driver(service.url, keep_alive: true)
-      result = driver.get_session(options)
+      result = driver.get_session(**options)
       result.service = service
       result
     end
 
-    def get_session(opts = {} of String => String)
-      capabilities = browser.desired_capabilities
-      capabilities = capabilities.merge(opts)
-
-      params = {
-        "capabilities" => Utils.to_w3c_caps(capabilities),
-        "desired_capabilities" => capabilities
-      }
-
-      response = execute("NewSession", params)
-
-      if !response["sessionId"]?
-        response = response["value"]
-      end
-
-      if session_id = response["sessionId"]?
-        @capabilities = response["value"]?
-
-        if !@capabilities
-          @capabilities = response["capabilities"]?
-        end
-
-        @w3c = !response["status"]?
-
-        Session.new(self, id: session_id.as_s, type: :local)
-      else
-        raise "Failed to start session"
-      end
+    def get_session(type : Session::Type = :local, **options)
+      Session.start(self, type, **options)
     end
 
     def connection_headers(url : String | URI, keep_alive : Bool = false)

@@ -121,16 +121,16 @@ sleep 5
 session.close
 ```
 
-### Driver Options
+### Driver Capabilities
 
-Different drivers have different options available to them. To make setting those options a little easier there's the `DriverOptions` module which is extended by `Marionette` itself. Take, for instance, Chrome:
+Different drivers have different capabilities available to them. To make setting them a little easier, there's the `DriverOptions` module which is extended by `Marionette` itself. Take, for instance, Chrome:
 
 ```crystal
 # Make this instance headless
 options = Marionette.chrome_options(args: ["headless"])
 
 # Create a Chrome session
-session = Marionette::WebDriver.create_session(:chrome, options: options)
+session = Marionette::WebDriver.create_session(:chrome, capabilities: options)
 ```
 
 `args` in this case are arguments to be passed to the browser itself rather than the driver. If you wish to pass arguments to the driver you can use the `args` parameter in the `create_session` method.

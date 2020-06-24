@@ -4,9 +4,9 @@ version: 0.2.0
 authors:
   - Chris Watson <chris@watzon.me>
 
-dependencies:
-  har:
-    github: NeuraLegion/har
+development_dependencies:
+  spectator:
+    gitlab: arctic-fox/spectator
     branch: master
 
 crystal: 0.35.1

@@ -42,20 +42,19 @@ module Marionette
 
     # Add a non-W3C compatible action.
     def action(command : String, action : Action)
+      raise Error::UnknownCommand.new unless Commands.has_key?(command)
       actions << {command, action}
       self
     end
 
     # Create a new `KeyUp` action with the given value
     def create_key_up(key : Key | Char | String)
-      key = key.is_a?(Key) ? key.value.chr : key
       Action::KeyUp.new(key.to_s)
     end
 
     # Create a new `KeyDown` action with the given value
     def create_key_down(key : Key | Char | String)
-      key = key.is_a?(Key) ? key.value.chr : key
-      Action::KeyDown.new(key)
+      Action::KeyDown.new(key.to_s)
     end
 
     # Create a new `PointerDown` action for the given button with the
