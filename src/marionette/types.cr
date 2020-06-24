@@ -1,4 +1,23 @@
 module Marionette
+  enum PageLoadStrategy
+    None
+    Normal
+    Eager
+
+    def to_s(io)
+      io << super.downcase
+    end
+  end
+
+  enum ElementScrollBehavior
+    Top
+    Bottom
+
+    def to_s(io)
+      io << super.downcase
+    end
+  end
+
   record Size, height : Float64, width : Float64 do
     include JSON::Serializable
   end
