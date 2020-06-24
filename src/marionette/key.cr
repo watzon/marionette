@@ -1,7 +1,7 @@
 module Marionette
   enum Key
     Null        = 0xE000
-    Cancel      = 0xE001 # ^break
+    Cancel      = 0xE001
     Help        = 0xE002
     Back_space  = 0xE003
     Tab         = 0xE004
@@ -9,11 +9,11 @@ module Marionette
     Return      = 0xE006
     Enter       = 0xE007
     Shift       = 0xE008
-    LeftShift   = 0xE008 # alias
+    LeftShift   = 0xE008
     Control     = 0xE009
-    LeftControl = 0xE009 # alias
+    LeftControl = 0xE009
     Alt         = 0xE00a
-    LeftAlt     = 0xE00a # alias
+    LeftAlt     = 0xE00a
     Pause       = 0xE00b
     Escape      = 0xE00c
     Space       = 0xE00d
@@ -22,19 +22,19 @@ module Marionette
     End         = 0xE010
     Home        = 0xE011
     Left        = 0xE012
-    ArrowLeft   = 0xE012 # alias
+    ArrowLeft   = 0xE012
     Up          = 0xE013
-    ArrowUp     = 0xE013 # alias
+    ArrowUp     = 0xE013
     Right       = 0xE014
-    ArrowRight  = 0xE014 # alias
+    ArrowRight  = 0xE014
     Down        = 0xE015
-    ArrowDown   = 0xE015 # alias
+    ArrowDown   = 0xE015
     Insert      = 0xE016
     Delete      = 0xE017
     Semicolon   = 0xE018
     Equals      = 0xE019
 
-    Numpad0   = 0xE01a # number pad  keys
+    Numpad0   = 0xE01a
     Numpad1   = 0xE01b
     Numpad2   = 0xE01c
     Numpad3   = 0xE01d
@@ -51,7 +51,7 @@ module Marionette
     Decimal   = 0xE028
     Divide    = 0xE029
 
-    F1  = 0xE031 # function  keys
+    F1  = 0xE031
     F2  = 0xE032
     F3  = 0xE033
     F4  = 0xE034

@@ -2,20 +2,24 @@ module Marionette
   struct Element
     include Logger
 
+    # :nodoc:
     SUBMIT_SCRIPT = <<-JS
       var e = arguments[0].ownerDocument.createEvent('Event');
       e.initEvent('submit', true, true);
       if (arguments[0].dispatchEvent(e)) { arguments[0].submit() };
     JS
 
+    # :nodoc:
     SCROLL_TO_SCRIPT = <<-JS
       arguments[0].scrollIntoView({block: "center", inline: "nearest"});
     JS
 
+    # :nodoc:
     LOCATION_SCRIPT = <<-JS
       return arguments[0].getBoundingClientRect();
     JS
 
+    # :nodoc:
     SCROLLED_TO_LOCATION_SCRIPT = <<-JS
       arguments[0].scrollIntoView(true);
       return arguments[0].getBoundingClientRect();

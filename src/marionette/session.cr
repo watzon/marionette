@@ -14,14 +14,18 @@ module Marionette
       at_exit { stop }
     end
 
+    # Returns true if this is a local session.
     def local?
       !!@service
     end
 
+    # Returns true if this is a remote session.
     def remote?
       !local?
     end
 
+    # Stops the current session by closing it and then closing the
+    # WebDriver process.
     def stop
       result = close
       case @type
@@ -40,18 +44,22 @@ module Marionette
     #  |____/ \___||___/___/_|\___/|_| |_|
     #
 
+    # Return's true if the driver being used is W3C compatible.
     def w3c?
       @driver.w3c?
     end
 
+    # Return the status of the current driver as a JSON object.
     def status
       execute("Status")
     end
 
+    # Close the current session.
     def close
       execute("Quit", stop_on_exception: false)
     end
 
+    # Add an implicit wait that will occur before calls are made in a newly opened page.
     def implicit_wait(time : Time::Span)
       if w3c?
         execute("SetTimeouts", {"implicit" => time.total_milliseconds.to_i})
@@ -60,6 +68,8 @@ module Marionette
       end
     end
 
+    # Add a timeout for script execution. Scripts that take longer than the given amount
+    # of time to execute will throw as `Error::TimeoutError`.
     def script_timeout(time : Time::Span)
       if w3c?
         execute("SetTimeouts", {"script" => time.total_milliseconds.to_i})
@@ -68,6 +78,8 @@ module Marionette
       end
     end
 
+    # Add a timeout for page loads. Pages that take longer than the given amount of time to load
+    # will throw an `Error::TimeoutError`.
     def page_load_timeout(time : Time::Span)
       begin
         execute("SetTimeouts", {"pageLoad" => time.total_milliseconds.to_i}, stop_on_exception: false)
@@ -79,6 +91,9 @@ module Marionette
       end
     end
 
+    # Get the orientation of the current driver.
+    #
+    # NOTE: only available on non-W3C compatible drivers.
     def orientation
       if w3c?
         stop
@@ -89,6 +104,9 @@ module Marionette
       end
     end
 
+    # Set the orientation of the current driver.
+    #
+    # NOTE: only available on non-W3C compatible drivers.
     def orientation=(origination : Orientation)
       if w3c?
         stop
@@ -105,6 +123,7 @@ module Marionette
     #     \_/\_/  |_|_| |_|\__,_|\___/ \_/\_/ |___/
     #
 
+    # Return the current `Window`.
     def current_window
       if w3c?
         handle = execute("W3CGetCurrentWindowHandle").as_s
@@ -115,6 +134,7 @@ module Marionette
       Window.new(self, handle, :window)
     end
 
+    # Return an array of all opened `Window`s.
     def windows
       if w3c?
         handles = execute("W3CGetWindowHandles").as_a.map(&.as_s)
@@ -127,14 +147,18 @@ module Marionette
       end
     end
 
+    # Switch to a given `Window`.
     def switch_to_window(window : Window)
       execute("SwitchToWindow", {"handle" => window.handle})
     end
 
+    # Switch to a given `Window` using its handle.
     def switch_to_window(handle : String)
       execute("SwitchToWindow", {"handle" => handle})
     end
 
+    # Create a new `Window`. The window will not be switched to
+    # automatically.
     def new_window(type : Window::Type = :window)
       response = execute("NewWindow", {"type" => type.to_s.downcase})
       Window.new(
@@ -144,10 +168,12 @@ module Marionette
       )
     end
 
+    # Close the current `Window`.
     def close_current_window
       execute("Close")
     end
 
+    # Close the given `Window`.
     def close_window(window : Window)
       switch_to_window(window)
       close_current_window
@@ -160,26 +186,32 @@ module Marionette
     #  |_| \_|\__,_| \_/ |_|\__, |\__,_|\__|_|\___/|_| |_|
     #                       |___/
 
+    # Go to the given URL.
     def navigate(to url : String | URI)
       execute("Get", {url: url.to_s})
     end
 
+    # Get the URL of the current page.
     def current_url
       execute("GetCurrentUrl").as_s
     end
 
+    # Go back in history.
     def back
       execute("GoBack")
     end
 
+    # Go forward in history.
     def forward
       execute("GoForward")
     end
 
+    # Refresh the current page.
     def refresh
       execute("Refresh")
     end
 
+    # Return the title of the current page.
     def title
       execute("GetTitle").as_s
     end
@@ -191,10 +223,12 @@ module Marionette
     #   \____\___/ \___/|_|\_\_|\___||___/
     #
 
+    # Get a browser cookie using an `HTTP::Cookie` instance.
     def get_cookie(cookie : HTTP::Cookie)
       get_cookie(cookie.name)
     end
 
+    # Get the cookie with the specified name. Returns `nil` if no cookie was found.
     def get_cookie(name : String)
       begin
         value = execute("GetCookie", {"name" => name}, stop_on_exception: false)
@@ -205,20 +239,22 @@ module Marionette
       end
     end
 
+    # Delete the cookie with the specified name.
     def delete_cookie(name : String)
       begin
         execute("DeleteCookie", {"name" => name}, stop_on_exception: false)
       rescue ex : Error::NoSuchCookie
         Log.warn { "Cookie not found with name '#{name}'" }
-        nil
       end
     end
 
+    # Return all cookies collected so far as an `Array(HTTP::Cookie)`.
     def all_cookies
       cookies = execute("GetAllCookies")
       cookies.as_a.map { |c| HTTP::Cookie.from_json(c.to_json) }
     end
 
+    # Delete all collected cookies
     def delete_all_cookies
       execute("DeleteAllCookies")
     end
@@ -230,10 +266,16 @@ module Marionette
     #  |____/ \___/ \___|\__,_|_| |_| |_|\___|_| |_|\__|
     #
 
+    # Return the source of the given page. For most pages this will be
+    # HTML markup.
     def page_source
       execute("GetPageSource").as_s
     end
 
+    # Execute arbitrary JavaScript in the context of the given document. Any args to be passed
+    # into the script should be provided as an array.
+    #
+    # For now the result is returned as raw JSON.
     def execute_script(script, args = nil)
       params = {"script" => script, "args" => args || [] of String}
       if w3c?
@@ -243,6 +285,10 @@ module Marionette
       end
     end
 
+    # Execute arbitrary JavaScript in the context of the given document. Any args to be passed
+    # into the script should be provided as an array.
+    #
+    # This is an async process and does not return a result.
     def execute_script_async(script, args = nil)
       params = {"script" => script, "args" => args || [] of String}
       if w3c?
@@ -270,6 +316,9 @@ module Marionette
       Element.from_json(response.to_json)
     end
 
+    # Find an element using the given `selector`. The `strategy` can be any
+    # `LocationStrategy`. Default is `LocationStrategy::Css`. Returns
+    # `nil` if no element with the given selector was found.
     def find_element(selector, strategy : LocationStrategy = :css)
       begin
         find_element!(selector, strategy)
@@ -278,12 +327,17 @@ module Marionette
       end
     end
 
+    # Find an element using the given `selector`. The `strategy` can be any
+    # `LocationStrategy`. Default is `LocationStrategy::Css`. Raises an
+    # exception if no element with the given selector was found.
     def find_element!(selector, strategy : LocationStrategy = :css)
       response = execute("FindElement", Utils.selector_params(selector, strategy, w3c?), stop_on_exception: false)
       id = response.as_h.values[0].as_s
       Element.new(self, id)
     end
 
+    # Find multiple elements with the given selector and return them as
+    # an array.
     def find_elements(selector, strategy : LocationStrategy = :css)
       begin
         response = execute("FindElements", Utils.selector_params(selector, strategy, w3c?), stop_on_exception: false)
@@ -296,6 +350,8 @@ module Marionette
       end
     end
 
+    # Find a child of the given element. Returns `nil` if no element with the given
+    # selector was found.
     def find_element_child(element, selector, strategy : LocationStrategy = :css)
       begin
         find_element_child!(element, selector, strategy)
@@ -304,6 +360,8 @@ module Marionette
       end
     end
 
+    # Find a child of the given element. Raises an exception if no element with the
+    # given selector was found.
     def find_element_child!(element, selector, strategy : LocationStrategy = :css)
       element_id = element.is_a?(Element) ? element.id : element
       params = Utils.selector_params(selector, strategy, w3c?)
@@ -314,6 +372,8 @@ module Marionette
       Element.new(self, id)
     end
 
+    # Find multiple children of the given `element` with the given selector and
+    # return them as an array.
     def find_element_children(element, selector, strategy : LocationStrategy = :css)
       element_id = element.is_a?(Element) ? element.id : element
       params = Utils.selector_params(selector, strategy, w3c?)
@@ -329,6 +389,8 @@ module Marionette
       end
     end
 
+    # Wait the given amount of time for an element to be available.
+    # If no element is found an exception will be raised.
     def wait_for_element(selector : String,
                          strategy : LocationStrategy = :css,
                          timeout = 3.seconds,
@@ -352,6 +414,8 @@ module Marionette
       end
     end
 
+    # Wait the given amount of time for elements to be available.
+    # If no element is found an exception will be raised.
     def wait_for_elements(selector : String,
                           strategy : LocationStrategy = :css,
                           timeout = 3.seconds,
@@ -375,18 +439,17 @@ module Marionette
       end
     end
 
+    # Switch the context to the given `frame` or `iframe` element.
     def switch_to_frame(frame : Element)
       execute("SwitchToFrame", {"id" => frame})
     end
 
-    def switch_to_frame(frame_id : Int)
-      execute("SwitchToFrame", {"id" => frame_id})
-    end
-
+    # Switch the context to the parent of the given `frame` or `iframe` element.
     def switch_to_parent_frame
       execute("SwitchToParentFrame")
     end
 
+    # Leave the current frame context and return to the default context.
     def leave_frame
       execute("SwitchToFrame", {"id" => nil})
     end
@@ -398,6 +461,8 @@ module Marionette
     #  /_/   \_\_|\___|_|   \__|___/
     #
 
+    # Dismiss an active alert. For confirmation boxes this is the same as
+    # clicking the "Cancel" button.
     def dismiss_alert
       if w3c?
         execute("W3CDismissAlert")
@@ -406,6 +471,8 @@ module Marionette
       end
     end
 
+    # Accept an active alert. For confirmation boxes this is the same as
+    # clicking the "Ok" button.
     def accept_alert
       if w3c?
         execute("W3CAcceptAlert")
@@ -414,6 +481,7 @@ module Marionette
       end
     end
 
+    # Returns the text of the active alert dialog.
     def alert_text
       if w3c?
         execute("W3CGetAlertText")
@@ -422,6 +490,7 @@ module Marionette
       end
     end
 
+    # Sets the text box content for alert dialogs that have one.
     def alert_value=(value)
       if w3c?
         execute("W3CSetAlertValue", {"value" => value.to_s, "text" => value.to_s})
@@ -437,14 +506,22 @@ module Marionette
     #  |____/ \___|_|  \___|\___|_| |_|___/_| |_|\___/ \__|___/
     #
 
+    # Take a screenshot of the current visible portion of the screen. The PNG
+    # is returned as a Base64 encoded string.
     def take_screenshot
       execute("Screenshot")
     end
 
+    # Take a screenshot of the element with the given `element_id`. If `scroll` is
+    # set to `true` the element will be scrolled to before taking the screenshot.
+    #
+    # The PNG data is returned as a Base64 encoded string.
     def take_screenshot(element_id : String, scroll = true)
       execute("ElementScreenshot", {"$elementId" => element_id, "scroll" => scroll})
     end
 
+    # Take a screenshot and save it as a PNG at the given `path`. If `scroll` is
+    # set to `true` the element will be scrolled to before taking the screenshot.
     def save_screenshot(path, element_id = nil, scroll = true)
       b64 = element_id ? take_screenshot(element_id, scroll) : take_screenshot
       data = Base64.decode(b64.as_s)
@@ -458,16 +535,25 @@ module Marionette
     #  /_/   \_\___|\__|_|\___/|_| |_|___/
     #
 
+    # Clears actions that are already stored on the remote end.
     def clear_actions
       execute("W3CClearActions")
     end
 
+    # Creates a new `ActionBuilder` instance and passes it to the block.
+    # Given actions are not performed on block exit, so you will need
+    # to call `ActionBuilder#perform` eventually.
     def actions(&block)
       builder = ActionBuilder.new(session: self)
       with builder yield builder
       builder
     end
 
+    # Creates a new `ActionBuilder` instance and passes it to the block.
+    # Actions are performed immediately upon block exit.
+    #
+    # Set `debug_mouse_move` to `true` to get visual indicators
+    # on screen when the mouse changes location.
     def perform_actions(debug_mouse_move = false, &block)
       builder = ActionBuilder.new(session: self)
       with builder yield builder
@@ -481,32 +567,53 @@ module Marionette
     #  |_|   |_|_|  \___|_|  \___/_/\_\
     #
 
+    # Get the current browser context.
+    #
+    # NOTE: Available for Firefox only.
     def context
       assert_browser(:firefox)
       execute("GetContext")
     end
 
+    # Set the current browser context.
+    #
+    # NOTE: Available for Firefox only.
     def context=(context : String)
       assert_browser(:firefox)
       execute("SetContext", {"context" => context})
     end
 
+    # Install an addon from the given path. If `temporary` is set
+    # to `true` this addon will only be installed for the
+    # current session.
+    #
+    # NOTE: Available for Firefox only.
     def install_addon(path : String, temporary = false)
       assert_browser(:firefox)
       execute("InstallAddon", {"path" => path, "temporary" => temporary})
     end
 
+    # Uninstall an addon using its `id`.
+    #
+    # NOTE: Available for Firefox only.
     def uninstall_addon(id : String)
       assert_browser(:firefox)
       execute("UninstallAddon", {"id" => id})
     end
 
+    # Takes a full screen screenshot and return it as
+    # a Base64 encoded PNG string.
+    #
+    # NOTE: Available for Firefox only.
     def full_page_screenshot
       assert_browser(:firefox)
-      result = execute("FullPageScreenshot").as_s
-      Base64.decode(result)
+      execute("FullPageScreenshot").as_s
     end
 
+    # Take a fullscreen screenshot and save it to the
+    # given `path` as a PNG image.
+    #
+    # NOTE: Available for Firefox only.
     def save_full_page_screenshot(path : String)
       assert_browser(:firefox)
       b64 = full_page_screenshot
@@ -520,47 +627,78 @@ module Marionette
     #   \____|_| |_|_|  \___/|_| |_| |_|\___|
     #
 
+    # Launch a Chrome app using its `id`.
+    #
+    # NOTE: Available for Chrome/Chromium only.
     def launch_app(app_id : String)
       assert_browser(:chrome)
       execute("LaunchApp", {"id" => app_id})
     end
 
+    # Return the set network conditions as a `NetworkConditions`
+    # object. This will raise if network conditions haven't
+    # been set already.
+    #
+    # NOTE: Available for Chrome/Chromium only.
     def network_conditions
       assert_browser(:chrome)
       response = execute("GetNetworkConditions")
       NetworkConditions.from_json(response.to_json)
     end
 
+    # Set the network conditions.
+    #
+    # NOTE: Available for Chrome/Chromium only.
     def network_conditions=(conditions : NetworkConditions)
       assert_browser(:chrome)
       execute("SetNetworkConditions", network_conditions.to_json)
     end
 
+    # Get a list of sinks for casting.
+    #
+    # NOTE: Available for Chrome/Chromium only.
     def sinks
       assert_browser(:chrome)
       execute("GetSinks").as_a.map(&.as_s)
     end
 
+    # Set the current casting sink.
+    #
+    # NOTE: Available for Chrome/Chromium only.
     def sink=(sink_name : String)
       assert_browser(:chrome)
       execute("SetSinkToUse", {"sinkName" => sink_name})
     end
 
+    # Start mirroring the current tab using the given sink.
+    #
+    # NOTE: Available for Chrome/Chromium only.
     def start_tab_mirroring(sink_name : String)
       assert_browser(:chrome)
       execute("StartTabMirroring", {"sinkName" => sink_name})
     end
 
+    # Stop casting to the current sink.
+    #
+    # NOTE: Available for Chrome/Chromium only.
     def stop_casting(sink_name : String)
       assert_browser(:chrome)
       execute("StopCasting", {"sinkName" => sink_name})
     end
 
+    # Get the issue message for the current cast context.
+    #
+    # NOTE: Available for Chrome/Chromium only.
     def issue_message
       assert_browser(:chrome)
       execute("GetIssueMessage").as_s
     end
 
+    # Execute a CDP (Chrome DevTools Protocol) command. See the
+    # [API documentation](https://chromedevtools.github.io/devtools-protocol/)
+    # for information on acceptable commands.
+    #
+    # NOTE: Available for Chrome/Chromium only.
     def execute_cdp_command(cmd : String, args = {} of String => String)
       assert_browser(:chrome)
       execute("ExecuteCdpCommand", {"cmd" => cmd, "params" => args})
@@ -573,29 +711,43 @@ module Marionette
     #  |____/ \__,_|_|  \__,_|_|  |_|
     #
 
+    # Get the currently set Safari permisisons.
+    #
+    # NOTE: Available for Safari only.
     def perimissions
       assert_browser(:safari)
       response = execute("GetPermissions")
       Hash(String, Bool).from_json(response["permissions"].to_json)
     end
 
+    # Set Safari permissions.
+    #
+    # NOTE: Available for Chrome/Chromium only.
     def permissions=(perms : Hash(String, Bool))
       assert_browser(:safari)
       response = execute("SetPermissions", {"permissions" => perms})
       Hash(String, Bool).from_json(response["permissions"].to_json)
     end
 
+    # Set a single Safari permission.
+    #
+    # NOTE: Available for Chrome/Chromium only.
     def set_permission(key : String, value : Bool)
       assert_browser(:safari)
       permissions = {"key" => value}
     end
 
+    # Enable and attach the Safari debugger.
+    #
+    # NOTE: Available for Chrome/Chromium only.
     def debug
       assert_browser(:safari)
       execute("AttachDebugger")
       execute_script("debugger;")
     end
 
+    # Execute an arbitrary command with the given permissions. See `Commands`
+    # for all available commands.
     def execute(command, params = {} of String => String, stop_on_exception = true)
       new_params = {} of String => JSON::Any
 
@@ -620,8 +772,8 @@ module Marionette
       result["value"]
     end
 
-    def assert_browser(browser : Browser)
-      if service.browser != browser
+    private def assert_browser(browser : Browser)
+      if self.browser != browser
         raise Error::UnknownMethod.new("Command is valid for #{browser} only.")
       end
     end

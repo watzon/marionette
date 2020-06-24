@@ -1,4 +1,10 @@
 module Marionette
+  # `ActionBuilder` allows you to put together a custom sequence of actions
+  # to be performed in the given order. These actions can include clicks,
+  # pointer moves, and keyboard actions.
+  #
+  # The easiest way to use `ActionBuilder` is through `Session#actions` and
+  # `Session#perform_actions`.
   class ActionBuilder
     DEBUG_MOUSE_MOVE_SCRIPT = {{ read_file("src/marionette/scripts/debug_mouse_move.js") }}
 
@@ -16,6 +22,8 @@ module Marionette
                    @actions = [] of Tuple(String, Action))
     end
 
+    # Add a new W3C compatible action and add a pause of the opposite type
+    # to keep ticks aligned.
     def w3c_action(action : Action)
       case action.source_type
       in Action::SourceType::Key
@@ -32,29 +40,38 @@ module Marionette
       self
     end
 
+    # Add a non-W3C compatible action.
     def action(command : String, action : Action)
       actions << {command, action}
       self
     end
 
+    # Create a new `KeyUp` action with the given value
     def create_key_up(key : Key | Char | String)
       key = key.is_a?(Key) ? key.value.chr : key
       Action::KeyUp.new(key.to_s)
     end
 
+    # Create a new `KeyDown` action with the given value
     def create_key_down(key : Key | Char | String)
       key = key.is_a?(Key) ? key.value.chr : key
       Action::KeyDown.new(key)
     end
 
+    # Create a new `PointerDown` action for the given button with the
+    # given click duration.
     def create_mouse_down(button : MouseButton, duration : Time::Span = 0.seconds)
       Action::PointerDown.new(button, duration)
     end
 
+    # Create a new `PointerUp` action for the given button with the
+    # given click duration.
     def create_mouse_up(button : MouseButton, duration : Time::Span = 0.seconds)
       Action::PointerUp.new(button, duration)
     end
 
+    # Create a mouse down action and add it dependant on the W3C status of
+    # the current WebDriver.
     def mouse_button_down(button : MouseButton = :left, duration : Time::Span = 0.seconds)
       action = create_mouse_down(button, duration)
       if @session.w3c?
@@ -64,6 +81,8 @@ module Marionette
       end
     end
 
+    # Create a mouse up action and add it dependant on the W3C status of
+    # the current WebDriver.
     def mouse_button_up(button : MouseButton = :left, duration : Time::Span = 0.seconds)
       action = create_mouse_up(button, duration)
       if @session.w3c?

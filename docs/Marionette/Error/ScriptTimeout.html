@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.34.0">
+<meta name="crystal_docs.project_version" content="develop-dev">
+<meta name="crystal_docs.project_name" content="marionette">
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/doc.js"></script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+
+  <meta id="repository-name" content="marionette">
+  <title>Marionette::Error::ScriptTimeout - marionette develop-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../../";
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../../index.html">
+          marionette
+        </a>
+      </h1>
+
+      <span class="project-version">
+        develop-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="marionette/HTTP" data-name="http">
+      <a href="../../HTTP.html">HTTP</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/HTTP/Cookie" data-name="http::cookie">
+      <a href="../../HTTP/Cookie.html">Cookie</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="marionette/Marionette" data-name="marionette">
+      <a href="../../Marionette.html">Marionette</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="marionette/Marionette/Action" data-name="marionette::action">
+      <a href="../../Marionette/Action.html">Action</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Action/KeyDown" data-name="marionette::action::keydown">
+      <a href="../../Marionette/Action/KeyDown.html">KeyDown</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/KeyPause" data-name="marionette::action::keypause">
+      <a href="../../Marionette/Action/KeyPause.html">KeyPause</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/KeyUp" data-name="marionette::action::keyup">
+      <a href="../../Marionette/Action/KeyUp.html">KeyUp</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerCancel" data-name="marionette::action::pointercancel">
+      <a href="../../Marionette/Action/PointerCancel.html">PointerCancel</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerDown" data-name="marionette::action::pointerdown">
+      <a href="../../Marionette/Action/PointerDown.html">PointerDown</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerMove" data-name="marionette::action::pointermove">
+      <a href="../../Marionette/Action/PointerMove.html">PointerMove</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerPause" data-name="marionette::action::pointerpause">
+      <a href="../../Marionette/Action/PointerPause.html">PointerPause</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerUp" data-name="marionette::action::pointerup">
+      <a href="../../Marionette/Action/PointerUp.html">PointerUp</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/SourceType" data-name="marionette::action::sourcetype">
+      <a href="../../Marionette/Action/SourceType.html">SourceType</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/ActionBuilder" data-name="marionette::actionbuilder">
+      <a href="../../Marionette/ActionBuilder.html">ActionBuilder</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Browser" data-name="marionette::browser">
+      <a href="../../Marionette/Browser.html">Browser</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/DriverOptions" data-name="marionette::driveroptions">
+      <a href="../../Marionette/DriverOptions.html">DriverOptions</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Element" data-name="marionette::element">
+      <a href="../../Marionette/Element.html">Element</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/ElementScrollBehavior" data-name="marionette::elementscrollbehavior">
+      <a href="../../Marionette/ElementScrollBehavior.html">ElementScrollBehavior</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="marionette/Marionette/Error" data-name="marionette::error">
+      <a href="../../Marionette/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ElementClickIntercepted" data-name="marionette::error::elementclickintercepted">
+      <a href="../../Marionette/Error/ElementClickIntercepted.html">ElementClickIntercepted</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ElementIsNotSelectable" data-name="marionette::error::elementisnotselectable">
+      <a href="../../Marionette/Error/ElementIsNotSelectable.html">ElementIsNotSelectable</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ElementNotInteractable" data-name="marionette::error::elementnotinteractable">
+      <a href="../../Marionette/Error/ElementNotInteractable.html">ElementNotInteractable</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ElementNotVisible" data-name="marionette::error::elementnotvisible">
+      <a href="../../Marionette/Error/ElementNotVisible.html">ElementNotVisible</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/GenericError" data-name="marionette::error::genericerror">
+      <a href="../../Marionette/Error/GenericError.html">GenericError</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ImeEngineActivationFailed" data-name="marionette::error::imeengineactivationfailed">
+      <a href="../../Marionette/Error/ImeEngineActivationFailed.html">ImeEngineActivationFailed</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ImeNotAvailable" data-name="marionette::error::imenotavailable">
+      <a href="../../Marionette/Error/ImeNotAvailable.html">ImeNotAvailable</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InsecureCertificate" data-name="marionette::error::insecurecertificate">
+      <a href="../../Marionette/Error/InsecureCertificate.html">InsecureCertificate</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidArgument" data-name="marionette::error::invalidargument">
+      <a href="../../Marionette/Error/InvalidArgument.html">InvalidArgument</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidCookieDomain" data-name="marionette::error::invalidcookiedomain">
+      <a href="../../Marionette/Error/InvalidCookieDomain.html">InvalidCookieDomain</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidCoordinates" data-name="marionette::error::invalidcoordinates">
+      <a href="../../Marionette/Error/InvalidCoordinates.html">InvalidCoordinates</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidElementCoordinates" data-name="marionette::error::invalidelementcoordinates">
+      <a href="../../Marionette/Error/InvalidElementCoordinates.html">InvalidElementCoordinates</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidElementState" data-name="marionette::error::invalidelementstate">
+      <a href="../../Marionette/Error/InvalidElementState.html">InvalidElementState</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidSelector" data-name="marionette::error::invalidselector">
+      <a href="../../Marionette/Error/InvalidSelector.html">InvalidSelector</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidSessionId" data-name="marionette::error::invalidsessionid">
+      <a href="../../Marionette/Error/InvalidSessionId.html">InvalidSessionId</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidXpathSelector" data-name="marionette::error::invalidxpathselector">
+      <a href="../../Marionette/Error/InvalidXpathSelector.html">InvalidXpathSelector</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidXpathSelectorReturnTyper" data-name="marionette::error::invalidxpathselectorreturntyper">
+      <a href="../../Marionette/Error/InvalidXpathSelectorReturnTyper.html">InvalidXpathSelectorReturnTyper</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/JavascriptError" data-name="marionette::error::javascripterror">
+      <a href="../../Marionette/Error/JavascriptError.html">JavascriptError</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/MethodNotAllowed" data-name="marionette::error::methodnotallowed">
+      <a href="../../Marionette/Error/MethodNotAllowed.html">MethodNotAllowed</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/MoveTargetOutOfBounds" data-name="marionette::error::movetargetoutofbounds">
+      <a href="../../Marionette/Error/MoveTargetOutOfBounds.html">MoveTargetOutOfBounds</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoAlertOpen" data-name="marionette::error::noalertopen">
+      <a href="../../Marionette/Error/NoAlertOpen.html">NoAlertOpen</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoSuchCookie" data-name="marionette::error::nosuchcookie">
+      <a href="../../Marionette/Error/NoSuchCookie.html">NoSuchCookie</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoSuchElement" data-name="marionette::error::nosuchelement">
+      <a href="../../Marionette/Error/NoSuchElement.html">NoSuchElement</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoSuchFrame" data-name="marionette::error::nosuchframe">
+      <a href="../../Marionette/Error/NoSuchFrame.html">NoSuchFrame</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoSuchWindow" data-name="marionette::error::nosuchwindow">
+      <a href="../../Marionette/Error/NoSuchWindow.html">NoSuchWindow</a>
+      
+    </li>
+  
+  <li class=" current" data-id="marionette/Marionette/Error/ScriptTimeout" data-name="marionette::error::scripttimeout">
+      <a href="../../Marionette/Error/ScriptTimeout.html">ScriptTimeout</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/SessionNotCreated" data-name="marionette::error::sessionnotcreated">
+      <a href="../../Marionette/Error/SessionNotCreated.html">SessionNotCreated</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/StaleElementReference" data-name="marionette::error::staleelementreference">
+      <a href="../../Marionette/Error/StaleElementReference.html">StaleElementReference</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/Timeout" data-name="marionette::error::timeout">
+      <a href="../../Marionette/Error/Timeout.html">Timeout</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnableToCaptureScreen" data-name="marionette::error::unabletocapturescreen">
+      <a href="../../Marionette/Error/UnableToCaptureScreen.html">UnableToCaptureScreen</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnableToSetCookie" data-name="marionette::error::unabletosetcookie">
+      <a href="../../Marionette/Error/UnableToSetCookie.html">UnableToSetCookie</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnexpectedAlertOpen" data-name="marionette::error::unexpectedalertopen">
+      <a href="../../Marionette/Error/UnexpectedAlertOpen.html">UnexpectedAlertOpen</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnknownCommand" data-name="marionette::error::unknowncommand">
+      <a href="../../Marionette/Error/UnknownCommand.html">UnknownCommand</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnknownError" data-name="marionette::error::unknownerror">
+      <a href="../../Marionette/Error/UnknownError.html">UnknownError</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnknownMethod" data-name="marionette::error::unknownmethod">
+      <a href="../../Marionette/Error/UnknownMethod.html">UnknownMethod</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/XpathLookupError" data-name="marionette::error::xpathlookuperror">
+      <a href="../../Marionette/Error/XpathLookupError.html">XpathLookupError</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Key" data-name="marionette::key">
+      <a href="../../Marionette/Key.html">Key</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Location" data-name="marionette::location">
+      <a href="../../Marionette/Location.html">Location</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/LocationStrategy" data-name="marionette::locationstrategy">
+      <a href="../../Marionette/LocationStrategy.html">LocationStrategy</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Logger" data-name="marionette::logger">
+      <a href="../../Marionette/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/MouseButton" data-name="marionette::mousebutton">
+      <a href="../../Marionette/MouseButton.html">MouseButton</a>
+      
+    </li>
+  
+  <li class="parent " data-id="marionette/Marionette/Origin" data-name="marionette::origin">
+      <a href="../../Marionette/Origin.html">Origin</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Origin/Element" data-name="marionette::origin::element">
+      <a href="../../Marionette/Origin/Element.html">Element</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Origin/ElementSelector" data-name="marionette::origin::elementselector">
+      <a href="../../Marionette/Origin/ElementSelector.html">ElementSelector</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Origin/Pointer" data-name="marionette::origin::pointer">
+      <a href="../../Marionette/Origin/Pointer.html">Pointer</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Origin/ViewPort" data-name="marionette::origin::viewport">
+      <a href="../../Marionette/Origin/ViewPort.html">ViewPort</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/PageLoadStrategy" data-name="marionette::pageloadstrategy">
+      <a href="../../Marionette/PageLoadStrategy.html">PageLoadStrategy</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/PointerType" data-name="marionette::pointertype">
+      <a href="../../Marionette/PointerType.html">PointerType</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Rect" data-name="marionette::rect">
+      <a href="../../Marionette/Rect.html">Rect</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Service" data-name="marionette::service">
+      <a href="../../Marionette/Service.html">Service</a>
+      
+    </li>
+  
+  <li class="parent " data-id="marionette/Marionette/Session" data-name="marionette::session">
+      <a href="../../Marionette/Session.html">Session</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Session/NetworkConditions" data-name="marionette::session::networkconditions">
+      <a href="../../Marionette/Session/NetworkConditions.html">NetworkConditions</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Session/Orientation" data-name="marionette::session::orientation">
+      <a href="../../Marionette/Session/Orientation.html">Orientation</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Session/Type" data-name="marionette::session::type">
+      <a href="../../Marionette/Session/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Size" data-name="marionette::size">
+      <a href="../../Marionette/Size.html">Size</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Utils" data-name="marionette::utils">
+      <a href="../../Marionette/Utils.html">Utils</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/WebDriver" data-name="marionette::webdriver">
+      <a href="../../Marionette/WebDriver.html">WebDriver</a>
+      
+    </li>
+  
+  <li class="parent " data-id="marionette/Marionette/Window" data-name="marionette::window">
+      <a href="../../Marionette/Window.html">Window</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Window/Type" data-name="marionette::window::type">
+      <a href="../../Marionette/Window/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Marionette::Error::ScriptTimeout
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Marionette/Error/ScriptTimeout.html">Marionette::Error::ScriptTimeout</a></li><li class="superclass"><a href="../../Marionette/Error.html">Marionette::Error</a></li><li class="superclass">Exception</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>script timeout</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+  <h3>Class methods inherited from class <code><a href="../../Marionette/Error.html">Marionette::Error</a></code></h3>
+  
+  
+    <a href="../../Marionette/Error.html#from_json(json:JSON::Any)-class-method" class="tooltip">
+      <span>from_json(json : JSON::Any)</span>
+    from_json</a>
+    
+  
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+</body>
+</html>

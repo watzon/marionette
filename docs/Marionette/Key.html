@@ -1,0 +1,2134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.34.0">
+<meta name="crystal_docs.project_version" content="develop-dev">
+<meta name="crystal_docs.project_name" content="marionette">
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+
+  <meta id="repository-name" content="marionette">
+  <title>Marionette::Key - marionette develop-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          marionette
+        </a>
+      </h1>
+
+      <span class="project-version">
+        develop-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="marionette/HTTP" data-name="http">
+      <a href="../HTTP.html">HTTP</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/HTTP/Cookie" data-name="http::cookie">
+      <a href="../HTTP/Cookie.html">Cookie</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="marionette/Marionette" data-name="marionette">
+      <a href="../Marionette.html">Marionette</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="marionette/Marionette/Action" data-name="marionette::action">
+      <a href="../Marionette/Action.html">Action</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Action/KeyDown" data-name="marionette::action::keydown">
+      <a href="../Marionette/Action/KeyDown.html">KeyDown</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/KeyPause" data-name="marionette::action::keypause">
+      <a href="../Marionette/Action/KeyPause.html">KeyPause</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/KeyUp" data-name="marionette::action::keyup">
+      <a href="../Marionette/Action/KeyUp.html">KeyUp</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerCancel" data-name="marionette::action::pointercancel">
+      <a href="../Marionette/Action/PointerCancel.html">PointerCancel</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerDown" data-name="marionette::action::pointerdown">
+      <a href="../Marionette/Action/PointerDown.html">PointerDown</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerMove" data-name="marionette::action::pointermove">
+      <a href="../Marionette/Action/PointerMove.html">PointerMove</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerPause" data-name="marionette::action::pointerpause">
+      <a href="../Marionette/Action/PointerPause.html">PointerPause</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerUp" data-name="marionette::action::pointerup">
+      <a href="../Marionette/Action/PointerUp.html">PointerUp</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/SourceType" data-name="marionette::action::sourcetype">
+      <a href="../Marionette/Action/SourceType.html">SourceType</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/ActionBuilder" data-name="marionette::actionbuilder">
+      <a href="../Marionette/ActionBuilder.html">ActionBuilder</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Browser" data-name="marionette::browser">
+      <a href="../Marionette/Browser.html">Browser</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/DriverOptions" data-name="marionette::driveroptions">
+      <a href="../Marionette/DriverOptions.html">DriverOptions</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Element" data-name="marionette::element">
+      <a href="../Marionette/Element.html">Element</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/ElementScrollBehavior" data-name="marionette::elementscrollbehavior">
+      <a href="../Marionette/ElementScrollBehavior.html">ElementScrollBehavior</a>
+      
+    </li>
+  
+  <li class="parent " data-id="marionette/Marionette/Error" data-name="marionette::error">
+      <a href="../Marionette/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ElementClickIntercepted" data-name="marionette::error::elementclickintercepted">
+      <a href="../Marionette/Error/ElementClickIntercepted.html">ElementClickIntercepted</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ElementIsNotSelectable" data-name="marionette::error::elementisnotselectable">
+      <a href="../Marionette/Error/ElementIsNotSelectable.html">ElementIsNotSelectable</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ElementNotInteractable" data-name="marionette::error::elementnotinteractable">
+      <a href="../Marionette/Error/ElementNotInteractable.html">ElementNotInteractable</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ElementNotVisible" data-name="marionette::error::elementnotvisible">
+      <a href="../Marionette/Error/ElementNotVisible.html">ElementNotVisible</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/GenericError" data-name="marionette::error::genericerror">
+      <a href="../Marionette/Error/GenericError.html">GenericError</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ImeEngineActivationFailed" data-name="marionette::error::imeengineactivationfailed">
+      <a href="../Marionette/Error/ImeEngineActivationFailed.html">ImeEngineActivationFailed</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ImeNotAvailable" data-name="marionette::error::imenotavailable">
+      <a href="../Marionette/Error/ImeNotAvailable.html">ImeNotAvailable</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InsecureCertificate" data-name="marionette::error::insecurecertificate">
+      <a href="../Marionette/Error/InsecureCertificate.html">InsecureCertificate</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidArgument" data-name="marionette::error::invalidargument">
+      <a href="../Marionette/Error/InvalidArgument.html">InvalidArgument</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidCookieDomain" data-name="marionette::error::invalidcookiedomain">
+      <a href="../Marionette/Error/InvalidCookieDomain.html">InvalidCookieDomain</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidCoordinates" data-name="marionette::error::invalidcoordinates">
+      <a href="../Marionette/Error/InvalidCoordinates.html">InvalidCoordinates</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidElementCoordinates" data-name="marionette::error::invalidelementcoordinates">
+      <a href="../Marionette/Error/InvalidElementCoordinates.html">InvalidElementCoordinates</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidElementState" data-name="marionette::error::invalidelementstate">
+      <a href="../Marionette/Error/InvalidElementState.html">InvalidElementState</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidSelector" data-name="marionette::error::invalidselector">
+      <a href="../Marionette/Error/InvalidSelector.html">InvalidSelector</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidSessionId" data-name="marionette::error::invalidsessionid">
+      <a href="../Marionette/Error/InvalidSessionId.html">InvalidSessionId</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidXpathSelector" data-name="marionette::error::invalidxpathselector">
+      <a href="../Marionette/Error/InvalidXpathSelector.html">InvalidXpathSelector</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidXpathSelectorReturnTyper" data-name="marionette::error::invalidxpathselectorreturntyper">
+      <a href="../Marionette/Error/InvalidXpathSelectorReturnTyper.html">InvalidXpathSelectorReturnTyper</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/JavascriptError" data-name="marionette::error::javascripterror">
+      <a href="../Marionette/Error/JavascriptError.html">JavascriptError</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/MethodNotAllowed" data-name="marionette::error::methodnotallowed">
+      <a href="../Marionette/Error/MethodNotAllowed.html">MethodNotAllowed</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/MoveTargetOutOfBounds" data-name="marionette::error::movetargetoutofbounds">
+      <a href="../Marionette/Error/MoveTargetOutOfBounds.html">MoveTargetOutOfBounds</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoAlertOpen" data-name="marionette::error::noalertopen">
+      <a href="../Marionette/Error/NoAlertOpen.html">NoAlertOpen</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoSuchCookie" data-name="marionette::error::nosuchcookie">
+      <a href="../Marionette/Error/NoSuchCookie.html">NoSuchCookie</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoSuchElement" data-name="marionette::error::nosuchelement">
+      <a href="../Marionette/Error/NoSuchElement.html">NoSuchElement</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoSuchFrame" data-name="marionette::error::nosuchframe">
+      <a href="../Marionette/Error/NoSuchFrame.html">NoSuchFrame</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoSuchWindow" data-name="marionette::error::nosuchwindow">
+      <a href="../Marionette/Error/NoSuchWindow.html">NoSuchWindow</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ScriptTimeout" data-name="marionette::error::scripttimeout">
+      <a href="../Marionette/Error/ScriptTimeout.html">ScriptTimeout</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/SessionNotCreated" data-name="marionette::error::sessionnotcreated">
+      <a href="../Marionette/Error/SessionNotCreated.html">SessionNotCreated</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/StaleElementReference" data-name="marionette::error::staleelementreference">
+      <a href="../Marionette/Error/StaleElementReference.html">StaleElementReference</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/Timeout" data-name="marionette::error::timeout">
+      <a href="../Marionette/Error/Timeout.html">Timeout</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnableToCaptureScreen" data-name="marionette::error::unabletocapturescreen">
+      <a href="../Marionette/Error/UnableToCaptureScreen.html">UnableToCaptureScreen</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnableToSetCookie" data-name="marionette::error::unabletosetcookie">
+      <a href="../Marionette/Error/UnableToSetCookie.html">UnableToSetCookie</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnexpectedAlertOpen" data-name="marionette::error::unexpectedalertopen">
+      <a href="../Marionette/Error/UnexpectedAlertOpen.html">UnexpectedAlertOpen</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnknownCommand" data-name="marionette::error::unknowncommand">
+      <a href="../Marionette/Error/UnknownCommand.html">UnknownCommand</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnknownError" data-name="marionette::error::unknownerror">
+      <a href="../Marionette/Error/UnknownError.html">UnknownError</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnknownMethod" data-name="marionette::error::unknownmethod">
+      <a href="../Marionette/Error/UnknownMethod.html">UnknownMethod</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/XpathLookupError" data-name="marionette::error::xpathlookuperror">
+      <a href="../Marionette/Error/XpathLookupError.html">XpathLookupError</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" current" data-id="marionette/Marionette/Key" data-name="marionette::key">
+      <a href="../Marionette/Key.html">Key</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Location" data-name="marionette::location">
+      <a href="../Marionette/Location.html">Location</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/LocationStrategy" data-name="marionette::locationstrategy">
+      <a href="../Marionette/LocationStrategy.html">LocationStrategy</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Logger" data-name="marionette::logger">
+      <a href="../Marionette/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/MouseButton" data-name="marionette::mousebutton">
+      <a href="../Marionette/MouseButton.html">MouseButton</a>
+      
+    </li>
+  
+  <li class="parent " data-id="marionette/Marionette/Origin" data-name="marionette::origin">
+      <a href="../Marionette/Origin.html">Origin</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Origin/Element" data-name="marionette::origin::element">
+      <a href="../Marionette/Origin/Element.html">Element</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Origin/ElementSelector" data-name="marionette::origin::elementselector">
+      <a href="../Marionette/Origin/ElementSelector.html">ElementSelector</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Origin/Pointer" data-name="marionette::origin::pointer">
+      <a href="../Marionette/Origin/Pointer.html">Pointer</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Origin/ViewPort" data-name="marionette::origin::viewport">
+      <a href="../Marionette/Origin/ViewPort.html">ViewPort</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/PageLoadStrategy" data-name="marionette::pageloadstrategy">
+      <a href="../Marionette/PageLoadStrategy.html">PageLoadStrategy</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/PointerType" data-name="marionette::pointertype">
+      <a href="../Marionette/PointerType.html">PointerType</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Rect" data-name="marionette::rect">
+      <a href="../Marionette/Rect.html">Rect</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Service" data-name="marionette::service">
+      <a href="../Marionette/Service.html">Service</a>
+      
+    </li>
+  
+  <li class="parent " data-id="marionette/Marionette/Session" data-name="marionette::session">
+      <a href="../Marionette/Session.html">Session</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Session/NetworkConditions" data-name="marionette::session::networkconditions">
+      <a href="../Marionette/Session/NetworkConditions.html">NetworkConditions</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Session/Orientation" data-name="marionette::session::orientation">
+      <a href="../Marionette/Session/Orientation.html">Orientation</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Session/Type" data-name="marionette::session::type">
+      <a href="../Marionette/Session/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Size" data-name="marionette::size">
+      <a href="../Marionette/Size.html">Size</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Utils" data-name="marionette::utils">
+      <a href="../Marionette/Utils.html">Utils</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/WebDriver" data-name="marionette::webdriver">
+      <a href="../Marionette/WebDriver.html">WebDriver</a>
+      
+    </li>
+  
+  <li class="parent " data-id="marionette/Marionette/Window" data-name="marionette::window">
+      <a href="../Marionette/Window.html">Window</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Window/Type" data-name="marionette::window::type">
+      <a href="../Marionette/Window/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">enum</span> Marionette::Key
+
+</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+
+
+
+  
+    <h2>
+      <a id="enum-members" class="anchor" href="#enum-members">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Enum Members
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="Null">
+        <strong>Null</strong> = <code><span class="n">57344</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Cancel">
+        <strong>Cancel</strong> = <code><span class="n">57345</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Help">
+        <strong>Help</strong> = <code><span class="n">57346</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Back_space">
+        <strong>Back_space</strong> = <code><span class="n">57347</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Tab">
+        <strong>Tab</strong> = <code><span class="n">57348</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Clear">
+        <strong>Clear</strong> = <code><span class="n">57349</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Return">
+        <strong>Return</strong> = <code><span class="n">57350</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Enter">
+        <strong>Enter</strong> = <code><span class="n">57351</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Shift">
+        <strong>Shift</strong> = <code><span class="n">57352</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="LeftShift">
+        <strong>LeftShift</strong> = <code><span class="n">57352</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Control">
+        <strong>Control</strong> = <code><span class="n">57353</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="LeftControl">
+        <strong>LeftControl</strong> = <code><span class="n">57353</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Alt">
+        <strong>Alt</strong> = <code><span class="n">57354</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="LeftAlt">
+        <strong>LeftAlt</strong> = <code><span class="n">57354</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Pause">
+        <strong>Pause</strong> = <code><span class="n">57355</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Escape">
+        <strong>Escape</strong> = <code><span class="n">57356</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Space">
+        <strong>Space</strong> = <code><span class="n">57357</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="PageUp">
+        <strong>PageUp</strong> = <code><span class="n">57358</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="PageDown">
+        <strong>PageDown</strong> = <code><span class="n">57359</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="End">
+        <strong>End</strong> = <code><span class="n">57360</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Home">
+        <strong>Home</strong> = <code><span class="n">57361</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Left">
+        <strong>Left</strong> = <code><span class="n">57362</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="ArrowLeft">
+        <strong>ArrowLeft</strong> = <code><span class="n">57362</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Up">
+        <strong>Up</strong> = <code><span class="n">57363</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="ArrowUp">
+        <strong>ArrowUp</strong> = <code><span class="n">57363</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Right">
+        <strong>Right</strong> = <code><span class="n">57364</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="ArrowRight">
+        <strong>ArrowRight</strong> = <code><span class="n">57364</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Down">
+        <strong>Down</strong> = <code><span class="n">57365</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="ArrowDown">
+        <strong>ArrowDown</strong> = <code><span class="n">57365</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Insert">
+        <strong>Insert</strong> = <code><span class="n">57366</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Delete">
+        <strong>Delete</strong> = <code><span class="n">57367</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Semicolon">
+        <strong>Semicolon</strong> = <code><span class="n">57368</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Equals">
+        <strong>Equals</strong> = <code><span class="n">57369</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Numpad0">
+        <strong>Numpad0</strong> = <code><span class="n">57370</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Numpad1">
+        <strong>Numpad1</strong> = <code><span class="n">57371</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Numpad2">
+        <strong>Numpad2</strong> = <code><span class="n">57372</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Numpad3">
+        <strong>Numpad3</strong> = <code><span class="n">57373</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Numpad4">
+        <strong>Numpad4</strong> = <code><span class="n">57374</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Numpad5">
+        <strong>Numpad5</strong> = <code><span class="n">57375</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Numpad6">
+        <strong>Numpad6</strong> = <code><span class="n">57376</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Numpad7">
+        <strong>Numpad7</strong> = <code><span class="n">57377</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Numpad8">
+        <strong>Numpad8</strong> = <code><span class="n">57378</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Numpad9">
+        <strong>Numpad9</strong> = <code><span class="n">57379</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Multiply">
+        <strong>Multiply</strong> = <code><span class="n">57380</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Add">
+        <strong>Add</strong> = <code><span class="n">57381</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Separator">
+        <strong>Separator</strong> = <code><span class="n">57382</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Subtract">
+        <strong>Subtract</strong> = <code><span class="n">57383</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Decimal">
+        <strong>Decimal</strong> = <code><span class="n">57384</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Divide">
+        <strong>Divide</strong> = <code><span class="n">57385</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="F1">
+        <strong>F1</strong> = <code><span class="n">57393</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="F2">
+        <strong>F2</strong> = <code><span class="n">57394</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="F3">
+        <strong>F3</strong> = <code><span class="n">57395</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="F4">
+        <strong>F4</strong> = <code><span class="n">57396</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="F5">
+        <strong>F5</strong> = <code><span class="n">57397</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="F6">
+        <strong>F6</strong> = <code><span class="n">57398</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="F7">
+        <strong>F7</strong> = <code><span class="n">57399</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="F8">
+        <strong>F8</strong> = <code><span class="n">57400</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="F9">
+        <strong>F9</strong> = <code><span class="n">57401</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="F10">
+        <strong>F10</strong> = <code><span class="n">57402</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="F11">
+        <strong>F11</strong> = <code><span class="n">57403</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="F12">
+        <strong>F12</strong> = <code><span class="n">57404</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Meta">
+        <strong>Meta</strong> = <code><span class="n">57405</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Command">
+        <strong>Command</strong> = <code><span class="n">57405</span></code>
+      </dt>
+      
+    
+  </dl>
+
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#add?-instance-method" class="signature"><strong>#add?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#alt?-instance-method" class="signature"><strong>#alt?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#arrow_down?-instance-method" class="signature"><strong>#arrow_down?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#arrow_left?-instance-method" class="signature"><strong>#arrow_left?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#arrow_right?-instance-method" class="signature"><strong>#arrow_right?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#arrow_up?-instance-method" class="signature"><strong>#arrow_up?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#back_space?-instance-method" class="signature"><strong>#back_space?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cancel?-instance-method" class="signature"><strong>#cancel?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear?-instance-method" class="signature"><strong>#clear?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#command?-instance-method" class="signature"><strong>#command?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#control?-instance-method" class="signature"><strong>#control?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#decimal?-instance-method" class="signature"><strong>#decimal?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#delete?-instance-method" class="signature"><strong>#delete?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#divide?-instance-method" class="signature"><strong>#divide?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#down?-instance-method" class="signature"><strong>#down?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#end?-instance-method" class="signature"><strong>#end?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#enter?-instance-method" class="signature"><strong>#enter?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#equals?-instance-method" class="signature"><strong>#equals?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#escape?-instance-method" class="signature"><strong>#escape?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f10?-instance-method" class="signature"><strong>#f10?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f11?-instance-method" class="signature"><strong>#f11?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f12?-instance-method" class="signature"><strong>#f12?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f1?-instance-method" class="signature"><strong>#f1?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f2?-instance-method" class="signature"><strong>#f2?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f3?-instance-method" class="signature"><strong>#f3?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f4?-instance-method" class="signature"><strong>#f4?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f5?-instance-method" class="signature"><strong>#f5?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f6?-instance-method" class="signature"><strong>#f6?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f7?-instance-method" class="signature"><strong>#f7?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f8?-instance-method" class="signature"><strong>#f8?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f9?-instance-method" class="signature"><strong>#f9?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#help?-instance-method" class="signature"><strong>#help?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#home?-instance-method" class="signature"><strong>#home?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#insert?-instance-method" class="signature"><strong>#insert?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#left?-instance-method" class="signature"><strong>#left?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#left_alt?-instance-method" class="signature"><strong>#left_alt?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#left_control?-instance-method" class="signature"><strong>#left_control?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#left_shift?-instance-method" class="signature"><strong>#left_shift?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#meta?-instance-method" class="signature"><strong>#meta?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#multiply?-instance-method" class="signature"><strong>#multiply?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#null?-instance-method" class="signature"><strong>#null?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#numpad0?-instance-method" class="signature"><strong>#numpad0?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#numpad1?-instance-method" class="signature"><strong>#numpad1?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#numpad2?-instance-method" class="signature"><strong>#numpad2?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#numpad3?-instance-method" class="signature"><strong>#numpad3?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#numpad4?-instance-method" class="signature"><strong>#numpad4?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#numpad5?-instance-method" class="signature"><strong>#numpad5?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#numpad6?-instance-method" class="signature"><strong>#numpad6?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#numpad7?-instance-method" class="signature"><strong>#numpad7?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#numpad8?-instance-method" class="signature"><strong>#numpad8?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#numpad9?-instance-method" class="signature"><strong>#numpad9?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#page_down?-instance-method" class="signature"><strong>#page_down?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#page_up?-instance-method" class="signature"><strong>#page_up?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pause?-instance-method" class="signature"><strong>#pause?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#return?-instance-method" class="signature"><strong>#return?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#right?-instance-method" class="signature"><strong>#right?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#semicolon?-instance-method" class="signature"><strong>#semicolon?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#separator?-instance-method" class="signature"><strong>#separator?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#shift?-instance-method" class="signature"><strong>#shift?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#space?-instance-method" class="signature"><strong>#space?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#subtract?-instance-method" class="signature"><strong>#subtract?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#tab?-instance-method" class="signature"><strong>#tab?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#up?-instance-method" class="signature"><strong>#up?</strong></a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="add?-instance-method">
+      <div class="signature">
+        
+        def <strong>add?</strong>
+
+        <a class="method-permalink" href="#add?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="alt?-instance-method">
+      <div class="signature">
+        
+        def <strong>alt?</strong>
+
+        <a class="method-permalink" href="#alt?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="arrow_down?-instance-method">
+      <div class="signature">
+        
+        def <strong>arrow_down?</strong>
+
+        <a class="method-permalink" href="#arrow_down?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="arrow_left?-instance-method">
+      <div class="signature">
+        
+        def <strong>arrow_left?</strong>
+
+        <a class="method-permalink" href="#arrow_left?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="arrow_right?-instance-method">
+      <div class="signature">
+        
+        def <strong>arrow_right?</strong>
+
+        <a class="method-permalink" href="#arrow_right?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="arrow_up?-instance-method">
+      <div class="signature">
+        
+        def <strong>arrow_up?</strong>
+
+        <a class="method-permalink" href="#arrow_up?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="back_space?-instance-method">
+      <div class="signature">
+        
+        def <strong>back_space?</strong>
+
+        <a class="method-permalink" href="#back_space?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cancel?-instance-method">
+      <div class="signature">
+        
+        def <strong>cancel?</strong>
+
+        <a class="method-permalink" href="#cancel?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clear?-instance-method">
+      <div class="signature">
+        
+        def <strong>clear?</strong>
+
+        <a class="method-permalink" href="#clear?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="command?-instance-method">
+      <div class="signature">
+        
+        def <strong>command?</strong>
+
+        <a class="method-permalink" href="#command?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="control?-instance-method">
+      <div class="signature">
+        
+        def <strong>control?</strong>
+
+        <a class="method-permalink" href="#control?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="decimal?-instance-method">
+      <div class="signature">
+        
+        def <strong>decimal?</strong>
+
+        <a class="method-permalink" href="#decimal?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="delete?-instance-method">
+      <div class="signature">
+        
+        def <strong>delete?</strong>
+
+        <a class="method-permalink" href="#delete?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="divide?-instance-method">
+      <div class="signature">
+        
+        def <strong>divide?</strong>
+
+        <a class="method-permalink" href="#divide?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="down?-instance-method">
+      <div class="signature">
+        
+        def <strong>down?</strong>
+
+        <a class="method-permalink" href="#down?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="end?-instance-method">
+      <div class="signature">
+        
+        def <strong>end?</strong>
+
+        <a class="method-permalink" href="#end?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="enter?-instance-method">
+      <div class="signature">
+        
+        def <strong>enter?</strong>
+
+        <a class="method-permalink" href="#enter?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="equals?-instance-method">
+      <div class="signature">
+        
+        def <strong>equals?</strong>
+
+        <a class="method-permalink" href="#equals?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="escape?-instance-method">
+      <div class="signature">
+        
+        def <strong>escape?</strong>
+
+        <a class="method-permalink" href="#escape?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f10?-instance-method">
+      <div class="signature">
+        
+        def <strong>f10?</strong>
+
+        <a class="method-permalink" href="#f10?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f11?-instance-method">
+      <div class="signature">
+        
+        def <strong>f11?</strong>
+
+        <a class="method-permalink" href="#f11?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f12?-instance-method">
+      <div class="signature">
+        
+        def <strong>f12?</strong>
+
+        <a class="method-permalink" href="#f12?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f1?-instance-method">
+      <div class="signature">
+        
+        def <strong>f1?</strong>
+
+        <a class="method-permalink" href="#f1?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f2?-instance-method">
+      <div class="signature">
+        
+        def <strong>f2?</strong>
+
+        <a class="method-permalink" href="#f2?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f3?-instance-method">
+      <div class="signature">
+        
+        def <strong>f3?</strong>
+
+        <a class="method-permalink" href="#f3?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f4?-instance-method">
+      <div class="signature">
+        
+        def <strong>f4?</strong>
+
+        <a class="method-permalink" href="#f4?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f5?-instance-method">
+      <div class="signature">
+        
+        def <strong>f5?</strong>
+
+        <a class="method-permalink" href="#f5?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f6?-instance-method">
+      <div class="signature">
+        
+        def <strong>f6?</strong>
+
+        <a class="method-permalink" href="#f6?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f7?-instance-method">
+      <div class="signature">
+        
+        def <strong>f7?</strong>
+
+        <a class="method-permalink" href="#f7?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f8?-instance-method">
+      <div class="signature">
+        
+        def <strong>f8?</strong>
+
+        <a class="method-permalink" href="#f8?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f9?-instance-method">
+      <div class="signature">
+        
+        def <strong>f9?</strong>
+
+        <a class="method-permalink" href="#f9?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="help?-instance-method">
+      <div class="signature">
+        
+        def <strong>help?</strong>
+
+        <a class="method-permalink" href="#help?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="home?-instance-method">
+      <div class="signature">
+        
+        def <strong>home?</strong>
+
+        <a class="method-permalink" href="#home?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="insert?-instance-method">
+      <div class="signature">
+        
+        def <strong>insert?</strong>
+
+        <a class="method-permalink" href="#insert?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="left?-instance-method">
+      <div class="signature">
+        
+        def <strong>left?</strong>
+
+        <a class="method-permalink" href="#left?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="left_alt?-instance-method">
+      <div class="signature">
+        
+        def <strong>left_alt?</strong>
+
+        <a class="method-permalink" href="#left_alt?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="left_control?-instance-method">
+      <div class="signature">
+        
+        def <strong>left_control?</strong>
+
+        <a class="method-permalink" href="#left_control?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="left_shift?-instance-method">
+      <div class="signature">
+        
+        def <strong>left_shift?</strong>
+
+        <a class="method-permalink" href="#left_shift?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="meta?-instance-method">
+      <div class="signature">
+        
+        def <strong>meta?</strong>
+
+        <a class="method-permalink" href="#meta?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="multiply?-instance-method">
+      <div class="signature">
+        
+        def <strong>multiply?</strong>
+
+        <a class="method-permalink" href="#multiply?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="null?-instance-method">
+      <div class="signature">
+        
+        def <strong>null?</strong>
+
+        <a class="method-permalink" href="#null?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="numpad0?-instance-method">
+      <div class="signature">
+        
+        def <strong>numpad0?</strong>
+
+        <a class="method-permalink" href="#numpad0?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="numpad1?-instance-method">
+      <div class="signature">
+        
+        def <strong>numpad1?</strong>
+
+        <a class="method-permalink" href="#numpad1?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="numpad2?-instance-method">
+      <div class="signature">
+        
+        def <strong>numpad2?</strong>
+
+        <a class="method-permalink" href="#numpad2?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="numpad3?-instance-method">
+      <div class="signature">
+        
+        def <strong>numpad3?</strong>
+
+        <a class="method-permalink" href="#numpad3?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="numpad4?-instance-method">
+      <div class="signature">
+        
+        def <strong>numpad4?</strong>
+
+        <a class="method-permalink" href="#numpad4?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="numpad5?-instance-method">
+      <div class="signature">
+        
+        def <strong>numpad5?</strong>
+
+        <a class="method-permalink" href="#numpad5?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="numpad6?-instance-method">
+      <div class="signature">
+        
+        def <strong>numpad6?</strong>
+
+        <a class="method-permalink" href="#numpad6?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="numpad7?-instance-method">
+      <div class="signature">
+        
+        def <strong>numpad7?</strong>
+
+        <a class="method-permalink" href="#numpad7?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="numpad8?-instance-method">
+      <div class="signature">
+        
+        def <strong>numpad8?</strong>
+
+        <a class="method-permalink" href="#numpad8?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="numpad9?-instance-method">
+      <div class="signature">
+        
+        def <strong>numpad9?</strong>
+
+        <a class="method-permalink" href="#numpad9?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="page_down?-instance-method">
+      <div class="signature">
+        
+        def <strong>page_down?</strong>
+
+        <a class="method-permalink" href="#page_down?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="page_up?-instance-method">
+      <div class="signature">
+        
+        def <strong>page_up?</strong>
+
+        <a class="method-permalink" href="#page_up?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pause?-instance-method">
+      <div class="signature">
+        
+        def <strong>pause?</strong>
+
+        <a class="method-permalink" href="#pause?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="return?-instance-method">
+      <div class="signature">
+        
+        def <strong>return?</strong>
+
+        <a class="method-permalink" href="#return?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="right?-instance-method">
+      <div class="signature">
+        
+        def <strong>right?</strong>
+
+        <a class="method-permalink" href="#right?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="semicolon?-instance-method">
+      <div class="signature">
+        
+        def <strong>semicolon?</strong>
+
+        <a class="method-permalink" href="#semicolon?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="separator?-instance-method">
+      <div class="signature">
+        
+        def <strong>separator?</strong>
+
+        <a class="method-permalink" href="#separator?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="shift?-instance-method">
+      <div class="signature">
+        
+        def <strong>shift?</strong>
+
+        <a class="method-permalink" href="#shift?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="space?-instance-method">
+      <div class="signature">
+        
+        def <strong>space?</strong>
+
+        <a class="method-permalink" href="#space?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="subtract?-instance-method">
+      <div class="signature">
+        
+        def <strong>subtract?</strong>
+
+        <a class="method-permalink" href="#subtract?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="tab?-instance-method">
+      <div class="signature">
+        
+        def <strong>tab?</strong>
+
+        <a class="method-permalink" href="#tab?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="up?-instance-method">
+      <div class="signature">
+        
+        def <strong>up?</strong>
+
+        <a class="method-permalink" href="#up?-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

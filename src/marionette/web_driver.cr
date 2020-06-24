@@ -22,6 +22,20 @@ module Marionette
                    @capabilities = nil)
     end
 
+    # Create a new `Session` instance using the given `browser`. If the driver is
+    # not on your PATH or is under a different name, you may want to
+    # provide its path explicitly using `exe_path`.
+    #
+    # When the driver is started it will be automatically assigned a random
+    # open port. If you want to assign a port explicitly you can do so
+    # using the `port` parameter.
+    #
+    # The environment variables the driver is exposed to can be set using `env`.
+    #
+    # If you want to set arguments that should be passed to the driver itself,
+    # use `args` to set browser specific options you can use `options` in
+    # conjunction with one of the helper methods from the `DriverOptions`
+    # module.
     def self.create_session(browser : Browser,
                             exe_path = nil,
                             port = nil,

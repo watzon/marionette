@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.34.0">
+<meta name="crystal_docs.project_version" content="develop-dev">
+<meta name="crystal_docs.project_name" content="marionette">
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+
+  <meta id="repository-name" content="marionette">
+  <title>Marionette::ActionBuilder - marionette develop-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          marionette
+        </a>
+      </h1>
+
+      <span class="project-version">
+        develop-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="marionette/HTTP" data-name="http">
+      <a href="../HTTP.html">HTTP</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/HTTP/Cookie" data-name="http::cookie">
+      <a href="../HTTP/Cookie.html">Cookie</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="marionette/Marionette" data-name="marionette">
+      <a href="../Marionette.html">Marionette</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="marionette/Marionette/Action" data-name="marionette::action">
+      <a href="../Marionette/Action.html">Action</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Action/KeyDown" data-name="marionette::action::keydown">
+      <a href="../Marionette/Action/KeyDown.html">KeyDown</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/KeyPause" data-name="marionette::action::keypause">
+      <a href="../Marionette/Action/KeyPause.html">KeyPause</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/KeyUp" data-name="marionette::action::keyup">
+      <a href="../Marionette/Action/KeyUp.html">KeyUp</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerCancel" data-name="marionette::action::pointercancel">
+      <a href="../Marionette/Action/PointerCancel.html">PointerCancel</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerDown" data-name="marionette::action::pointerdown">
+      <a href="../Marionette/Action/PointerDown.html">PointerDown</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerMove" data-name="marionette::action::pointermove">
+      <a href="../Marionette/Action/PointerMove.html">PointerMove</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerPause" data-name="marionette::action::pointerpause">
+      <a href="../Marionette/Action/PointerPause.html">PointerPause</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/PointerUp" data-name="marionette::action::pointerup">
+      <a href="../Marionette/Action/PointerUp.html">PointerUp</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Action/SourceType" data-name="marionette::action::sourcetype">
+      <a href="../Marionette/Action/SourceType.html">SourceType</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" current" data-id="marionette/Marionette/ActionBuilder" data-name="marionette::actionbuilder">
+      <a href="../Marionette/ActionBuilder.html">ActionBuilder</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Browser" data-name="marionette::browser">
+      <a href="../Marionette/Browser.html">Browser</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/DriverOptions" data-name="marionette::driveroptions">
+      <a href="../Marionette/DriverOptions.html">DriverOptions</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Element" data-name="marionette::element">
+      <a href="../Marionette/Element.html">Element</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/ElementScrollBehavior" data-name="marionette::elementscrollbehavior">
+      <a href="../Marionette/ElementScrollBehavior.html">ElementScrollBehavior</a>
+      
+    </li>
+  
+  <li class="parent " data-id="marionette/Marionette/Error" data-name="marionette::error">
+      <a href="../Marionette/Error.html">Error</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ElementClickIntercepted" data-name="marionette::error::elementclickintercepted">
+      <a href="../Marionette/Error/ElementClickIntercepted.html">ElementClickIntercepted</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ElementIsNotSelectable" data-name="marionette::error::elementisnotselectable">
+      <a href="../Marionette/Error/ElementIsNotSelectable.html">ElementIsNotSelectable</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ElementNotInteractable" data-name="marionette::error::elementnotinteractable">
+      <a href="../Marionette/Error/ElementNotInteractable.html">ElementNotInteractable</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ElementNotVisible" data-name="marionette::error::elementnotvisible">
+      <a href="../Marionette/Error/ElementNotVisible.html">ElementNotVisible</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/GenericError" data-name="marionette::error::genericerror">
+      <a href="../Marionette/Error/GenericError.html">GenericError</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ImeEngineActivationFailed" data-name="marionette::error::imeengineactivationfailed">
+      <a href="../Marionette/Error/ImeEngineActivationFailed.html">ImeEngineActivationFailed</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ImeNotAvailable" data-name="marionette::error::imenotavailable">
+      <a href="../Marionette/Error/ImeNotAvailable.html">ImeNotAvailable</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InsecureCertificate" data-name="marionette::error::insecurecertificate">
+      <a href="../Marionette/Error/InsecureCertificate.html">InsecureCertificate</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidArgument" data-name="marionette::error::invalidargument">
+      <a href="../Marionette/Error/InvalidArgument.html">InvalidArgument</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidCookieDomain" data-name="marionette::error::invalidcookiedomain">
+      <a href="../Marionette/Error/InvalidCookieDomain.html">InvalidCookieDomain</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidCoordinates" data-name="marionette::error::invalidcoordinates">
+      <a href="../Marionette/Error/InvalidCoordinates.html">InvalidCoordinates</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidElementCoordinates" data-name="marionette::error::invalidelementcoordinates">
+      <a href="../Marionette/Error/InvalidElementCoordinates.html">InvalidElementCoordinates</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidElementState" data-name="marionette::error::invalidelementstate">
+      <a href="../Marionette/Error/InvalidElementState.html">InvalidElementState</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidSelector" data-name="marionette::error::invalidselector">
+      <a href="../Marionette/Error/InvalidSelector.html">InvalidSelector</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidSessionId" data-name="marionette::error::invalidsessionid">
+      <a href="../Marionette/Error/InvalidSessionId.html">InvalidSessionId</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidXpathSelector" data-name="marionette::error::invalidxpathselector">
+      <a href="../Marionette/Error/InvalidXpathSelector.html">InvalidXpathSelector</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/InvalidXpathSelectorReturnTyper" data-name="marionette::error::invalidxpathselectorreturntyper">
+      <a href="../Marionette/Error/InvalidXpathSelectorReturnTyper.html">InvalidXpathSelectorReturnTyper</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/JavascriptError" data-name="marionette::error::javascripterror">
+      <a href="../Marionette/Error/JavascriptError.html">JavascriptError</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/MethodNotAllowed" data-name="marionette::error::methodnotallowed">
+      <a href="../Marionette/Error/MethodNotAllowed.html">MethodNotAllowed</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/MoveTargetOutOfBounds" data-name="marionette::error::movetargetoutofbounds">
+      <a href="../Marionette/Error/MoveTargetOutOfBounds.html">MoveTargetOutOfBounds</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoAlertOpen" data-name="marionette::error::noalertopen">
+      <a href="../Marionette/Error/NoAlertOpen.html">NoAlertOpen</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoSuchCookie" data-name="marionette::error::nosuchcookie">
+      <a href="../Marionette/Error/NoSuchCookie.html">NoSuchCookie</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoSuchElement" data-name="marionette::error::nosuchelement">
+      <a href="../Marionette/Error/NoSuchElement.html">NoSuchElement</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoSuchFrame" data-name="marionette::error::nosuchframe">
+      <a href="../Marionette/Error/NoSuchFrame.html">NoSuchFrame</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/NoSuchWindow" data-name="marionette::error::nosuchwindow">
+      <a href="../Marionette/Error/NoSuchWindow.html">NoSuchWindow</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/ScriptTimeout" data-name="marionette::error::scripttimeout">
+      <a href="../Marionette/Error/ScriptTimeout.html">ScriptTimeout</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/SessionNotCreated" data-name="marionette::error::sessionnotcreated">
+      <a href="../Marionette/Error/SessionNotCreated.html">SessionNotCreated</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/StaleElementReference" data-name="marionette::error::staleelementreference">
+      <a href="../Marionette/Error/StaleElementReference.html">StaleElementReference</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/Timeout" data-name="marionette::error::timeout">
+      <a href="../Marionette/Error/Timeout.html">Timeout</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnableToCaptureScreen" data-name="marionette::error::unabletocapturescreen">
+      <a href="../Marionette/Error/UnableToCaptureScreen.html">UnableToCaptureScreen</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnableToSetCookie" data-name="marionette::error::unabletosetcookie">
+      <a href="../Marionette/Error/UnableToSetCookie.html">UnableToSetCookie</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnexpectedAlertOpen" data-name="marionette::error::unexpectedalertopen">
+      <a href="../Marionette/Error/UnexpectedAlertOpen.html">UnexpectedAlertOpen</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnknownCommand" data-name="marionette::error::unknowncommand">
+      <a href="../Marionette/Error/UnknownCommand.html">UnknownCommand</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnknownError" data-name="marionette::error::unknownerror">
+      <a href="../Marionette/Error/UnknownError.html">UnknownError</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/UnknownMethod" data-name="marionette::error::unknownmethod">
+      <a href="../Marionette/Error/UnknownMethod.html">UnknownMethod</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Error/XpathLookupError" data-name="marionette::error::xpathlookuperror">
+      <a href="../Marionette/Error/XpathLookupError.html">XpathLookupError</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Key" data-name="marionette::key">
+      <a href="../Marionette/Key.html">Key</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Location" data-name="marionette::location">
+      <a href="../Marionette/Location.html">Location</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/LocationStrategy" data-name="marionette::locationstrategy">
+      <a href="../Marionette/LocationStrategy.html">LocationStrategy</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Logger" data-name="marionette::logger">
+      <a href="../Marionette/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/MouseButton" data-name="marionette::mousebutton">
+      <a href="../Marionette/MouseButton.html">MouseButton</a>
+      
+    </li>
+  
+  <li class="parent " data-id="marionette/Marionette/Origin" data-name="marionette::origin">
+      <a href="../Marionette/Origin.html">Origin</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Origin/Element" data-name="marionette::origin::element">
+      <a href="../Marionette/Origin/Element.html">Element</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Origin/ElementSelector" data-name="marionette::origin::elementselector">
+      <a href="../Marionette/Origin/ElementSelector.html">ElementSelector</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Origin/Pointer" data-name="marionette::origin::pointer">
+      <a href="../Marionette/Origin/Pointer.html">Pointer</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Origin/ViewPort" data-name="marionette::origin::viewport">
+      <a href="../Marionette/Origin/ViewPort.html">ViewPort</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/PageLoadStrategy" data-name="marionette::pageloadstrategy">
+      <a href="../Marionette/PageLoadStrategy.html">PageLoadStrategy</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/PointerType" data-name="marionette::pointertype">
+      <a href="../Marionette/PointerType.html">PointerType</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Rect" data-name="marionette::rect">
+      <a href="../Marionette/Rect.html">Rect</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Service" data-name="marionette::service">
+      <a href="../Marionette/Service.html">Service</a>
+      
+    </li>
+  
+  <li class="parent " data-id="marionette/Marionette/Session" data-name="marionette::session">
+      <a href="../Marionette/Session.html">Session</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Session/NetworkConditions" data-name="marionette::session::networkconditions">
+      <a href="../Marionette/Session/NetworkConditions.html">NetworkConditions</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Session/Orientation" data-name="marionette::session::orientation">
+      <a href="../Marionette/Session/Orientation.html">Orientation</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Session/Type" data-name="marionette::session::type">
+      <a href="../Marionette/Session/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Size" data-name="marionette::size">
+      <a href="../Marionette/Size.html">Size</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/Utils" data-name="marionette::utils">
+      <a href="../Marionette/Utils.html">Utils</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/WebDriver" data-name="marionette::webdriver">
+      <a href="../Marionette/WebDriver.html">WebDriver</a>
+      
+    </li>
+  
+  <li class="parent " data-id="marionette/Marionette/Window" data-name="marionette::window">
+      <a href="../Marionette/Window.html">Window</a>
+      
+        <ul>
+  
+  <li class=" " data-id="marionette/Marionette/Window/Type" data-name="marionette::window::type">
+      <a href="../Marionette/Window/Type.html">Type</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Marionette::ActionBuilder
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Marionette/ActionBuilder.html">Marionette::ActionBuilder</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p><code><a href="../Marionette/ActionBuilder.html">ActionBuilder</a></code> allows you to put together a custom sequence of actions
+to be performed in the given order. These actions can include clicks,
+pointer moves, and keyboard actions.</p>
+
+<p>The easiest way to use <code><a href="../Marionette/ActionBuilder.html">ActionBuilder</a></code> is through <code><a href="../Marionette/Session.html#actions(&)-instance-method">Session#actions</a></code> and
+<code><a href="../Marionette/Session.html#perform_actions(debug_mouse_move=false,&)-instance-method">Session#perform_actions</a></code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+
+
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="DEBUG_MOUSE_MOVE_SCRIPT">
+        <strong>DEBUG_MOUSE_MOVE_SCRIPT</strong> = <code>{{ read_file(<span class="s">&quot;src/marionette/scripts/debug_mouse_move.js&quot;</span>) }}</code>
+      </dt>
+      
+    
+  </dl>
+
+
+
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new(session:Session,w3c_key_actions=[]ofAction,w3c_pointer_actions=[]ofAction,actions=[]ofTuple(String,Action))-class-method" class="signature"><strong>.new</strong>(session : Session, w3c_key_actions = <span class="o">[]</span> <span class="k">of</span> <span class="t">Action</span>, w3c_pointer_actions = <span class="o">[]</span> <span class="k">of</span> <span class="t">Action</span>, actions = <span class="o">[]</span> <span class="k">of</span> <span class="t">Tuple</span>(<span class="t">String</span>, <span class="t">Action</span>))</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#action(command:String,action:Action)-instance-method" class="signature"><strong>#action</strong>(command : String, action : Action)</a>
+        
+          <div class="summary"><p>Add a non-W3C compatible action.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#actions:Array(Tuple(String,Action))-instance-method" class="signature"><strong>#actions</strong> : Array(Tuple(String, Action))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear_actions-instance-method" class="signature"><strong>#clear_actions</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#click(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#click</strong>(selector : String, delta_x : Number, delta_y : Number, button : MouseButton = <span class="n">:left</span>, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#click(selector:String,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#click</strong>(selector : String, button : MouseButton = <span class="n">:left</span>, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#click(button:MouseButton=:left)-instance-method" class="signature"><strong>#click</strong>(button : MouseButton = <span class="n">:left</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#click(element:Element,button:MouseButton=:left)-instance-method" class="signature"><strong>#click</strong>(element : Element, button : MouseButton = <span class="n">:left</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#click_and_hold(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#click_and_hold</strong>(selector : String, delta_x : Number, delta_y : Number, button : MouseButton = <span class="n">:left</span>, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#click_and_hold(button:MouseButton=:left)-instance-method" class="signature"><strong>#click_and_hold</strong>(button : MouseButton = <span class="n">:left</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#click_and_hold(element:Element,button:MouseButton=:left)-instance-method" class="signature"><strong>#click_and_hold</strong>(element : Element, button : MouseButton = <span class="n">:left</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#click_and_hold(selector:String,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#click_and_hold</strong>(selector : String, button : MouseButton = <span class="n">:left</span>, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create_key_down(key:Key%7CChar%7CString)-instance-method" class="signature"><strong>#create_key_down</strong>(key : Key | Char | String)</a>
+        
+          <div class="summary"><p>Create a new <code>KeyDown</code> action with the given value</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create_key_up(key:Key%7CChar%7CString)-instance-method" class="signature"><strong>#create_key_up</strong>(key : Key | Char | String)</a>
+        
+          <div class="summary"><p>Create a new <code>KeyUp</code> action with the given value</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create_mouse_down(button:MouseButton,duration:Time::Span=0.seconds)-instance-method" class="signature"><strong>#create_mouse_down</strong>(button : MouseButton, duration : Time::Span = <span class="n">0</span>.seconds)</a>
+        
+          <div class="summary"><p>Create a new <code>PointerDown</code> action for the given button with the given click duration.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create_mouse_up(button:MouseButton,duration:Time::Span=0.seconds)-instance-method" class="signature"><strong>#create_mouse_up</strong>(button : MouseButton, duration : Time::Span = <span class="n">0</span>.seconds)</a>
+        
+          <div class="summary"><p>Create a new <code>PointerUp</code> action for the given button with the given click duration.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create_pointer_move(x:Number,y:Number,duration:Time::Span=0.seconds,origin=Origin::ViewPort.new)-instance-method" class="signature"><strong>#create_pointer_move</strong>(x : Number, y : Number, duration : Time::Span = <span class="n">0</span>.seconds, origin = <span class="t">Origin</span><span class="t">::</span><span class="t">ViewPort</span>.<span class="k">new</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create_pointer_move(x:Number,y:Number,element:Element,duration:Time::Span=0.seconds)-instance-method" class="signature"><strong>#create_pointer_move</strong>(x : Number, y : Number, element : Element, duration : Time::Span = <span class="n">0</span>.seconds)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create_pointer_move(selector:String,duration:Time::Span=0.seconds,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#create_pointer_move</strong>(selector : String, duration : Time::Span = <span class="n">0</span>.seconds, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create_pointer_move(element:Element,duration:Time::Span=0.seconds)-instance-method" class="signature"><strong>#create_pointer_move</strong>(element : Element, duration : Time::Span = <span class="n">0</span>.seconds)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create_pointer_move(x:Number,y:Number,selector:String,duration:Time::Span=0.seconds,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#create_pointer_move</strong>(x : Number, y : Number, selector : String, duration : Time::Span = <span class="n">0</span>.seconds, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#double_click(selector:String,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#double_click</strong>(selector : String, button : MouseButton = <span class="n">:left</span>, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#double_click(button:MouseButton=:left)-instance-method" class="signature"><strong>#double_click</strong>(button : MouseButton = <span class="n">:left</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#double_click(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#double_click</strong>(selector : String, delta_x : Number, delta_y : Number, button : MouseButton = <span class="n">:left</span>, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#double_click(element:Element,button:MouseButton=:left)-instance-method" class="signature"><strong>#double_click</strong>(element : Element, button : MouseButton = <span class="n">:left</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#double_right_click(element:Element)-instance-method" class="signature"><strong>#double_right_click</strong>(element : Element)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#double_right_click-instance-method" class="signature"><strong>#double_right_click</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#double_right_click(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#double_right_click</strong>(selector : String, delta_x : Number, delta_y : Number, button : MouseButton = <span class="n">:left</span>, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#double_right_click(selector:String,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#double_right_click</strong>(selector : String, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#drag_and_drop(source:Element,dest:Element)-instance-method" class="signature"><strong>#drag_and_drop</strong>(source : Element, dest : Element)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#drag_and_drop(source:Element,delta_x:Number,delta_y:Number)-instance-method" class="signature"><strong>#drag_and_drop</strong>(source : Element, delta_x : Number, delta_y : Number)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#drag_and_drop(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#drag_and_drop</strong>(selector : String, delta_x : Number, delta_y : Number, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#drag_and_drop(source:String,dest:String,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#drag_and_drop</strong>(source : String, dest : String, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#key_down(key:Key%7CChar)-instance-method" class="signature"><strong>#key_down</strong>(key : Key | Char)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#key_down(key:Key%7CChar,element:Element)-instance-method" class="signature"><strong>#key_down</strong>(key : Key | Char, element : Element)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#key_down(key:Key%7CChar,selector:String,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#key_down</strong>(key : Key | Char, selector : String, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#key_up(key:Key%7CChar)-instance-method" class="signature"><strong>#key_up</strong>(key : Key | Char)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#key_up(key:Key%7CChar,selector:String,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#key_up</strong>(key : Key | Char, selector : String, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#mouse_button_down(button:MouseButton=:left,duration:Time::Span=0.seconds)-instance-method" class="signature"><strong>#mouse_button_down</strong>(button : MouseButton = <span class="n">:left</span>, duration : Time::Span = <span class="n">0</span>.seconds)</a>
+        
+          <div class="summary"><p>Create a mouse down action and add it dependant on the W3C status of the current WebDriver.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#mouse_button_up(button:MouseButton=:left,duration:Time::Span=0.seconds)-instance-method" class="signature"><strong>#mouse_button_up</strong>(button : MouseButton = <span class="n">:left</span>, duration : Time::Span = <span class="n">0</span>.seconds)</a>
+        
+          <div class="summary"><p>Create a mouse up action and add it dependant on the W3C status of the current WebDriver.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#move_mouse(x:Number,y:Number,duration:Time::Span=0.seconds,origin=Origin::ViewPort.new)-instance-method" class="signature"><strong>#move_mouse</strong>(x : Number, y : Number, duration : Time::Span = <span class="n">0</span>.seconds, origin = <span class="t">Origin</span><span class="t">::</span><span class="t">ViewPort</span>.<span class="k">new</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#move_mouse_by(delta_x:Number,delta_y:Number,duration:Time::Span)-instance-method" class="signature"><strong>#move_mouse_by</strong>(delta_x : Number, delta_y : Number, duration : Time::Span)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#move_mouse_by(delta_x:Number,delta_y:Number)-instance-method" class="signature"><strong>#move_mouse_by</strong>(delta_x : Number, delta_y : Number)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#move_mouse_to(x:Number,y:Number,duration:Time::Span=0.seconds)-instance-method" class="signature"><strong>#move_mouse_to</strong>(x : Number, y : Number, duration : Time::Span = <span class="n">0</span>.seconds)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#move_mouse_to(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#move_mouse_to</strong>(selector : String, delta_x : Number, delta_y : Number, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#move_mouse_to(element:Element,delta_x:Number,delta_y:Number)-instance-method" class="signature"><strong>#move_mouse_to</strong>(element : Element, delta_x : Number, delta_y : Number)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#move_mouse_to(selector:String,duration:Time::Span=0.seconds,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#move_mouse_to</strong>(selector : String, duration : Time::Span = <span class="n">0</span>.seconds, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#move_mouse_to(element:Element,duration:Time::Span=0.seconds)-instance-method" class="signature"><strong>#move_mouse_to</strong>(element : Element, duration : Time::Span = <span class="n">0</span>.seconds)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#move_mouse_to(selector:String,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#move_mouse_to</strong>(selector : String, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pause(duration:Time::Span=0.seconds)-instance-method" class="signature"><strong>#pause</strong>(duration : Time::Span = <span class="n">0</span>.seconds)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#perform(debug_mouse_move=false)-instance-method" class="signature"><strong>#perform</strong>(debug_mouse_move = <span class="n">false</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#release(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#release</strong>(selector : String, delta_x : Number, delta_y : Number, button : MouseButton = <span class="n">:left</span>, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#release(selector:String,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#release</strong>(selector : String, button : MouseButton = <span class="n">:left</span>, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#release(button:MouseButton=:left)-instance-method" class="signature"><strong>#release</strong>(button : MouseButton = <span class="n">:left</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#release_right(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#release_right</strong>(selector : String, delta_x : Number, delta_y : Number, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#release_right(selector:String,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#release_right</strong>(selector : String, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#release_right-instance-method" class="signature"><strong>#release_right</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reset_actions-instance-method" class="signature"><strong>#reset_actions</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#right_click-instance-method" class="signature"><strong>#right_click</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#right_click(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#right_click</strong>(selector : String, delta_x : Number, delta_y : Number, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#right_click(selector:String,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#right_click</strong>(selector : String, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#right_click(element:Element)-instance-method" class="signature"><strong>#right_click</strong>(element : Element)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#right_click_and_hold-instance-method" class="signature"><strong>#right_click_and_hold</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#right_click_and_hold(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#right_click_and_hold</strong>(selector : String, delta_x : Number, delta_y : Number, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#right_click_and_hold(selector:String,location_strategy:LocationStrategy=:css)-instance-method" class="signature"><strong>#right_click_and_hold</strong>(selector : String, location_strategy : LocationStrategy = <span class="n">:css</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#right_click_and_hold(element:Element)-instance-method" class="signature"><strong>#right_click_and_hold</strong>(element : Element)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send_keys(selector:String,keys:Array(Key%7CChar%7CString))-instance-method" class="signature"><strong>#send_keys</strong>(selector : String, keys : Array(Key | Char | String))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send_keys(element:Element,keys:Array(Key%7CChar%7CString))-instance-method" class="signature"><strong>#send_keys</strong>(element : Element, keys : Array(Key | Char | String))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#send_keys(keys:Array(Key%7CChar%7CString))-instance-method" class="signature"><strong>#send_keys</strong>(keys : Array(Key | Char | String))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#session:Session-instance-method" class="signature"><strong>#session</strong> : Session</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#w3c_action(action:Action)-instance-method" class="signature"><strong>#w3c_action</strong>(action : Action)</a>
+        
+          <div class="summary"><p>Add a new W3C compatible action and add a pause of the opposite type to keep ticks aligned.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#w3c_key_actions:Array(Action)-instance-method" class="signature"><strong>#w3c_key_actions</strong> : Array(Action)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#w3c_pointer_actions:Array(Action)-instance-method" class="signature"><strong>#w3c_pointer_actions</strong> : Array(Action)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(session:Session,w3c_key_actions=[]ofAction,w3c_pointer_actions=[]ofAction,actions=[]ofTuple(String,Action))-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(session : <a href="../Marionette/Session.html">Session</a>, w3c_key_actions = <span class="o">[]</span> <span class="k">of</span> <span class="t">Action</span>, w3c_pointer_actions = <span class="o">[]</span> <span class="k">of</span> <span class="t">Action</span>, actions = <span class="o">[]</span> <span class="k">of</span> <span class="t">Tuple</span>(<span class="t">String</span>, <span class="t">Action</span>))
+
+        <a class="method-permalink" href="#new(session:Session,w3c_key_actions=[]ofAction,w3c_pointer_actions=[]ofAction,actions=[]ofTuple(String,Action))-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="action(command:String,action:Action)-instance-method">
+      <div class="signature">
+        
+        def <strong>action</strong>(command : String, action : <a href="../Marionette/Action.html">Action</a>)
+
+        <a class="method-permalink" href="#action(command:String,action:Action)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Add a non-W3C compatible action.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="actions:Array(Tuple(String,Action))-instance-method">
+      <div class="signature">
+        
+        def <strong>actions</strong> : Array(Tuple(String, <a href="../Marionette/Action.html">Action</a>))
+
+        <a class="method-permalink" href="#actions:Array(Tuple(String,Action))-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clear_actions-instance-method">
+      <div class="signature">
+        
+        def <strong>clear_actions</strong>
+
+        <a class="method-permalink" href="#clear_actions-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="click(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>click</strong>(selector : String, delta_x : Number, delta_y : Number, button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#click(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="click(selector:String,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>click</strong>(selector : String, button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#click(selector:String,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="click(button:MouseButton=:left)-instance-method">
+      <div class="signature">
+        
+        def <strong>click</strong>(button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>)
+
+        <a class="method-permalink" href="#click(button:MouseButton=:left)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="click(element:Element,button:MouseButton=:left)-instance-method">
+      <div class="signature">
+        
+        def <strong>click</strong>(element : <a href="../Marionette/Element.html">Element</a>, button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>)
+
+        <a class="method-permalink" href="#click(element:Element,button:MouseButton=:left)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="click_and_hold(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>click_and_hold</strong>(selector : String, delta_x : Number, delta_y : Number, button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#click_and_hold(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="click_and_hold(button:MouseButton=:left)-instance-method">
+      <div class="signature">
+        
+        def <strong>click_and_hold</strong>(button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>)
+
+        <a class="method-permalink" href="#click_and_hold(button:MouseButton=:left)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="click_and_hold(element:Element,button:MouseButton=:left)-instance-method">
+      <div class="signature">
+        
+        def <strong>click_and_hold</strong>(element : <a href="../Marionette/Element.html">Element</a>, button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>)
+
+        <a class="method-permalink" href="#click_and_hold(element:Element,button:MouseButton=:left)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="click_and_hold(selector:String,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>click_and_hold</strong>(selector : String, button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#click_and_hold(selector:String,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="create_key_down(key:Key|Char|String)-instance-method">
+      <div class="signature">
+        
+        def <strong>create_key_down</strong>(key : <a href="../Marionette/Key.html">Key</a> | Char | String)
+
+        <a class="method-permalink" href="#create_key_down(key:Key%7CChar%7CString)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a new <code>KeyDown</code> action with the given value</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="create_key_up(key:Key|Char|String)-instance-method">
+      <div class="signature">
+        
+        def <strong>create_key_up</strong>(key : <a href="../Marionette/Key.html">Key</a> | Char | String)
+
+        <a class="method-permalink" href="#create_key_up(key:Key%7CChar%7CString)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a new <code>KeyUp</code> action with the given value</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="create_mouse_down(button:MouseButton,duration:Time::Span=0.seconds)-instance-method">
+      <div class="signature">
+        
+        def <strong>create_mouse_down</strong>(button : <a href="../Marionette/MouseButton.html">MouseButton</a>, duration : Time::Span = <span class="n">0</span>.seconds)
+
+        <a class="method-permalink" href="#create_mouse_down(button:MouseButton,duration:Time::Span=0.seconds)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a new <code>PointerDown</code> action for the given button with the
+given click duration.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="create_mouse_up(button:MouseButton,duration:Time::Span=0.seconds)-instance-method">
+      <div class="signature">
+        
+        def <strong>create_mouse_up</strong>(button : <a href="../Marionette/MouseButton.html">MouseButton</a>, duration : Time::Span = <span class="n">0</span>.seconds)
+
+        <a class="method-permalink" href="#create_mouse_up(button:MouseButton,duration:Time::Span=0.seconds)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a new <code>PointerUp</code> action for the given button with the
+given click duration.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="create_pointer_move(x:Number,y:Number,duration:Time::Span=0.seconds,origin=Origin::ViewPort.new)-instance-method">
+      <div class="signature">
+        
+        def <strong>create_pointer_move</strong>(x : Number, y : Number, duration : Time::Span = <span class="n">0</span>.seconds, origin = <span class="t">Origin</span><span class="t">::</span><span class="t">ViewPort</span>.<span class="k">new</span>)
+
+        <a class="method-permalink" href="#create_pointer_move(x:Number,y:Number,duration:Time::Span=0.seconds,origin=Origin::ViewPort.new)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="create_pointer_move(x:Number,y:Number,element:Element,duration:Time::Span=0.seconds)-instance-method">
+      <div class="signature">
+        
+        def <strong>create_pointer_move</strong>(x : Number, y : Number, element : <a href="../Marionette/Element.html">Element</a>, duration : Time::Span = <span class="n">0</span>.seconds)
+
+        <a class="method-permalink" href="#create_pointer_move(x:Number,y:Number,element:Element,duration:Time::Span=0.seconds)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="create_pointer_move(selector:String,duration:Time::Span=0.seconds,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>create_pointer_move</strong>(selector : String, duration : Time::Span = <span class="n">0</span>.seconds, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#create_pointer_move(selector:String,duration:Time::Span=0.seconds,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="create_pointer_move(element:Element,duration:Time::Span=0.seconds)-instance-method">
+      <div class="signature">
+        
+        def <strong>create_pointer_move</strong>(element : <a href="../Marionette/Element.html">Element</a>, duration : Time::Span = <span class="n">0</span>.seconds)
+
+        <a class="method-permalink" href="#create_pointer_move(element:Element,duration:Time::Span=0.seconds)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="create_pointer_move(x:Number,y:Number,selector:String,duration:Time::Span=0.seconds,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>create_pointer_move</strong>(x : Number, y : Number, selector : String, duration : Time::Span = <span class="n">0</span>.seconds, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#create_pointer_move(x:Number,y:Number,selector:String,duration:Time::Span=0.seconds,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="double_click(selector:String,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>double_click</strong>(selector : String, button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#double_click(selector:String,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="double_click(button:MouseButton=:left)-instance-method">
+      <div class="signature">
+        
+        def <strong>double_click</strong>(button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>)
+
+        <a class="method-permalink" href="#double_click(button:MouseButton=:left)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="double_click(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>double_click</strong>(selector : String, delta_x : Number, delta_y : Number, button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#double_click(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="double_click(element:Element,button:MouseButton=:left)-instance-method">
+      <div class="signature">
+        
+        def <strong>double_click</strong>(element : <a href="../Marionette/Element.html">Element</a>, button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>)
+
+        <a class="method-permalink" href="#double_click(element:Element,button:MouseButton=:left)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="double_right_click(element:Element)-instance-method">
+      <div class="signature">
+        
+        def <strong>double_right_click</strong>(element : <a href="../Marionette/Element.html">Element</a>)
+
+        <a class="method-permalink" href="#double_right_click(element:Element)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="double_right_click-instance-method">
+      <div class="signature">
+        
+        def <strong>double_right_click</strong>
+
+        <a class="method-permalink" href="#double_right_click-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="double_right_click(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>double_right_click</strong>(selector : String, delta_x : Number, delta_y : Number, button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#double_right_click(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="double_right_click(selector:String,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>double_right_click</strong>(selector : String, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#double_right_click(selector:String,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="drag_and_drop(source:Element,dest:Element)-instance-method">
+      <div class="signature">
+        
+        def <strong>drag_and_drop</strong>(source : <a href="../Marionette/Element.html">Element</a>, dest : <a href="../Marionette/Element.html">Element</a>)
+
+        <a class="method-permalink" href="#drag_and_drop(source:Element,dest:Element)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="drag_and_drop(source:Element,delta_x:Number,delta_y:Number)-instance-method">
+      <div class="signature">
+        
+        def <strong>drag_and_drop</strong>(source : <a href="../Marionette/Element.html">Element</a>, delta_x : Number, delta_y : Number)
+
+        <a class="method-permalink" href="#drag_and_drop(source:Element,delta_x:Number,delta_y:Number)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="drag_and_drop(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>drag_and_drop</strong>(selector : String, delta_x : Number, delta_y : Number, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#drag_and_drop(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="drag_and_drop(source:String,dest:String,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>drag_and_drop</strong>(source : String, dest : String, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#drag_and_drop(source:String,dest:String,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="key_down(key:Key|Char)-instance-method">
+      <div class="signature">
+        
+        def <strong>key_down</strong>(key : <a href="../Marionette/Key.html">Key</a> | Char)
+
+        <a class="method-permalink" href="#key_down(key:Key%7CChar)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="key_down(key:Key|Char,element:Element)-instance-method">
+      <div class="signature">
+        
+        def <strong>key_down</strong>(key : <a href="../Marionette/Key.html">Key</a> | Char, element : <a href="../Marionette/Element.html">Element</a>)
+
+        <a class="method-permalink" href="#key_down(key:Key%7CChar,element:Element)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="key_down(key:Key|Char,selector:String,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>key_down</strong>(key : <a href="../Marionette/Key.html">Key</a> | Char, selector : String, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#key_down(key:Key%7CChar,selector:String,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="key_up(key:Key|Char)-instance-method">
+      <div class="signature">
+        
+        def <strong>key_up</strong>(key : <a href="../Marionette/Key.html">Key</a> | Char)
+
+        <a class="method-permalink" href="#key_up(key:Key%7CChar)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="key_up(key:Key|Char,selector:String,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>key_up</strong>(key : <a href="../Marionette/Key.html">Key</a> | Char, selector : String, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#key_up(key:Key%7CChar,selector:String,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="mouse_button_down(button:MouseButton=:left,duration:Time::Span=0.seconds)-instance-method">
+      <div class="signature">
+        
+        def <strong>mouse_button_down</strong>(button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>, duration : Time::Span = <span class="n">0</span>.seconds)
+
+        <a class="method-permalink" href="#mouse_button_down(button:MouseButton=:left,duration:Time::Span=0.seconds)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a mouse down action and add it dependant on the W3C status of
+the current WebDriver.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="mouse_button_up(button:MouseButton=:left,duration:Time::Span=0.seconds)-instance-method">
+      <div class="signature">
+        
+        def <strong>mouse_button_up</strong>(button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>, duration : Time::Span = <span class="n">0</span>.seconds)
+
+        <a class="method-permalink" href="#mouse_button_up(button:MouseButton=:left,duration:Time::Span=0.seconds)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a mouse up action and add it dependant on the W3C status of
+the current WebDriver.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="move_mouse(x:Number,y:Number,duration:Time::Span=0.seconds,origin=Origin::ViewPort.new)-instance-method">
+      <div class="signature">
+        
+        def <strong>move_mouse</strong>(x : Number, y : Number, duration : Time::Span = <span class="n">0</span>.seconds, origin = <span class="t">Origin</span><span class="t">::</span><span class="t">ViewPort</span>.<span class="k">new</span>)
+
+        <a class="method-permalink" href="#move_mouse(x:Number,y:Number,duration:Time::Span=0.seconds,origin=Origin::ViewPort.new)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="move_mouse_by(delta_x:Number,delta_y:Number,duration:Time::Span)-instance-method">
+      <div class="signature">
+        
+        def <strong>move_mouse_by</strong>(delta_x : Number, delta_y : Number, duration : Time::Span)
+
+        <a class="method-permalink" href="#move_mouse_by(delta_x:Number,delta_y:Number,duration:Time::Span)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="move_mouse_by(delta_x:Number,delta_y:Number)-instance-method">
+      <div class="signature">
+        
+        def <strong>move_mouse_by</strong>(delta_x : Number, delta_y : Number)
+
+        <a class="method-permalink" href="#move_mouse_by(delta_x:Number,delta_y:Number)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="move_mouse_to(x:Number,y:Number,duration:Time::Span=0.seconds)-instance-method">
+      <div class="signature">
+        
+        def <strong>move_mouse_to</strong>(x : Number, y : Number, duration : Time::Span = <span class="n">0</span>.seconds)
+
+        <a class="method-permalink" href="#move_mouse_to(x:Number,y:Number,duration:Time::Span=0.seconds)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="move_mouse_to(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>move_mouse_to</strong>(selector : String, delta_x : Number, delta_y : Number, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#move_mouse_to(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="move_mouse_to(element:Element,delta_x:Number,delta_y:Number)-instance-method">
+      <div class="signature">
+        
+        def <strong>move_mouse_to</strong>(element : <a href="../Marionette/Element.html">Element</a>, delta_x : Number, delta_y : Number)
+
+        <a class="method-permalink" href="#move_mouse_to(element:Element,delta_x:Number,delta_y:Number)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="move_mouse_to(selector:String,duration:Time::Span=0.seconds,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>move_mouse_to</strong>(selector : String, duration : Time::Span = <span class="n">0</span>.seconds, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#move_mouse_to(selector:String,duration:Time::Span=0.seconds,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="move_mouse_to(element:Element,duration:Time::Span=0.seconds)-instance-method">
+      <div class="signature">
+        
+        def <strong>move_mouse_to</strong>(element : <a href="../Marionette/Element.html">Element</a>, duration : Time::Span = <span class="n">0</span>.seconds)
+
+        <a class="method-permalink" href="#move_mouse_to(element:Element,duration:Time::Span=0.seconds)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="move_mouse_to(selector:String,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>move_mouse_to</strong>(selector : String, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#move_mouse_to(selector:String,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pause(duration:Time::Span=0.seconds)-instance-method">
+      <div class="signature">
+        
+        def <strong>pause</strong>(duration : Time::Span = <span class="n">0</span>.seconds)
+
+        <a class="method-permalink" href="#pause(duration:Time::Span=0.seconds)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="perform(debug_mouse_move=false)-instance-method">
+      <div class="signature">
+        
+        def <strong>perform</strong>(debug_mouse_move = <span class="n">false</span>)
+
+        <a class="method-permalink" href="#perform(debug_mouse_move=false)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="release(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>release</strong>(selector : String, delta_x : Number, delta_y : Number, button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#release(selector:String,delta_x:Number,delta_y:Number,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="release(selector:String,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>release</strong>(selector : String, button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#release(selector:String,button:MouseButton=:left,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="release(button:MouseButton=:left)-instance-method">
+      <div class="signature">
+        
+        def <strong>release</strong>(button : <a href="../Marionette/MouseButton.html">MouseButton</a> = <span class="n">:left</span>)
+
+        <a class="method-permalink" href="#release(button:MouseButton=:left)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="release_right(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>release_right</strong>(selector : String, delta_x : Number, delta_y : Number, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#release_right(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="release_right(selector:String,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>release_right</strong>(selector : String, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#release_right(selector:String,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="release_right-instance-method">
+      <div class="signature">
+        
+        def <strong>release_right</strong>
+
+        <a class="method-permalink" href="#release_right-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reset_actions-instance-method">
+      <div class="signature">
+        
+        def <strong>reset_actions</strong>
+
+        <a class="method-permalink" href="#reset_actions-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="right_click-instance-method">
+      <div class="signature">
+        
+        def <strong>right_click</strong>
+
+        <a class="method-permalink" href="#right_click-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="right_click(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>right_click</strong>(selector : String, delta_x : Number, delta_y : Number, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#right_click(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="right_click(selector:String,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>right_click</strong>(selector : String, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#right_click(selector:String,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="right_click(element:Element)-instance-method">
+      <div class="signature">
+        
+        def <strong>right_click</strong>(element : <a href="../Marionette/Element.html">Element</a>)
+
+        <a class="method-permalink" href="#right_click(element:Element)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="right_click_and_hold-instance-method">
+      <div class="signature">
+        
+        def <strong>right_click_and_hold</strong>
+
+        <a class="method-permalink" href="#right_click_and_hold-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="right_click_and_hold(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>right_click_and_hold</strong>(selector : String, delta_x : Number, delta_y : Number, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#right_click_and_hold(selector:String,delta_x:Number,delta_y:Number,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="right_click_and_hold(selector:String,location_strategy:LocationStrategy=:css)-instance-method">
+      <div class="signature">
+        
+        def <strong>right_click_and_hold</strong>(selector : String, location_strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>)
+
+        <a class="method-permalink" href="#right_click_and_hold(selector:String,location_strategy:LocationStrategy=:css)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="right_click_and_hold(element:Element)-instance-method">
+      <div class="signature">
+        
+        def <strong>right_click_and_hold</strong>(element : <a href="../Marionette/Element.html">Element</a>)
+
+        <a class="method-permalink" href="#right_click_and_hold(element:Element)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="send_keys(selector:String,keys:Array(Key|Char|String))-instance-method">
+      <div class="signature">
+        
+        def <strong>send_keys</strong>(selector : String, keys : Array(<a href="../Marionette/Key.html">Key</a> | Char | String))
+
+        <a class="method-permalink" href="#send_keys(selector:String,keys:Array(Key%7CChar%7CString))-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="send_keys(element:Element,keys:Array(Key|Char|String))-instance-method">
+      <div class="signature">
+        
+        def <strong>send_keys</strong>(element : <a href="../Marionette/Element.html">Element</a>, keys : Array(<a href="../Marionette/Key.html">Key</a> | Char | String))
+
+        <a class="method-permalink" href="#send_keys(element:Element,keys:Array(Key%7CChar%7CString))-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="send_keys(keys:Array(Key|Char|String))-instance-method">
+      <div class="signature">
+        
+        def <strong>send_keys</strong>(keys : Array(<a href="../Marionette/Key.html">Key</a> | Char | String))
+
+        <a class="method-permalink" href="#send_keys(keys:Array(Key%7CChar%7CString))-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="session:Session-instance-method">
+      <div class="signature">
+        
+        def <strong>session</strong> : <a href="../Marionette/Session.html">Session</a>
+
+        <a class="method-permalink" href="#session:Session-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="w3c_action(action:Action)-instance-method">
+      <div class="signature">
+        
+        def <strong>w3c_action</strong>(action : <a href="../Marionette/Action.html">Action</a>)
+
+        <a class="method-permalink" href="#w3c_action(action:Action)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Add a new W3C compatible action and add a pause of the opposite type
+to keep ticks aligned.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="w3c_key_actions:Array(Action)-instance-method">
+      <div class="signature">
+        
+        def <strong>w3c_key_actions</strong> : Array(<a href="../Marionette/Action.html">Action</a>)
+
+        <a class="method-permalink" href="#w3c_key_actions:Array(Action)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="w3c_pointer_actions:Array(Action)-instance-method">
+      <div class="signature">
+        
+        def <strong>w3c_pointer_actions</strong> : Array(<a href="../Marionette/Action.html">Action</a>)
+
+        <a class="method-permalink" href="#w3c_pointer_actions:Array(Action)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

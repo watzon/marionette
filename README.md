@@ -25,12 +25,13 @@ Marionette is a one-size-fits-all approach to WebDriver adapters. It works with 
   - [Edge](#edge)
   - [Internet Explorer](#internet-explorer)
 - [Getting Started](#getting-started)
+  - [Driver Options](#driver-options)
 - [Browser Manipulation](#browser-manipulation)
   - [Navigation](#navigation)
   - [Windows and Tabs](#windows-and-tabs)
   - [Frames and IFrames](#frames-and-iframes)
   - [Window Management](#window-management)
-- [Element](#element)
+- [Working with Elements](#working-with-elements)
 
 ## Installation
 
@@ -115,6 +116,20 @@ end
 sleep 5
 session.close
 ```
+
+### Driver Options
+
+Different drivers have different options available to them. To make setting those options a little easier there's the `DriverOptions` module which is extended by `Marionette` itself. Take, for instance, Chrome:
+
+```crystal
+# Make this instance headless
+options = Marionette.chrome_options(args: ["headless"])
+
+# Create a Chrome session
+session = Marionette::WebDriver.create_session(:chrome, options: options)
+```
+
+`args` in this case are arguments to be passed to the browser itself rather than the driver. If you wish to pass arguments to the driver you can use the `args` parameter in the `create_session` method.
 
 ## Browser Manipulation
 
@@ -393,7 +408,7 @@ To make the given window full screen:
 window.fullscreen
 ```
 
-## Element
+## Working with Elements
 
 `Element` represents a DOM element. WebElements can be found by searching from the document root using a WebDriver instance, or by searching under another `Element`.
 
