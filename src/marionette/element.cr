@@ -196,16 +196,9 @@ module Marionette
       params = params.to_h.transform_keys(&.to_s)
       params["$elementId"] = @id
       params["$sessionId"] = @session.id
-      begin
-        result = @session.driver.execute(command, params)
-        result["value"]
-      rescue ex
-        Log.fatal(exception: ex) {
-            "Unexpected exception caught while executing command #{command}. Closing session."
-          }
-        @session.stop
-        raise ex
-      end
+
+      result = @session.driver.execute(command, params)
+      result["value"]
     end
   end
 end

@@ -56,7 +56,7 @@ module Marionette
 
     # Close the current session.
     def close
-      execute("Quit", stop_on_exception: false)
+      execute("Quit")
     end
 
     # Add an implicit wait that will occur before calls are made in a newly opened page.
@@ -82,7 +82,7 @@ module Marionette
     # will throw an `Error::TimeoutError`.
     def page_load_timeout(time : Time::Span)
       begin
-        execute("SetTimeouts", {"pageLoad" => time.total_milliseconds.to_i}, stop_on_exception: false)
+        execute("SetTimeouts", {"pageLoad" => time.total_milliseconds.to_i})
       rescue ex : Error
         execute("SetTimeouts", {
           "type" => "page load",
@@ -231,7 +231,7 @@ module Marionette
     # Get the cookie with the specified name. Returns `nil` if no cookie was found.
     def get_cookie(name : String)
       begin
-        value = execute("GetCookie", {"name" => name}, stop_on_exception: false)
+        value = execute("GetCookie", {"name" => name})
         HTTP::Cookie.from_json(value.to_json)
       rescue ex : Error::NoSuchCookie
         Log.warn { "Cookie not found with name '#{name}'" }
@@ -242,7 +242,7 @@ module Marionette
     # Delete the cookie with the specified name.
     def delete_cookie(name : String)
       begin
-        execute("DeleteCookie", {"name" => name}, stop_on_exception: false)
+        execute("DeleteCookie", {"name" => name})
       rescue ex : Error::NoSuchCookie
         Log.warn { "Cookie not found with name '#{name}'" }
       end
@@ -331,7 +331,7 @@ module Marionette
     # `LocationStrategy`. Default is `LocationStrategy::Css`. Raises an
     # exception if no element with the given selector was found.
     def find_element!(selector, strategy : LocationStrategy = :css)
-      response = execute("FindElement", Utils.selector_params(selector, strategy, w3c?), stop_on_exception: false)
+      response = execute("FindElement", Utils.selector_params(selector, strategy, w3c?))
       id = response.as_h.values[0].as_s
       Element.new(self, id)
     end
@@ -340,7 +340,7 @@ module Marionette
     # an array.
     def find_elements(selector, strategy : LocationStrategy = :css)
       begin
-        response = execute("FindElements", Utils.selector_params(selector, strategy, w3c?), stop_on_exception: false)
+        response = execute("FindElements", Utils.selector_params(selector, strategy, w3c?))
         response.as_a.map do |v|
           id = v.as_h.values[0].as_s
           Element.new(self, id)
@@ -367,7 +367,7 @@ module Marionette
       params = Utils.selector_params(selector, strategy, w3c?)
       params["$elementId"] = element_id
 
-      response = execute("FindChildElement", params, stop_on_exception: false)
+      response = execute("FindChildElement", params)
       id = response.as_h.values[0].as_s
       Element.new(self, id)
     end
@@ -379,7 +379,7 @@ module Marionette
       params = Utils.selector_params(selector, strategy, w3c?)
       params["$elementId"] = element_id
       begin
-        response = execute("FindChildElements", params, stop_on_exception: false)
+        response = execute("FindChildElements", params)
         response.as_a.map do |v|
           id = v.as_h.values[0].as_s
           Element.new(self, id)
@@ -509,7 +509,7 @@ module Marionette
     # Take a screenshot of the current visible portion of the screen. The PNG
     # is returned as a Base64 encoded string.
     def take_screenshot
-      execute("Screenshot")
+      execute("Screenshot").as_s
     end
 
     # Take a screenshot of the element with the given `element_id`. If `scroll` is
@@ -517,14 +517,14 @@ module Marionette
     #
     # The PNG data is returned as a Base64 encoded string.
     def take_screenshot(element_id : String, scroll = true)
-      execute("ElementScreenshot", {"$elementId" => element_id, "scroll" => scroll})
+      execute("ElementScreenshot", {"$elementId" => element_id, "scroll" => scroll}).as_s
     end
 
     # Take a screenshot and save it as a PNG at the given `path`. If `scroll` is
     # set to `true` the element will be scrolled to before taking the screenshot.
     def save_screenshot(path, element_id = nil, scroll = true)
       b64 = element_id ? take_screenshot(element_id, scroll) : take_screenshot
-      data = Base64.decode(b64.as_s)
+      data = Base64.decode(b64)
       File.write(path, data)
     end
 
@@ -748,7 +748,7 @@ module Marionette
 
     # Execute an arbitrary command with the given permissions. See `Commands`
     # for all available commands.
-    def execute(command, params = {} of String => String, stop_on_exception = true)
+    def execute(command, params = {} of String => String)
       new_params = {} of String => JSON::Any
 
       new_params["$sessionId"] = JSON::Any.new(@id)
@@ -756,24 +756,12 @@ module Marionette
         new_params[k.to_s] = JSON.parse(v.to_json)
       end
 
-      begin
-        result = @driver.execute(command, new_params)
-      rescue ex
-        if stop_on_exception
-          Log.fatal(exception: ex) {
-            "Unexpected exception caught while executing command #{command}. Closing session."
-          }
-          return stop
-        else
-          raise ex
-        end
-      end
-
+      result = @driver.execute(command, new_params)
       result["value"]
     end
 
     private def assert_browser(browser : Browser)
-      if self.browser != browser
+      if driver.browser != browser
         raise Error::UnknownMethod.new("Command is valid for #{browser} only.")
       end
     end
