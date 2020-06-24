@@ -281,6 +281,11 @@
       
     </li>
   
+  <li class=" " data-id="marionette/Marionette/Error/ReachedErrorPage" data-name="marionette::error::reachederrorpage">
+      <a href="Marionette/Error/ReachedErrorPage.html">ReachedErrorPage</a>
+      
+    </li>
+  
   <li class=" " data-id="marionette/Marionette/Error/ScriptTimeout" data-name="marionette::error::scripttimeout">
       <a href="Marionette/Error/ScriptTimeout.html">ScriptTimeout</a>
       
@@ -358,6 +363,11 @@
   
   <li class=" " data-id="marionette/Marionette/Logger" data-name="marionette::logger">
       <a href="Marionette/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/LogItem" data-name="marionette::logitem">
+      <a href="Marionette/LogItem.html">LogItem</a>
       
     </li>
   
@@ -489,6 +499,10 @@
   </svg>
 </a>Marionette</h1>
 
+<p>&lt;div align="center">
+  &lt;img src="./assets/code.png">
+&lt;/div></p>
+
 <p>Marionette is a one-size-fits-all approach to WebDriver adapters. It works with most all web driver implementations, including:</p>
 
 <ul><li>[x] Chrome</li><li>[x] Chromium</li><li>[x] Firefox</li><li>[x] Safari</li><li>[x] Edge</li><li>[x] Internet Explorer</li><li>[x] Opera</li><li>[x] PhantomJS</li><li>[x] Webkit GTK</li><li>[x] WPE Webkit</li><li>[x] Android</li></ul>
@@ -609,26 +623,26 @@ session.navigate(<span class="s">&quot;https://crystal-lang.org&quot;</span>)
 
 <span class="c"># Start an action chain and perform it</span>
 session.perform_actions <span class="k">do</span>
-  <span class="c"># Click the &quot;INSTALL&quot; link, offsetting by 25 pixels so we make sure we hit it</span>
-  click <span class="s">&quot;.main-actions a:nth-child(1)&quot;</span>, <span class="n">25</span>, <span class="n">25</span>
+  <span class="c"># Click the &quot;INSTALL&quot; link</span>
+  click <span class="s">&quot;.main-actions a:nth-child(1)&quot;</span>
 <span class="k">end</span>
 
 sleep <span class="n">5</span>
 session.close</code></pre>
 
-<h3><a id="driver-options" class="anchor" href="#driver-options">
+<h3><a id="driver-capabilities" class="anchor" href="#driver-capabilities">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Driver Options</h3>
+</a>Driver Capabilities</h3>
 
-<p>Different drivers have different options available to them. To make setting those options a little easier there's the <code>DriverOptions</code> module which is extended by <code><a href="Marionette.html">Marionette</a></code> itself. Take, for instance, Chrome:</p>
+<p>Different drivers have different capabilities available to them. To make setting them a little easier, there's the <code>DriverOptions</code> module which is extended by <code><a href="Marionette.html">Marionette</a></code> itself. Take, for instance, Chrome:</p>
 
 <pre><code class="language-crystal"><span class="c"># Make this instance headless</span>
 options <span class="o">=</span> <span class="t">Marionette</span>.chrome_options(args: [<span class="s">&quot;headless&quot;</span>])
 
 <span class="c"># Create a Chrome session</span>
-session <span class="o">=</span> <span class="t">Marionette</span><span class="t">::</span><span class="t">WebDriver</span>.create_session(<span class="n">:chrome</span>, options: options)</code></pre>
+session <span class="o">=</span> <span class="t">Marionette</span><span class="t">::</span><span class="t">WebDriver</span>.create_session(<span class="n">:chrome</span>, capabilities: options)</code></pre>
 
 <p><code>args</code> in this case are arguments to be passed to the browser itself rather than the driver. If you wish to pass arguments to the driver you can use the <code>args</code> parameter in the <code>create_session</code> method.</p>
 

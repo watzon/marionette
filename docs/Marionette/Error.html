@@ -281,6 +281,11 @@
       
     </li>
   
+  <li class=" " data-id="marionette/Marionette/Error/ReachedErrorPage" data-name="marionette::error::reachederrorpage">
+      <a href="../Marionette/Error/ReachedErrorPage.html">ReachedErrorPage</a>
+      
+    </li>
+  
   <li class=" " data-id="marionette/Marionette/Error/ScriptTimeout" data-name="marionette::error::scripttimeout">
       <a href="../Marionette/Error/ScriptTimeout.html">ScriptTimeout</a>
       
@@ -358,6 +363,11 @@
   
   <li class=" " data-id="marionette/Marionette/Logger" data-name="marionette::logger">
       <a href="../Marionette/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/LogItem" data-name="marionette::logitem">
+      <a href="../Marionette/LogItem.html">LogItem</a>
       
     </li>
   
@@ -563,6 +573,8 @@
     
       <li class="other-type"><a href="../Marionette/Error/NoSuchWindow.html">Marionette::Error::NoSuchWindow</a></li>
     
+      <li class="other-type"><a href="../Marionette/Error/ReachedErrorPage.html">Marionette::Error::ReachedErrorPage</a></li>
+    
       <li class="other-type"><a href="../Marionette/Error/ScriptTimeout.html">Marionette::Error::ScriptTimeout</a></li>
     
       <li class="other-type"><a href="../Marionette/Error/SessionNotCreated.html">Marionette::Error::SessionNotCreated</a></li>
@@ -602,7 +614,7 @@
   </h2>
   
     
-      <a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/errors.cr#L2" target="_blank">
+      <a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/errors.cr#L2" target="_blank">
         marionette/errors.cr
       </a>
     
@@ -624,7 +636,7 @@
   <dl>
     
       <dt class="entry-const" id="CODE_MAP">
-        <strong>CODE_MAP</strong> = <code>{<span class="n">7</span> => <span class="t">NoSuchElement</span>, <span class="n">8</span> => <span class="t">NoSuchFrame</span>, <span class="n">9</span> => <span class="t">UnknownCommand</span>, <span class="n">10</span> => <span class="t">StaleElementReference</span>, <span class="n">11</span> => <span class="t">ElementNotVisible</span>, <span class="n">12</span> => <span class="t">InvalidElementState</span>, <span class="n">13</span> => <span class="t">UnknownError</span>, <span class="n">15</span> => <span class="t">ElementIsNotSelectable</span>, <span class="n">17</span> => <span class="t">JavascriptError</span>, <span class="n">19</span> => <span class="t">XpathLookupError</span>, <span class="n">21</span> => <span class="t">Timeout</span>, <span class="n">23</span> => <span class="t">NoSuchWindow</span>, <span class="n">24</span> => <span class="t">InvalidCookieDomain</span>, <span class="n">25</span> => <span class="t">UnableToSetCookie</span>, <span class="n">26</span> => <span class="t">UnexpectedAlertOpen</span>, <span class="n">27</span> => <span class="t">NoAlertOpen</span>, <span class="n">28</span> => <span class="t">ScriptTimeout</span>, <span class="n">29</span> => <span class="t">InvalidElementCoordinates</span>, <span class="n">30</span> => <span class="t">ImeNotAvailable</span>, <span class="n">31</span> => <span class="t">ImeEngineActivationFailed</span>, <span class="n">32</span> => <span class="t">InvalidSelector</span>, <span class="n">33</span> => <span class="t">SessionNotCreated</span>, <span class="n">34</span> => <span class="t">MoveTargetOutOfBounds</span>, <span class="n">51</span> => <span class="t">InvalidXpathSelector</span>, <span class="n">52</span> => <span class="t">InvalidXpathSelectorReturnTyper</span>, <span class="n">60</span> => <span class="t">ElementNotInteractable</span>, <span class="n">61</span> => <span class="t">InvalidArgument</span>, <span class="n">62</span> => <span class="t">NoSuchCookie</span>, <span class="n">63</span> => <span class="t">UnableToCaptureScreen</span>, <span class="n">64</span> => <span class="t">ElementClickIntercepted</span>, <span class="n">65</span> => <span class="t">InsecureCertificate</span>, <span class="n">66</span> => <span class="t">InvalidCoordinates</span>, <span class="n">67</span> => <span class="t">InvalidSessionId</span>, <span class="n">68</span> => <span class="t">UnknownMethod</span>, <span class="n">405</span> => <span class="t">MethodNotAllowed</span>, <span class="n">406</span> => <span class="t">GenericError</span>}</code>
+        <strong>CODE_MAP</strong> = <code>{<span class="n">7</span> => <span class="t">NoSuchElement</span>, <span class="n">8</span> => <span class="t">NoSuchFrame</span>, <span class="n">9</span> => <span class="t">UnknownCommand</span>, <span class="n">10</span> => <span class="t">StaleElementReference</span>, <span class="n">11</span> => <span class="t">ElementNotVisible</span>, <span class="n">12</span> => <span class="t">InvalidElementState</span>, <span class="n">13</span> => <span class="t">UnknownError</span>, <span class="n">15</span> => <span class="t">ElementIsNotSelectable</span>, <span class="n">17</span> => <span class="t">JavascriptError</span>, <span class="n">19</span> => <span class="t">XpathLookupError</span>, <span class="n">21</span> => <span class="t">Timeout</span>, <span class="n">23</span> => <span class="t">NoSuchWindow</span>, <span class="n">24</span> => <span class="t">InvalidCookieDomain</span>, <span class="n">25</span> => <span class="t">UnableToSetCookie</span>, <span class="n">26</span> => <span class="t">UnexpectedAlertOpen</span>, <span class="n">27</span> => <span class="t">NoAlertOpen</span>, <span class="n">28</span> => <span class="t">ScriptTimeout</span>, <span class="n">29</span> => <span class="t">InvalidElementCoordinates</span>, <span class="n">30</span> => <span class="t">ImeNotAvailable</span>, <span class="n">31</span> => <span class="t">ImeEngineActivationFailed</span>, <span class="n">32</span> => <span class="t">InvalidSelector</span>, <span class="n">33</span> => <span class="t">SessionNotCreated</span>, <span class="n">34</span> => <span class="t">MoveTargetOutOfBounds</span>, <span class="n">51</span> => <span class="t">InvalidXpathSelector</span>, <span class="n">52</span> => <span class="t">InvalidXpathSelectorReturnTyper</span>, <span class="n">60</span> => <span class="t">ElementNotInteractable</span>, <span class="n">61</span> => <span class="t">InvalidArgument</span>, <span class="n">62</span> => <span class="t">NoSuchCookie</span>, <span class="n">63</span> => <span class="t">UnableToCaptureScreen</span>, <span class="n">64</span> => <span class="t">ElementClickIntercepted</span>, <span class="n">65</span> => <span class="t">InsecureCertificate</span>, <span class="n">66</span> => <span class="t">InvalidCoordinates</span>, <span class="n">67</span> => <span class="t">InvalidSessionId</span>, <span class="n">68</span> => <span class="t">UnknownMethod</span>, <span class="n">404</span> => <span class="t">ReachedErrorPage</span>, <span class="n">405</span> => <span class="t">MethodNotAllowed</span>, <span class="n">406</span> => <span class="t">GenericError</span>}</code>
       </dt>
       
     
@@ -714,7 +726,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/errors.cr#L42" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/errors.cr#L43" target="_blank">View source</a>]
         
       </div>
     </div>

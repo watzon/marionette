@@ -281,6 +281,11 @@
       
     </li>
   
+  <li class=" " data-id="marionette/Marionette/Error/ReachedErrorPage" data-name="marionette::error::reachederrorpage">
+      <a href="../Marionette/Error/ReachedErrorPage.html">ReachedErrorPage</a>
+      
+    </li>
+  
   <li class=" " data-id="marionette/Marionette/Error/ScriptTimeout" data-name="marionette::error::scripttimeout">
       <a href="../Marionette/Error/ScriptTimeout.html">ScriptTimeout</a>
       
@@ -358,6 +363,11 @@
   
   <li class=" " data-id="marionette/Marionette/Logger" data-name="marionette::logger">
       <a href="../Marionette/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/LogItem" data-name="marionette::logitem">
+      <a href="../Marionette/LogItem.html">LogItem</a>
       
     </li>
   
@@ -530,7 +540,7 @@
   </h2>
   
     
-      <a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/driver_options.cr#L21" target="_blank">
+      <a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/driver_options.cr#L2" target="_blank">
         marionette/driver_options.cr
       </a>
     
@@ -556,7 +566,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#chrome_options(args=[]ofString,extensions=[]ofString,binary=nil,debugger_address=nil,page_load_strategy:PageLoadStrategy?=nil,experimental_options=%7B%7DofString=%3EString)-instance-method" class="signature"><strong>#chrome_options</strong>(args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, extensions = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, binary = <span class="n">nil</span>, debugger_address = <span class="n">nil</span>, page_load_strategy : PageLoadStrategy? = <span class="n">nil</span>, experimental_options = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
+        <a href="#chrome_options(args=[]ofString,extensions=[]ofString%7CIO,binary=nil,debugger_address=nil,page_load_strategy:PageLoadStrategy?=nil,experimental_options=%7B%7DofString=%3EString,logging_prefs=%7B%7DofString=%3EString,capabilities=%7B%7DofString=%3EString)-instance-method" class="signature"><strong>#chrome_options</strong>(args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, extensions = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span> <span class="o">|</span> <span class="t">IO</span>, binary = <span class="n">nil</span>, debugger_address = <span class="n">nil</span>, page_load_strategy : PageLoadStrategy? = <span class="n">nil</span>, experimental_options = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, logging_prefs = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, capabilities = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
         
       </li>
     
@@ -614,18 +624,18 @@
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="chrome_options(args=[]ofString,extensions=[]ofString,binary=nil,debugger_address=nil,page_load_strategy:PageLoadStrategy?=nil,experimental_options={}ofString=>String)-instance-method">
+    <div class="entry-detail" id="chrome_options(args=[]ofString,extensions=[]ofString|IO,binary=nil,debugger_address=nil,page_load_strategy:PageLoadStrategy?=nil,experimental_options={}ofString=>String,logging_prefs={}ofString=>String,capabilities={}ofString=>String)-instance-method">
       <div class="signature">
         
-        def <strong>chrome_options</strong>(args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, extensions = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, binary = <span class="n">nil</span>, debugger_address = <span class="n">nil</span>, page_load_strategy : <a href="../Marionette/PageLoadStrategy.html">PageLoadStrategy</a>? = <span class="n">nil</span>, experimental_options = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
+        def <strong>chrome_options</strong>(args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, extensions = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span> <span class="o">|</span> <span class="t">IO</span>, binary = <span class="n">nil</span>, debugger_address = <span class="n">nil</span>, page_load_strategy : <a href="../Marionette/PageLoadStrategy.html">PageLoadStrategy</a>? = <span class="n">nil</span>, experimental_options = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, logging_prefs = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, capabilities = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
 
-        <a class="method-permalink" href="#chrome_options(args=[]ofString,extensions=[]ofString,binary=nil,debugger_address=nil,page_load_strategy:PageLoadStrategy?=nil,experimental_options=%7B%7DofString=%3EString)-instance-method">#</a>
+        <a class="method-permalink" href="#chrome_options(args=[]ofString,extensions=[]ofString%7CIO,binary=nil,debugger_address=nil,page_load_strategy:PageLoadStrategy?=nil,experimental_options=%7B%7DofString=%3EString,logging_prefs=%7B%7DofString=%3EString,capabilities=%7B%7DofString=%3EString)-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/driver_options.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/driver_options.cr#L5" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -641,7 +651,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/driver_options.cr#L60" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/driver_options.cr#L54" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -657,7 +667,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/driver_options.cr#L48" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/driver_options.cr#L40" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -673,7 +683,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/driver_options.cr#L74" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/driver_options.cr#L70" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -689,7 +699,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/driver_options.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/driver_options.cr#L131" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -705,7 +715,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/driver_options.cr#L111" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/driver_options.cr#L109" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -721,7 +731,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/driver_options.cr#L121" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/driver_options.cr#L121" target="_blank">View source</a>]
         
       </div>
     </div>

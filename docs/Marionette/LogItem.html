@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="marionette">
-  <title>Marionette::Size - marionette master</title>
+  <title>Marionette::LogItem - marionette master</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -366,7 +366,7 @@
       
     </li>
   
-  <li class=" " data-id="marionette/Marionette/LogItem" data-name="marionette::logitem">
+  <li class=" current" data-id="marionette/Marionette/LogItem" data-name="marionette::logitem">
       <a href="../Marionette/LogItem.html">LogItem</a>
       
     </li>
@@ -451,7 +451,7 @@
       
     </li>
   
-  <li class=" current" data-id="marionette/Marionette/Size" data-name="marionette::size">
+  <li class=" " data-id="marionette/Marionette/Size" data-name="marionette::size">
       <a href="../Marionette/Size.html">Size</a>
       
     </li>
@@ -495,12 +495,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">struct</span> Marionette::Size
+  <span class="kind">struct</span> Marionette::LogItem
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Marionette/Size.html">Marionette::Size</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Marionette/LogItem.html">Marionette::LogItem</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
 
 
 
@@ -542,7 +542,7 @@
   </h2>
   
     
-      <a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/types.cr#L21" target="_blank">
+      <a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/types.cr#L33" target="_blank">
         marionette/types.cr
       </a>
     
@@ -562,11 +562,6 @@
     Constructors
   </h2>
   <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#new(height:Float64,width:Float64)-class-method" class="signature"><strong>.new</strong>(height : Float64, width : Float64)</a>
-        
-      </li>
     
       <li class="entry-summary">
         <a href="#new(pull:JSON::PullParser)-class-method" class="signature"><strong>.new</strong>(pull : JSON::PullParser)</a>
@@ -590,22 +585,17 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#clone-instance-method" class="signature"><strong>#clone</strong></a>
+        <a href="#level:String-instance-method" class="signature"><strong>#level</strong> : String</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#copy_with(height_height=@height,width_width=@width)-instance-method" class="signature"><strong>#copy_with</strong>(height _height = @height, width _width = @width)</a>
+        <a href="#message:JSON::Any-instance-method" class="signature"><strong>#message</strong> : JSON::Any</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#height:Float64-instance-method" class="signature"><strong>#height</strong> : Float64</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#width:Float64-instance-method" class="signature"><strong>#width</strong> : Float64</a>
+        <a href="#timestamp:Time-instance-method" class="signature"><strong>#timestamp</strong> : Time</a>
         
       </li>
     
@@ -669,22 +659,6 @@
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="new(height:Float64,width:Float64)-class-method">
-      <div class="signature">
-        
-        def self.<strong>new</strong>(height : Float64, width : Float64)
-
-        <a class="method-permalink" href="#new(height:Float64,width:Float64)-class-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/types.cr#L21" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
     <div class="entry-detail" id="new(pull:JSON::PullParser)-class-method">
       <div class="signature">
         
@@ -696,7 +670,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/types.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/types.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -715,62 +689,50 @@
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="clone-instance-method">
+    <div class="entry-detail" id="level:String-instance-method">
       <div class="signature">
         
-        def <strong>clone</strong>
+        def <strong>level</strong> : String
 
-        <a class="method-permalink" href="#clone-instance-method">#</a>
+        <a class="method-permalink" href="#level:String-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/types.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/types.cr#L36" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="copy_with(height_height=@height,width_width=@width)-instance-method">
+    <div class="entry-detail" id="message:JSON::Any-instance-method">
       <div class="signature">
         
-        def <strong>copy_with</strong>(height _height = @height, width _width = @width)
+        def <strong>message</strong> : JSON::Any
 
-        <a class="method-permalink" href="#copy_with(height_height=@height,width_width=@width)-instance-method">#</a>
+        <a class="method-permalink" href="#message:JSON::Any-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/types.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/types.cr#L42" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="height:Float64-instance-method">
+    <div class="entry-detail" id="timestamp:Time-instance-method">
       <div class="signature">
         
-        def <strong>height</strong> : Float64
+        def <strong>timestamp</strong> : Time
 
-        <a class="method-permalink" href="#height:Float64-instance-method">#</a>
+        <a class="method-permalink" href="#timestamp:Time-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="width:Float64-instance-method">
-      <div class="signature">
-        
-        def <strong>width</strong> : Float64
-
-        <a class="method-permalink" href="#width:Float64-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/types.cr#L39" target="_blank">View source</a>]
         
       </div>
     </div>

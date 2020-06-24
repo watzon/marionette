@@ -281,6 +281,11 @@
       
     </li>
   
+  <li class=" " data-id="marionette/Marionette/Error/ReachedErrorPage" data-name="marionette::error::reachederrorpage">
+      <a href="../Marionette/Error/ReachedErrorPage.html">ReachedErrorPage</a>
+      
+    </li>
+  
   <li class=" " data-id="marionette/Marionette/Error/ScriptTimeout" data-name="marionette::error::scripttimeout">
       <a href="../Marionette/Error/ScriptTimeout.html">ScriptTimeout</a>
       
@@ -358,6 +363,11 @@
   
   <li class=" " data-id="marionette/Marionette/Logger" data-name="marionette::logger">
       <a href="../Marionette/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/LogItem" data-name="marionette::logitem">
+      <a href="../Marionette/LogItem.html">LogItem</a>
       
     </li>
   
@@ -532,7 +542,7 @@
   </h2>
   
     
-      <a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L2" target="_blank">
+      <a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L2" target="_blank">
         marionette/web_driver.cr
       </a>
     
@@ -573,7 +583,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new(browser:Browser,url:URI,client:HTTP::Client,keep_alive=false,w3c=false,capabilities=nil)-class-method" class="signature"><strong>.new</strong>(browser : Browser, url : URI, client : HTTP::Client, keep_alive = <span class="n">false</span>, w3c = <span class="n">false</span>, capabilities = <span class="n">nil</span>)</a>
+        <a href="#new(browser:Browser,url:URI,client:HTTP::Client,keep_alive=false)-class-method" class="signature"><strong>.new</strong>(browser : Browser, url : URI, client : HTTP::Client, keep_alive = <span class="n">false</span>)</a>
         
       </li>
     
@@ -592,7 +602,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#create_session(browser:Browser,exe_path=nil,port=nil,env=ENV.to_h,args=[]ofString,options=%7B%7DofString=%3EString)-class-method" class="signature"><strong>.create_session</strong>(browser : Browser, exe_path = <span class="n">nil</span>, port = <span class="n">nil</span>, env = <span class="t">ENV</span>.to_h, args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, options = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
+        <a href="#create_session(browser:Browser,exe_path=nil,port=nil,env=ENV.to_h,args=[]ofString,**options)-class-method" class="signature"><strong>.create_session</strong>(browser : Browser, exe_path = <span class="n">nil</span>, port = <span class="n">nil</span>, env = <span class="t">ENV</span>.to_h, args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, **options)</a>
         
           <div class="summary"><p>Create a new <code><a href="../Marionette/Session.html">Session</a></code> instance using the given <code><a href="../Marionette/WebDriver.html#browser:Browser-instance-method">#browser</a></code>.</p></div>
         
@@ -618,16 +628,6 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#capabilities:JSON::Any?-instance-method" class="signature"><strong>#capabilities</strong> : JSON::Any?</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#capabilities=(capabilities:JSON::Any?)-instance-method" class="signature"><strong>#capabilities=</strong>(capabilities : JSON::Any?)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
         <a href="#client:HTTP::Client-instance-method" class="signature"><strong>#client</strong> : HTTP::Client</a>
         
       </li>
@@ -643,7 +643,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#get_session(opts=%7B%7DofString=%3EString)-instance-method" class="signature"><strong>#get_session</strong>(opts = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
+        <a href="#get_session(type:Session::Type=:local,**options)-instance-method" class="signature"><strong>#get_session</strong>(type : Session::Type = <span class="n">:local</span>, **options)</a>
         
       </li>
     
@@ -664,11 +664,6 @@
     
       <li class="entry-summary">
         <a href="#url?:URI%7CNil?-instance-method" class="signature"><strong>#url?</strong> : URI | Nil?</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#w3c?:Bool-instance-method" class="signature"><strong>#w3c?</strong> : Bool</a>
         
       </li>
     
@@ -722,18 +717,18 @@
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="new(browser:Browser,url:URI,client:HTTP::Client,keep_alive=false,w3c=false,capabilities=nil)-class-method">
+    <div class="entry-detail" id="new(browser:Browser,url:URI,client:HTTP::Client,keep_alive=false)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(browser : <a href="../Marionette/Browser.html">Browser</a>, url : URI, client : HTTP::Client, keep_alive = <span class="n">false</span>, w3c = <span class="n">false</span>, capabilities = <span class="n">nil</span>)
+        def self.<strong>new</strong>(browser : <a href="../Marionette/Browser.html">Browser</a>, url : URI, client : HTTP::Client, keep_alive = <span class="n">false</span>)
 
-        <a class="method-permalink" href="#new(browser:Browser,url:URI,client:HTTP::Client,keep_alive=false,w3c=false,capabilities=nil)-class-method">#</a>
+        <a class="method-permalink" href="#new(browser:Browser,url:URI,client:HTTP::Client,keep_alive=false)-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L13" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -750,12 +745,12 @@
     Class Method Detail
   </h2>
   
-    <div class="entry-detail" id="create_session(browser:Browser,exe_path=nil,port=nil,env=ENV.to_h,args=[]ofString,options={}ofString=>String)-class-method">
+    <div class="entry-detail" id="create_session(browser:Browser,exe_path=nil,port=nil,env=ENV.to_h,args=[]ofString,**options)-class-method">
       <div class="signature">
         
-        def self.<strong>create_session</strong>(browser : <a href="../Marionette/Browser.html">Browser</a>, exe_path = <span class="n">nil</span>, port = <span class="n">nil</span>, env = <span class="t">ENV</span>.to_h, args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, options = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
+        def self.<strong>create_session</strong>(browser : <a href="../Marionette/Browser.html">Browser</a>, exe_path = <span class="n">nil</span>, port = <span class="n">nil</span>, env = <span class="t">ENV</span>.to_h, args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, **options)
 
-        <a class="method-permalink" href="#create_session(browser:Browser,exe_path=nil,port=nil,env=ENV.to_h,args=[]ofString,options=%7B%7DofString=%3EString)-class-method">#</a>
+        <a class="method-permalink" href="#create_session(browser:Browser,exe_path=nil,port=nil,env=ENV.to_h,args=[]ofString,**options)-class-method">#</a>
       </div>
       
         <div class="doc">
@@ -779,7 +774,7 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L39" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -807,39 +802,7 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L5" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="capabilities:JSON::Any?-instance-method">
-      <div class="signature">
-        
-        def <strong>capabilities</strong> : JSON::Any?
-
-        <a class="method-permalink" href="#capabilities:JSON::Any?-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L15" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="capabilities=(capabilities:JSON::Any?)-instance-method">
-      <div class="signature">
-        
-        def <strong>capabilities=</strong>(capabilities : JSON::Any?)
-
-        <a class="method-permalink" href="#capabilities=(capabilities:JSON::Any?)-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L5" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -855,7 +818,7 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -871,7 +834,7 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L83" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L51" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -887,23 +850,23 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L114" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L82" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="get_session(opts={}ofString=>String)-instance-method">
+    <div class="entry-detail" id="get_session(type:Session::Type=:local,**options)-instance-method">
       <div class="signature">
         
-        def <strong>get_session</strong>(opts = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
+        def <strong>get_session</strong>(type : <a href="../Marionette/Session/Type.html">Session::Type</a> = <span class="n">:local</span>, **options)
 
-        <a class="method-permalink" href="#get_session(opts=%7B%7DofString=%3EString)-instance-method">#</a>
+        <a class="method-permalink" href="#get_session(type:Session::Type=:local,**options)-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L47" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -919,7 +882,7 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L13" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -935,7 +898,7 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L104" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L72" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -951,7 +914,7 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -967,23 +930,7 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L7" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="w3c?:Bool-instance-method">
-      <div class="signature">
-        
-        def <strong>w3c?</strong> : Bool
-
-        <a class="method-permalink" href="#w3c?:Bool-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/web_driver.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>

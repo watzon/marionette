@@ -281,6 +281,11 @@
       
     </li>
   
+  <li class=" " data-id="marionette/Marionette/Error/ReachedErrorPage" data-name="marionette::error::reachederrorpage">
+      <a href="../Marionette/Error/ReachedErrorPage.html">ReachedErrorPage</a>
+      
+    </li>
+  
   <li class=" " data-id="marionette/Marionette/Error/ScriptTimeout" data-name="marionette::error::scripttimeout">
       <a href="../Marionette/Error/ScriptTimeout.html">ScriptTimeout</a>
       
@@ -358,6 +363,11 @@
   
   <li class=" " data-id="marionette/Marionette/Logger" data-name="marionette::logger">
       <a href="../Marionette/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/LogItem" data-name="marionette::logitem">
+      <a href="../Marionette/LogItem.html">LogItem</a>
       
     </li>
   
@@ -532,7 +542,7 @@
   </h2>
   
     
-      <a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L2" target="_blank">
+      <a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L2" target="_blank">
         marionette/session.cr
       </a>
     
@@ -562,24 +572,26 @@
 
 
 
+
+
   <h2>
-    <a id="constructors" class="anchor" href="#constructors">
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Constructors
+    Class Method Summary
   </h2>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new(driver:WebDriver,id:String,type:Type)-class-method" class="signature"><strong>.new</strong>(driver : WebDriver, id : String, type : Type)</a>
+        <a href="#start(driver:WebDriver,type:Type,capabilities=%7B%7DofString=%3EString,service=nil)-class-method" class="signature"><strong>.start</strong>(driver : WebDriver, type : Type, capabilities = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, service = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>Start a new Session using the given <code><a href="../Marionette/Session.html#driver:WebDriver-instance-method">#driver</a></code> and <code><a href="../Marionette/Session.html#type:Type-instance-method">#type</a></code>.</p></div>
         
       </li>
     
   </ul>
-
-
 
 
 
@@ -639,6 +651,11 @@
         <a href="#back-instance-method" class="signature"><strong>#back</strong></a>
         
           <div class="summary"><p>Go back in history.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#capabilities:Hash(String,JSON::Any)-instance-method" class="signature"><strong>#capabilities</strong> : Hash(String, JSON::Any)</a>
         
       </li>
     
@@ -732,7 +749,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#execute(command,params=%7B%7DofString=%3EString,stop_on_exception=true)-instance-method" class="signature"><strong>#execute</strong>(command, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, stop_on_exception = <span class="n">true</span>)</a>
+        <a href="#execute(command,params=%7B%7DofString=%3EString)-instance-method" class="signature"><strong>#execute</strong>(command, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
         
           <div class="summary"><p>Execute an arbitrary command with the given permissions.</p></div>
         
@@ -873,6 +890,16 @@
         <a href="#local?-instance-method" class="signature"><strong>#local?</strong></a>
         
           <div class="summary"><p>Returns true if this is a local session.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#log(log_type:String)-instance-method" class="signature"><strong>#log</strong>(log_type : String)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#log_types-instance-method" class="signature"><strong>#log_types</strong></a>
         
       </li>
     
@@ -1114,9 +1141,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#w3c?-instance-method" class="signature"><strong>#w3c?</strong></a>
+        <a href="#w3c?:Bool-instance-method" class="signature"><strong>#w3c?</strong> : Bool</a>
         
-          <div class="summary"><p>Return's true if the driver being used is W3C compatible.</p></div>
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wait_for_element(selector:String,strategy:LocationStrategy=:css,timeout=3.seconds,poll_time=50.milliseconds)-instance-method" class="signature"><strong>#wait_for_element</strong>(selector : String, strategy : LocationStrategy = <span class="n">:css</span>, timeout = <span class="n">3</span>.seconds, poll_time = <span class="n">50</span>.milliseconds)</a>
+        
+          <div class="summary"><p>Wait the given amount of time for an element to be available.</p></div>
         
       </li>
     
@@ -1182,33 +1214,40 @@
 </div>
 
 
+
+
   <h2>
-    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Constructor Detail
+    Class Method Detail
   </h2>
   
-    <div class="entry-detail" id="new(driver:WebDriver,id:String,type:Type)-class-method">
+    <div class="entry-detail" id="start(driver:WebDriver,type:Type,capabilities={}ofString=>String,service=nil)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(driver : <a href="../Marionette/WebDriver.html">WebDriver</a>, id : String, type : <a href="../Marionette/Session/Type.html">Type</a>)
+        def self.<strong>start</strong>(driver : <a href="../Marionette/WebDriver.html">WebDriver</a>, type : <a href="../Marionette/Session/Type.html">Type</a>, capabilities = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, service = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#new(driver:WebDriver,id:String,type:Type)-class-method">#</a>
+        <a class="method-permalink" href="#start(driver:WebDriver,type:Type,capabilities=%7B%7DofString=%3EString,service=nil)-class-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Start a new Session using the given <code><a href="../Marionette/Session.html#driver:WebDriver-instance-method">#driver</a></code> and <code><a href="../Marionette/Session.html#type:Type-instance-method">#type</a></code>. You can pass in any
+<code><a href="../Marionette/Session.html#capabilities:Hash(String,JSON::Any)-instance-method">#capabilities</a></code> you want here, and they'll be merged with the browser's
+desired capabilities.</p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L13" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
   
-
-
 
 
 
@@ -1238,7 +1277,7 @@ clicking the "Ok" button.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L476" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L549" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1261,7 +1300,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L546" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L619" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1282,7 +1321,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L309" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L365" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1303,7 +1342,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L485" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L558" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1324,7 +1363,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L494" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L567" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1345,7 +1384,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L252" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L308" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1366,7 +1405,23 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L200" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L256" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="capabilities:Hash(String,JSON::Any)-instance-method">
+      <div class="signature">
+        
+        def <strong>capabilities</strong> : Hash(String, JSON::Any)
+
+        <a class="method-permalink" href="#capabilities:Hash(String,JSON::Any)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1387,7 +1442,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L539" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L612" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1408,7 +1463,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L58" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L105" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1429,7 +1484,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L172" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L228" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1450,7 +1505,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L177" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L233" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1473,7 +1528,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L573" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L646" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1496,7 +1551,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L581" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L654" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1517,7 +1572,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L195" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L251" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1538,7 +1593,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L127" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L183" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1561,7 +1616,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L743" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L816" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1582,7 +1637,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L258" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L314" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1603,7 +1658,7 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L243" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L299" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1625,7 +1680,7 @@ clicking the "Cancel" button.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L466" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L539" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1641,17 +1696,17 @@ clicking the "Cancel" button.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="execute(command,params={}ofString=>String,stop_on_exception=true)-instance-method">
+    <div class="entry-detail" id="execute(command,params={}ofString=>String)-instance-method">
       <div class="signature">
         
-        def <strong>execute</strong>(command, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, stop_on_exception = <span class="n">true</span>)
+        def <strong>execute</strong>(command, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
 
-        <a class="method-permalink" href="#execute(command,params=%7B%7DofString=%3EString,stop_on_exception=true)-instance-method">#</a>
+        <a class="method-permalink" href="#execute(command,params=%7B%7DofString=%3EString)-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -1663,7 +1718,7 @@ for all available commands.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L751" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L824" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1688,7 +1743,7 @@ for information on acceptable commands.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L702" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L775" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1712,7 +1767,7 @@ into the script should be provided as an array.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L279" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L335" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1736,7 +1791,7 @@ into the script should be provided as an array.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L292" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L348" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1759,7 +1814,7 @@ into the script should be provided as an array.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L322" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L378" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1782,7 +1837,7 @@ exception if no element with the given selector was found.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L333" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L389" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1804,7 +1859,7 @@ selector was found.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L355" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L411" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1826,7 +1881,7 @@ given selector was found.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L365" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L421" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1848,7 +1903,7 @@ return them as an array.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L377" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L433" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1870,7 +1925,7 @@ an array.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L341" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L397" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1891,7 +1946,7 @@ an array.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L205" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L261" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1915,7 +1970,7 @@ a Base64 encoded PNG string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L608" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L681" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1936,7 +1991,7 @@ a Base64 encoded PNG string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L227" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L283" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1957,7 +2012,7 @@ a Base64 encoded PNG string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L232" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L288" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1973,7 +2028,7 @@ a Base64 encoded PNG string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L11" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1994,7 +2049,7 @@ a Base64 encoded PNG string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L63" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L110" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2019,7 +2074,7 @@ current session.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L591" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L664" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2042,7 +2097,7 @@ current session.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L692" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L765" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2065,7 +2120,7 @@ current session.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L633" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L706" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2086,7 +2141,7 @@ current session.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L453" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L526" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2107,7 +2162,39 @@ current session.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L70" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="log(log_type:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>log</strong>(log_type : String)
+
+        <a class="method-permalink" href="#log(log_type:String)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L166" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="log_types-instance-method">
+      <div class="signature">
+        
+        def <strong>log_types</strong>
+
+        <a class="method-permalink" href="#log_types-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L171" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2128,7 +2215,7 @@ current session.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L190" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L246" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2153,7 +2240,7 @@ been set already.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L643" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L716" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2176,7 +2263,7 @@ been set already.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L652" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L725" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2198,7 +2285,7 @@ automatically.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L162" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L218" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2221,7 +2308,7 @@ automatically.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L97" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L144" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2244,7 +2331,7 @@ automatically.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L110" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L157" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2266,7 +2353,7 @@ will throw an <code>Error::TimeoutError</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L83" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L130" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2288,7 +2375,7 @@ HTML markup.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L271" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L327" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2313,7 +2400,7 @@ on screen when the mouse changes location.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L557" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L630" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2336,7 +2423,7 @@ on screen when the mouse changes location.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L717" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L790" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2359,7 +2446,7 @@ on screen when the mouse changes location.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L726" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L799" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2380,7 +2467,7 @@ on screen when the mouse changes location.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L210" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L266" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2401,7 +2488,7 @@ on screen when the mouse changes location.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L23" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L75" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2425,7 +2512,7 @@ given <code>path</code> as a PNG image.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L617" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L690" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2447,7 +2534,7 @@ set to <code>true</code> the element will be scrolled to before taking the scree
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L525" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L598" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2469,7 +2556,7 @@ of time to execute will throw as <code>Error::TimeoutError</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L73" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L120" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2499,7 +2586,7 @@ of time to execute will throw as <code>Error::TimeoutError</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L5" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L5" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2536,7 +2623,7 @@ of time to execute will throw as <code>Error::TimeoutError</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L735" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L808" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2559,7 +2646,7 @@ of time to execute will throw as <code>Error::TimeoutError</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L668" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L741" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2582,7 +2669,7 @@ of time to execute will throw as <code>Error::TimeoutError</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L660" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L733" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2605,7 +2692,7 @@ of time to execute will throw as <code>Error::TimeoutError</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L676" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L749" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2626,7 +2713,7 @@ of time to execute will throw as <code>Error::TimeoutError</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L100" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2648,7 +2735,7 @@ WebDriver process.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L29" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L81" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2671,7 +2758,7 @@ WebDriver process.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L684" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L757" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2692,7 +2779,7 @@ WebDriver process.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L443" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L516" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2713,7 +2800,7 @@ WebDriver process.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L448" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L521" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2734,7 +2821,7 @@ WebDriver process.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L156" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L212" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2755,7 +2842,7 @@ WebDriver process.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L151" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L207" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2779,7 +2866,7 @@ set to <code>true</code> the element will be scrolled to before taking the scree
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L519" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L592" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2801,7 +2888,7 @@ is returned as a Base64 encoded string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L511" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L584" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2822,7 +2909,7 @@ is returned as a Base64 encoded string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L215" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L271" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2838,7 +2925,7 @@ is returned as a Base64 encoded string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2861,28 +2948,45 @@ is returned as a Base64 encoded string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L599" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L672" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="w3c?-instance-method">
+    <div class="entry-detail" id="w3c?:Bool-instance-method">
       <div class="signature">
         
-        def <strong>w3c?</strong>
+        def <strong>w3c?</strong> : Bool
 
-        <a class="method-permalink" href="#w3c?-instance-method">#</a>
+        <a class="method-permalink" href="#w3c?:Bool-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L13" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="wait_for_element(selector:String,strategy:LocationStrategy=:css,timeout=3.seconds,poll_time=50.milliseconds)-instance-method">
+      <div class="signature">
+        
+        def <strong>wait_for_element</strong>(selector : String, strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>, timeout = <span class="n">3</span>.seconds, poll_time = <span class="n">50</span>.milliseconds)
+
+        <a class="method-permalink" href="#wait_for_element(selector:String,strategy:LocationStrategy=:css,timeout=3.seconds,poll_time=50.milliseconds)-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Return's true if the driver being used is W3C compatible.</p>
+          <p>Wait the given amount of time for an element to be available.
+If no element is found an exception will be raised.</p>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L48" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L474" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2904,7 +3008,7 @@ If no element is found an exception will be raised.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L394" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L450" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2926,7 +3030,7 @@ If no element is found an exception will be raised.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L419" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L507" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2947,7 +3051,7 @@ If no element is found an exception will be raised.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/e8385c4f7f81061bb2dcae7c486f6a9a96532392/src/marionette/session.cr#L138" target="_blank">View source</a>]
+          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/session.cr#L194" target="_blank">View source</a>]
         
       </div>
     </div>
