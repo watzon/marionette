@@ -10,8 +10,6 @@ module Marionette
 
     getter id : String
 
-    getter middleware : Array(String)
-
     getter? w3c : Bool
 
     getter capabilities : Hash(String, JSON::Any)
@@ -21,8 +19,7 @@ module Marionette
                            @type : Type,
                            @capabilities : Hash(String, JSON::Any),
                            @service = nil,
-                           @w3c = false,
-                           @middleware = [] of String)
+                           @w3c = false)
       at_exit do
         if (svc = @service) && !svc.closed?
           stop
@@ -36,8 +33,7 @@ module Marionette
     def self.start(driver : WebDriver,
                    type : Type,
                    capabilities = {} of String => String,
-                   service = nil,
-                   middleware = [] of String)
+                   service = nil)
       # Merge user capabilities with the desired capabilities
       # for the given browser.
       caps = driver.browser.desired_capabilities
@@ -49,7 +45,7 @@ module Marionette
       }
 
       # Create a new session using the requested capabilities
-      response = driver.execute("NewSession", 9)
+      response = driver.execute("NewSession", params)
       response = response["value"] unless response["sessionId"]?
 
       # If we were given a sessionId we're golden
@@ -57,14 +53,13 @@ module Marionette
         capabilities = response["value"]? || response["capabilities"]
         w3c = response["status"]?.nil?
 
-        Session.new(
+        new(
           driver,
           id: session_id.as_s,
           type: type,
           capabilities: capabilities.as_h,
           service: service,
-          w3c: w3c,
-          middleware: middleware
+          w3c: w3c
         )
       else
         raise "Session creation failed"
@@ -92,11 +87,6 @@ module Marionette
         # Do nothing
       end
       result
-    end
-
-    # Add a middleware instance to the middleware chain.
-    def use(middleware : String)
-      @middleware << middleware
     end
 
     #   ____                _
