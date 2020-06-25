@@ -26,10 +26,8 @@ module Marionette
     #
     # The environment variables the driver is exposed to can be set using `env`.
     #
-    # If you want to set arguments that should be passed to the driver itself,
-    # use `args` to set browser specific options you can use `options` in
-    # conjunction with one of the helper methods from the `DriverOptions`
-    # module.
+    # All other keyword arguments are passed directly into the `get_session` call,
+    # which are then passed into `Session.start`.
     def self.create_session(browser : Browser,
                             exe_path = nil,
                             port = nil,

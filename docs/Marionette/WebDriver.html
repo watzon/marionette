@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Crystal Docs 0.34.0">
-<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_version" content="master-dev">
 <meta name="crystal_docs.project_name" content="marionette">
 
 
@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="marionette">
-  <title>Marionette::WebDriver - marionette master</title>
+  <title>Marionette::WebDriver - marionette master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        master
+        master-dev
       </span>
     </div>
   </div>
@@ -541,13 +541,6 @@
     Defined in:
   </h2>
   
-    
-      <a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L2" target="_blank">
-        marionette/web_driver.cr
-      </a>
-    
-    <br/>
-  
 
 
 
@@ -728,8 +721,6 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L13" target="_blank">View source</a>]
-        
       </div>
     </div>
   
@@ -765,16 +756,12 @@ using the <code>port</code> parameter.</p>
 
 <p>The environment variables the driver is exposed to can be set using <code>env</code>.</p>
 
-<p>If you want to set arguments that should be passed to the driver itself,
-use <code>args</code> to set browser specific options you can use <code>options</code> in
-conjunction with one of the helper methods from the <code><a href="../Marionette/DriverOptions.html">DriverOptions</a></code>
-module.</p>
+<p>All other keyword arguments are passed directly into the <code><a href="../Marionette/WebDriver.html#get_session(type:Session::Type=:local,**options)-instance-method">#get_session</a></code> call,
+which are then passed into <code><a href="../Marionette/Session.html#start(driver:WebDriver,type:Type,capabilities=%7B%7DofString=%3EString,service=nil)-class-method">Session.start</a></code>.</p>
         </div>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -802,8 +789,6 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L5" target="_blank">View source</a>]
-        
       </div>
     </div>
   
@@ -817,8 +802,6 @@ module.</p>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -834,8 +817,6 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L51" target="_blank">View source</a>]
-        
       </div>
     </div>
   
@@ -849,8 +830,6 @@ module.</p>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L82" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -866,8 +845,6 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L47" target="_blank">View source</a>]
-        
       </div>
     </div>
   
@@ -881,8 +858,6 @@ module.</p>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L11" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -898,8 +873,6 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L72" target="_blank">View source</a>]
-        
       </div>
     </div>
   
@@ -914,8 +887,6 @@ module.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L7" target="_blank">View source</a>]
-        
       </div>
     </div>
   
@@ -929,8 +900,6 @@ module.</p>
       
       <br/>
       <div>
-        
-          [<a href="https://github.com/watzon/marionette/blob/1a8e2c4c678f36f7089d13ac9a60b6179df262cd/src/marionette/web_driver.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>

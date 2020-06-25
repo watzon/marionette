@@ -2,7 +2,7 @@ name: marionette
 version: 0.2.0
 
 authors:
-  - Chris Watson <chris@watzon.me>
+  - Chris Watson <cawatson1993@gmail.com>
 
 development_dependencies:
   spectator:
