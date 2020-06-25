@@ -6,7 +6,7 @@ module Marionette
   # The easiest way to use `ActionBuilder` is through `Session#actions` and
   # `Session#perform_actions`.
   class ActionBuilder
-    DEBUG_MOUSE_MOVE_SCRIPT = {{ read_file("src/marionette/scripts/debug_mouse_move.js") }}
+    DEBUG_MOUSE_MOVE_SCRIPT = {{ read_file("#{__DIR__}/scripts/debug_mouse_move.js") }}
 
     getter session : Session
 
