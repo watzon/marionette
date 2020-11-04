@@ -61,19 +61,11 @@ module Marionette
     # a command and returns the raw string.
     # TODO: Add timeout
     def receive_raw
-      data = ""
 
       len = @socket.gets(':').to_s.chomp(':').to_i
-
-      until data.bytesize == len
-        remaining = len - data.bytesize
-        num_bytes = [@max_packet_length, remaining].min
-        slice = @socket.read_string(num_bytes)
-        break if slice.empty?
-        data += slice
-      end
-
-      data
+      data = Bytes.new(len)
+      @socket.read_fully?(data)
+      String.new(data)
     end
 
     # Sends a `command` to the browser with optional
