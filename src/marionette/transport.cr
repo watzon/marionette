@@ -68,7 +68,9 @@ module Marionette
       until data.bytesize == len
         remaining = len - data.bytesize
         num_bytes = [@max_packet_length, remaining].min
-        data += @socket.read_string(num_bytes)
+        slice = @socket.read_string(num_bytes)
+        break if slice.empty?
+        data += slice
       end
 
       data
