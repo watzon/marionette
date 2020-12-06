@@ -111,7 +111,7 @@ module Marionette
     end
 
     def move_to(x, y)
-      position = Size.new(x: x.to_f, y: y.to_f)
+      position = Location.new(x: x.to_f, y: y.to_f)
       self.position = position
     end
 

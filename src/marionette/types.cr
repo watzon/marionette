@@ -22,8 +22,13 @@ module Marionette
     include JSON::Serializable
   end
 
-  record Rect, height : Float64, width : Float64, x : Float64, y : Float64 do
+  struct Rect
     include JSON::Serializable
+
+    property height : Float64
+    property width : Float64
+    property x : Float64
+    property y : Float64
   end
 
   record Location, x : Float64, y : Float64 do
