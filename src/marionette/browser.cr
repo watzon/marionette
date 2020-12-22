@@ -3,8 +3,6 @@ require "json"
 
 module Marionette
   class Browser
-    include Logger
-
     CHROME_ELEMENT_KEY = "chromeelement-9fc5-4b51-a3c8-01716eedeb04"
     FRAME_KEY          = "frame-075b-4da1-b6ba-e579c2d3230a"
     WEB_ELEMENT_KEY    = "element-6066-11e4-a52e-4f735466cecf"
@@ -121,7 +119,7 @@ module Marionette
       launch_proxy if extended
 
       @session_id = nil
-      debug("Initialized a new browser instance")
+      Log.debug { "Initialized a new browser instance" }
     end
 
     def init_transport
@@ -146,7 +144,7 @@ module Marionette
 
     # Create a new browser session
     def new_session(capabilities)
-      debug("Creating new session with capabilities: #{capabilities}")
+      Log.debug { "Creating new session with capabilities: #{capabilities}" }
       response = @transport.request("WebDriver:NewSession", capabilities)
       @session_id = response["sessionId"].as_s
     end
@@ -233,7 +231,7 @@ module Marionette
       if proxy = @proxy
         proxy.reset
         response = proxy.get(url, body: {url: url}.to_json)
-        # debug("Marionette got #{response.body.to_s}")
+        # Log.debug { "Marionette got #{response.body.to_s}" }
         nil
       else
         navigate(url)
@@ -242,7 +240,7 @@ module Marionette
 
     # :nodoc:
     def navigate(url)
-      debug("Navigating to #{url}")
+      Log.debug { "Navigating to #{url}" }
       @transport.request("WebDriver:Navigate", {url: url})
       nil
     end
@@ -265,21 +263,21 @@ module Marionette
 
     # Refresh the page
     def refresh
-      debug("Refreshing page")
+      Log.debug { "Refreshing page" }
       @transport.request("WebDriver:Refresh")
       nil
     end
 
     # Go back
     def back
-      debug("Going back")
+      Log.debug { "Going back" }
       @transport.request("WebDriver:Back")
       nil
     end
 
     # Go forward
     def forward
-      debug("Going forward")
+      Log.debug { "Going forward" }
       @transport.request("WebDriver:Forward")
       nil
     end
@@ -287,7 +285,7 @@ module Marionette
     # Sets the context of subsequent commands to be either
     # chrome or content.
     def set_context(context : BrowserContext)
-      debug("Setting browser context to #{context.to_s}")
+      Log.debug { "Setting browser context to #{context.to_s}" }
       @transport.request("Marionette:SetContext", {value: context.to_s.downcase})
     end
 
@@ -341,7 +339,7 @@ module Marionette
 
     # Switch to a specific window
     def switch_to_window(name)
-      debug("Switching to window #{name}")
+      Log.debug { "Switching to window #{name}" }
       @transport.request("WebDriver:SwitchToWindow", {name: name})
       nil
     end
@@ -354,35 +352,35 @@ module Marionette
 
     # Sets the size of the current window
     def set_window_rect(rect : WindowRect)
-      debug("Setting window rect to #{rect}")
+      Log.debug { "Setting window rect to #{rect}" }
       @transport.request("WebDriver:SetWindowRect", {x: rect.x, y: rect.y, width: rect.width.floor, height: rect.height.floor})
       nil
     end
 
     # Maximizes the window
     def maximize_window
-      debug("Maximizing window")
+      Log.debug { "Maximizing window" }
       @transport.request("WebDriver:MaximizeWindow")
       nil
     end
 
     # Minimizes the window
     def minimize_window
-      debug("Minimizing window")
+      Log.debug { "Minimizing window" }
       @transport.request("WebDriver:MinimizeWindow")
       nil
     end
 
     # Makes the window fullscreen
     def fullscreen
-      debug("Making window fullscreen")
+      Log.debug { "Making window fullscreen" }
       @transport.request("WebDriver:FullscreenWindow")
       nil
     end
 
     # Closes the current window
     def close_window
-      debug("Closing window")
+      Log.debug { "Closing window" }
       @transport.request("WebDriver:CloseWindow")
       nil
     end
@@ -395,7 +393,7 @@ module Marionette
 
     # Set the orientation
     def set_orientation(orientation)
-      debug("Setting orientation to #{orientation}")
+      Log.debug { "Setting orientation to #{orientation}" }
       @transport.request("Marionette:SetScreenOrientation", {orientation: orientation.to_s})
       nil
     end
@@ -411,13 +409,13 @@ module Marionette
       body = {focus: focus}
 
       if frame.is_a?(HTMLElement)
-        debug("Switching frame to element with id #{frame.id}")
+        Log.debug { "Switching frame to element with id #{frame.id}" }
         body = body.merge({element: frame.id})
       elsif frame.is_a?(String)
-        debug("Switching frame to element with id #{frame}")
+        Log.debug { "Switching frame to element with id #{frame}" }
         body = body.merge({id: frame})
       else
-        debug("Clearing frame")
+        Log.debug { "Clearing frame" }
       end
 
       @transport.request("WebDriver:SwitchToFrame", body)
@@ -434,7 +432,7 @@ module Marionette
 
     # Switch to the parent frame
     def switch_to_parent_frame
-      debug("Switching to parent frame")
+      Log.debug { "Switching to parent frame" }
       @transport.request("WebDriver:SwitchToParentFrame")
       nil
     end
@@ -529,7 +527,7 @@ module Marionette
     # Simulate a click on a particular element
     def click_element(el)
       id = el.is_a?(HTMLElement) ? el.id : el
-      debug("Clicking element with id #{id}")
+      Log.debug { "Clicking element with id #{id}" }
       @transport.request("WebDriver:ElementClick", {id: id})
       nil
     end
@@ -537,7 +535,7 @@ module Marionette
     # Sends keys to an element
     def send_keys_to_element(el, *keys)
       id = el.is_a?(HTMLElement) ? el.id : el
-      debug("Sending keys \"#{keys}\" to element with id #{id}")
+      Log.debug { "Sending keys \"#{keys}\" to element with id #{id}" }
       @transport.request("WebDriver:ElementSendKeys", {id: id, text: keys.join})
       nil
     end
@@ -545,7 +543,7 @@ module Marionette
     # Clears a clearable element
     def clear_element(el)
       id = el.is_a?(HTMLElement) ? el.id : el
-      debug("Clearing element with id #{id}")
+      Log.debug { "Clearing element with id #{id}" }
       @transport.request("WebDriver:ElementClear", {id: id})
       nil
     end
@@ -607,7 +605,7 @@ module Marionette
         hash:       format == :hash,
       }
 
-      debug("Taking screenshot")
+      Log.debug { "Taking screenshot" }
 
       response = @transport.request("WebDriver:TakeScreenshot", params)
       return unless response
@@ -628,7 +626,7 @@ module Marionette
       options = options.merge(format: ScreenshotFormat::Binary)
       data = take_screenshot(**options)
       raise "Failed to save screenshot" unless data
-      debug("Saving screenshot as #{file}")
+      Log.debug { "Saving screenshot as #{file}" }
       File.write(file, data)
     end
 
@@ -651,7 +649,7 @@ module Marionette
         newSandbox:    new_sandbox,
       }
 
-      debug("Executing script")
+      Log.debug { "Executing script" }
 
       response = @transport.request("WebDriver:ExecuteScript", params)
       response["value"]?
@@ -666,7 +664,7 @@ module Marionette
         newSandbox:    new_sandbox,
       }
 
-      debug("Executing async script")
+      Log.debug { "Executing async script" }
 
       response = @transport.request("WebDriver:ExecuteScriptAsync", params)
       response["value"]?
@@ -674,14 +672,14 @@ module Marionette
 
     # Dismisses the dialog like clicking no/cancel.
     def dismiss_dialog
-      debug("Dismissing dialog")
+      Log.debug { "Dismissing dialog" }
       @transport.request("WebDriver:DismissAlert")
       nil
     end
 
     # Accepts a dialog lick clicking ok/yes
     def accept_dialog
-      debug("Accepting dialog")
+      Log.debug { "Accepting dialog" }
       @transport.request("WebDriver:AcceptAlert")
       nil
     end
@@ -696,21 +694,21 @@ module Marionette
 
     # Sends text to a dialog
     def send_keys_to_dialog(*keys)
-      debug("Sending keys #{keys} to dialog")
+      Log.debug { "Sending keys #{keys} to dialog" }
       @transport.request("WebDriver:SendAlertText", {text: keys.join})
       nil
     end
 
     # Closes the browser
     def quit
-      debug("Quitting browser")
+      Log.debug { "Quitting browser" }
       request_in_app_shutdown
     end
 
     # This will do an in-app restart of the browser.
     # NOTE: Not working yet
     def restart
-      debug("Restarting browser")
+      Log.debug { "Restarting browser" }
       response = request_in_app_shutdown(["eRestart"])
       error = true
       while error
@@ -753,7 +751,7 @@ module Marionette
 
     # Clear the user-defined value from the specified preference.
     def clear_pref(pref)
-      debug("Clearing preference '#{pref}'")
+      Log.debug { "Clearing preference '#{pref}'" }
       script = <<-JAVASCRIPT
       Components.utils.import("resource://gre/modules/Preferences.jsm");
       Preferences.reset(arguments[0]);
@@ -781,7 +779,7 @@ module Marionette
 
     # Set the value of the specified preference.
     def set_pref(pref, value, default_branch = false)
-      debug("Setting preference '#{pref}' to '#{value}'")
+      Log.debug { "Setting preference '#{pref}' to '#{value}'" }
       script = <<-JAVASCRIPT
       Components.utils.import("resource://gre/modules/Preferences.jsm");
 
@@ -820,12 +818,12 @@ module Marionette
 
     # Performs an array of browser actions in order
     def perform_actions(actions)
-      debug("Preforming actions #{actions}")
+      Log.debug { "Preforming actions #{actions}" }
       @transport.request("WebDriver:PerformActions", {actions: actions})
     end
 
     def release_actions
-      debug("Releasing actions")
+      Log.debug { "Releasing actions" }
       @transport.request("WebDriver:ReleaseActions")
     end
 

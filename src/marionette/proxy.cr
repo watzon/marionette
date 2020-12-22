@@ -5,8 +5,6 @@ require "http/server"
 
 module Marionette
   class Proxy
-    include Logger
-
     getter browser : Browser
 
     property port : Int32?
@@ -64,7 +62,7 @@ module Marionette
         begin
           uri = URI.parse(@request.resource)
 
-          debug("Marionette called Proxy-Server with: #{ctx.request.inspect}")
+          Log.debug { "Marionette called Proxy-Server with: #{ctx.request.inspect}" }
 
           @request.headers.delete("Content-Length")
           @request.headers["Accept-Encoding"] = "identity"
@@ -84,10 +82,10 @@ module Marionette
             response.headers.delete("Transfer-Encoding")
             body = rewrite(response, uri)
             @response = response
-            debug("Proxy Sent: #{@request.resource}")
+            Log.debug { "Proxy Sent: #{@request.resource}" }
             @first = false
           else # Proxy!
-            debug("Proxy Sent Followup: #{ctx.request.resource} and body: #{ctx.request.body.to_s}")
+            Log.debug { "Proxy Sent Followup: #{ctx.request.resource} and body: #{ctx.request.body.to_s}" }
             # Fix rewrite
             tmp_uri = URI.parse(ctx.request.resource)
             tmp_uri.host = uri.host
@@ -99,8 +97,8 @@ module Marionette
             body = rewrite(response, uri)
           end
         rescue ex : Exception
-          error("Error executing request: #{ex.inspect_with_backtrace}")
-          error("URI tried was: #{@request.resource}")
+          Log.error(exception: ex) { "Error executing request: #{ex.inspect_with_backtrace}" }
+          Log.error(exception: ex) { "URI tried was: #{@request.resource}" }
           ctx.response.status_code = 500
           ctx.response.print("")
           next
@@ -121,7 +119,7 @@ module Marionette
 
       begin
         @port = server.bind_unused_port("0.0.0.0").port
-        debug("Proxy-Server attached at: 127.0.0.1:#{@port}. Waiting for Marionette.")
+        Log.debug { "Proxy-Server attached at: 127.0.0.1:#{@port}. Waiting for Marionette." }
       rescue ex : Exception
         raise "Error binding the proxy-loop for 127.0.0.1:#{@port} in Webdriver.exec: #{ex.inspect_with_backtrace}"
       end
@@ -167,7 +165,7 @@ module Marionette
 
       resp = HAR::Response.new(response.status_code, response.status.description.to_s, "1.1", content)
       entry = HAR::Entry.new(req, resp)
-      # debug("Added HAR entry: #{entry.inspect}")
+      # Log.debug { "Added HAR entry: #{entry.inspect}" }
 
       entry
     end

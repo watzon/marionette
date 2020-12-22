@@ -1,6 +1,6 @@
 require "mt_helpers"
 require "./core_mods/*"
-require "./marionette/logger"
+require "./marionette/log"
 require "./marionette/error"
 require "./marionette/*"
 

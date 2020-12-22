@@ -2,8 +2,6 @@ require "./utils"
 
 module Marionette
   class Launcher
-    include Logger
-
     DEFAULT_ARGS = ["--safe-mode", "-marionette", "-foreground", "-no-remote"]
     firefox_PROFILE_PATH = File.join(Dir.tempdir, "marionette_dev_profile-")
 
@@ -66,7 +64,7 @@ module Marionette
       capabilities = capabilities.merge(browser_capabilities) if browser_capabilities
 
       if executable
-        debug("Launching browser")
+        Log.debug { "Launching browser" }
 
         args.concat(DEFAULT_ARGS)
         args << "--headless" if headless
@@ -98,13 +96,13 @@ module Marionette
           raise "Tried to use MARIONETTE_EXECUTABLE_PATH env variable to launch browser but did not find any executable at: #{executable_path}"
         end
 
-        debug("Using firefox executable at #{absolute_path}")
+        Log.debug { "Using firefox executable at #{absolute_path}" }
         return absolute_path
       else
         on_path = Utils.which("firefox")
 
         if on_path
-          debug("Using firefox executable at #{on_path}")
+          Log.debug { "Using firefox executable at #{on_path}" }
           return on_path
         else
           error = <<-TEXT
@@ -115,7 +113,7 @@ module Marionette
             - install Firefox using your package manager and make sure it exists on your PATH
           TEXT
 
-          crit(error)
+          Log.fatal { error }
           raise Error::ExecutableNotFound.new(error)
         end
       end
