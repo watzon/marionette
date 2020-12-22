@@ -2,8 +2,6 @@ require "http/client"
 
 module Marionette
   class Downloader
-    include Logger
-
     DOWNLOAD_URLS = {
       "linux" => "%{host}/chromium-browser-snapshots/Linux_x64/%{revision}/chrome-linux.zip",
       "mac"   => "%{host}/chromium-browser-snapshots/Mac/%{revision}/chrome-mac.zip",
@@ -78,28 +76,28 @@ module Marionette
       zip_path = File.join(@download_dir, "download-#{platform}-#{revision}.zip")
       folder_path = get_folder_path(platform, revision)
 
-      debug("Starting download of headless chrome for #{platform}, revision #{revision}")
+      Log.debug { "Starting download of headless chrome for #{platform}, revision #{revision}" }
 
       if Dir.exists?(folder_path)
-        debug("Directory at #{folder_path} already exists. Skipping download.")
+        Log.debug { "Directory at #{folder_path} already exists. Skipping download." }
         return
       end
 
       if !Dir.exists?(@download_dir)
-        debug("Making directory #{@download_dir}")
+        Log.debug { "Making directory #{@download_dir}" }
         Dir.mkdir(@download_dir)
       end
 
-      debug("Downloading headless chrome")
+      Log.debug { "Downloading headless chrome" }
       HTTP::Client.get(url, tls: nil) do |response|
         File.write(zip_path, response.body_io)
 
-        debug("Extracting chrome to #{folder_path}")
+        Log.debug { "Extracting chrome to #{folder_path}" }
         Compress::Zip::File.open(zip_path) do |zip|
           zip.extract_all(folder_path, 0x7777)
         end
 
-        debug("Deleting zip file")
+        Log.debug { "Deleting zip file" }
         File.delete(zip_path)
       end
     end

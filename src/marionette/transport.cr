@@ -3,8 +3,6 @@ require "json"
 
 module Marionette
   class Transport
-    include Logger
-
     property max_packet_length : Int32
     property min_protocol_level : Int32
 
@@ -61,7 +59,6 @@ module Marionette
     # a command and returns the raw string.
     # TODO: Add timeout
     def receive_raw
-
       len = @socket.gets(':').to_s.chomp(':').to_i
       data = Bytes.new(len)
       @socket.read_fully?(data)
