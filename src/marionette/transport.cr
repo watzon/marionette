@@ -8,6 +8,7 @@ module Marionette
 
     getter timeout : Int32
     getter last_id : Int32
+    getter dissmised_alerts : Array(String)
 
     @socket : TCPSocket
 
@@ -20,6 +21,7 @@ module Marionette
       @last_id = 0
       @max_packet_length = 2048
       @min_protocol_level = 3
+      @dissmised_alerts = Array(String).new
     end
 
     # Initiates a TCP connection to a running Firefox instance
@@ -52,6 +54,16 @@ module Marionette
     def receive
       raw = receive_raw
       type, id, command, params = JSON.parse(raw).as_a
+
+      if raw_command = command.as_h?
+        if raw_command["message"]?.to_s.includes?("Dismissed user prompt dialog:") && raw_command["message"].to_s =~ %r{([0-9]{6})}
+          dissmissed_alert = $~.try &.[1]
+          if dissmissed_alert
+            @dissmised_alerts << dissmissed_alert.strip
+          end
+        end
+      end
+
       Message.new(type.as_i, id.as_i, command.as_s?, params)
     end
 
