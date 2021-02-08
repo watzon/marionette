@@ -107,13 +107,13 @@ module Marionette
 
     getter proxy : Proxy?
 
-    getter timeout : Int32
+    getter timeout : Time::Span
 
     getter? session_id : String?
 
     getter? extended : Bool
 
-    def initialize(@address : String, @port : Int32, @extended = false, @timeout = 60000, warmup_timeout = 3.seconds)
+    def initialize(@address : String, @port : Int32, @extended = false, @timeout : Time::Span = 60.seconds, warmup_timeout = 3.seconds)
       @transport = warmup_transport(Time.utc + warmup_timeout) || init_transport
       @transport.connect
       launch_proxy if extended
@@ -641,9 +641,9 @@ module Marionette
     # Execute JS script. If `new_sandbox` is true (default) the global
     # variables from the last executed script will be preserved. The
     # result of executing the script is returned.
-    def execute_script(script, args = nil, timeout = @timeout, new_sandbox = true)
+    def execute_script(script, args = nil, timeout : Time::Span = @timeout, new_sandbox = true)
       params = {
-        scriptTimeout: timeout,
+        scriptTimeout: timeout.total_milliseconds.to_i,
         script:        script,
         args:          args || [] of String,
         newSandbox:    new_sandbox,
@@ -656,9 +656,9 @@ module Marionette
     end
 
     # Execute JS script asynchronously. See `#execute_script`.
-    def execute_script_async(script, args = nil, timeout = @timeout, new_sandbox = true)
+    def execute_script_async(script, args = nil, timeout : Time::Span = @timeout, new_sandbox = true)
       params = {
-        scriptTimeout: timeout,
+        scriptTimeout: timeout.total_milliseconds.to_i,
         script:        script,
         args:          args || [] of String,
         newSandbox:    new_sandbox,

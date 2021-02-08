@@ -47,18 +47,20 @@ module Marionette
         width:  800,
         height: 600,
       },
-      timeout = 30000,
+      timeout : ::Time::Span = 30.seconds,
       extended = false,
       browser_capabilities = nil
     )
       executable = resolve_executable_path if executable.nil?
 
+      timeout_ms = timeout.total_milliseconds.to_i
+
       capabilities = {
         acceptInsecureCerts: accept_insecure_certs,
         timeouts:            {
-          implicit: timeout,
-          pageLoad: timeout,
-          script:   timeout,
+          implicit: timeout_ms,
+          pageLoad: timeout_ms,
+          script:   timeout_ms,
         },
       }
       capabilities = capabilities.merge(browser_capabilities) if browser_capabilities
