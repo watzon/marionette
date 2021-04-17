@@ -788,7 +788,7 @@ module Marionette
     # Get the currently set Safari permisisons.
     #
     # NOTE: Available for Safari only.
-    def perimissions
+    def permissions
       assert_browser(:safari)
       response = execute("GetPermissions")
       Hash(String, Bool).from_json(response["permissions"].to_json)
