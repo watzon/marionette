@@ -27,18 +27,3 @@ require "./marionette/*"
 module Marionette
   extend DriverOptions
 end
-
-options = Marionette.chrome_options(experimental_options: {"excludeSwitches" => ["enable-automation"]})
-session = Marionette::WebDriver.create_session(:chrome, capabilities: options)
-
-# Navigate to crystal-lang.org
-session.navigate("https://crystal-lang.org")
-
-# Start an action chain and perform it
-session.perform_actions do
-  # Click the "INSTALL" link
-  click ".main-actions a:nth-child(1)"
-end
-
-sleep 5
-session.close
