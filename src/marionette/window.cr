@@ -37,8 +37,8 @@ module Marionette
         @session.execute("SetWindowRect", {
           "height" => rect.height,
           "width"  => rect.width,
-          "x"  => rect.x,
-          "y"  => rect.y
+          "x"      => rect.x,
+          "y"      => rect.y,
         })
       else
         @session.stop

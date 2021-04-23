@@ -18,5 +18,3 @@ session.perform_actions do
 end
 
 sleep 5.seconds
-
-

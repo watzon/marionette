@@ -50,9 +50,9 @@ module Marionette
       uri = url.is_a?(URI) ? url : URI.parse(url)
 
       headers = HTTP::Headers{
-        "Accept" => "application/json",
+        "Accept"       => "application/json",
         "Content-Type" => "application/json;charset=UTF-8",
-        "User-Agent" => "Marionette #{Marionette::VERSION} (Crystal #{Crystal::VERSION})"
+        "User-Agent"   => "Marionette #{Marionette::VERSION} (Crystal #{Crystal::VERSION})",
       }
 
       if uri.user

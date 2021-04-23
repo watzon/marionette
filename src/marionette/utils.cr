@@ -12,13 +12,13 @@ module Marionette
       "setWindowRect",
       "timeouts",
       "unhandledPromptBehavior",
-      "strictFileInteractability"
+      "strictFileInteractability",
     ]
 
     OssW3CConversion = {
       "acceptSslCerts" => "acceptInsecureCerts",
-      "version" => "browserVersion",
-      "platform" => "platformName"
+      "version"        => "browserVersion",
+      "platform"       => "platformName",
     }
 
     def random_open_port(host)
@@ -97,7 +97,7 @@ module Marionette
 
       {
         "using" => modified_strategy.to_s,
-        "value" => modified_selector
+        "value" => modified_selector,
       }
     end
   end

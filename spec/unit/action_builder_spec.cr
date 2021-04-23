@@ -88,5 +88,5 @@ Spectator.describe Marionette::ActionBuilder do
     end
   end
 
-  #TODO: Continue
+  # TODO: Continue
 end

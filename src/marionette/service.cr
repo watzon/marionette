@@ -3,17 +3,17 @@ require "socket"
 module Marionette
   class Service
     SERVICE_CHECK_INTERVAL = 100.milliseconds
-    SERVICE_RETRY_LIMIT = 10
+    SERVICE_RETRY_LIMIT    = 10
 
     getter browser : Browser
 
     getter path : String
     getter port : Int32
-    getter env  : Hash(String, String)
+    getter env : Hash(String, String)
 
     getter process : Process?
-    getter stdout  : IO::Memory
-    getter stderr  : IO::Memory
+    getter stdout : IO::Memory
+    getter stderr : IO::Memory
 
     def initialize(@browser : Browser,
                    path = nil,

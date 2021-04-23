@@ -38,67 +38,67 @@ module Marionette
 
     def desired_capabilities
       caps = case self
-      in Firefox
-        {
-          "browserName" => "firefox",
-          "acceptInsecureCerts" => true
-        }
-      in Chrome, Chromium
-        {
-          "browserName" => "chrome",
-          "version" => "",
-          "platform" => "ANY"
-        }
-      in Edge
-        {
-          "browserName" => "MicrosoftEdge",
-          "version" => "",
-          "platform" => "ANY"
-        }
-      in InternetExplorer
-        {
-          "browserName" => "internet explorer",
-          "version" => "",
-          "platform" => "WINDOWS"
-        }
-      in Opera
-        {
-          "browserName" => "opera",
-          "version" => "",
-          "platform" => "ANY"
-        }
-      in Safari
-        {
-          "browserName" => "safari",
-          "version" => "",
-          "platform" => "MAC"
-        }
-      in PhantomJS
-        {
-          "browserName" => "phantomjs",
-          "version" => "",
-          "platform" => "ANY",
-          "javascriptEnabled" => true
-        }
-      in Android
-        {
-          "browserName" => "android",
-          "version" => "",
-          "platform" => "ANDROID"
-        }
-      in WebkitGTK
-        {
-          "browserName" => "MiniBrowser",
-          "version" => "",
-          "platform" => "ANY"
-        }
-      in WPEWebkit
-        {
-          "browserName" => "MiniBrowser",
-          "version" => "",
-          "platform" => "ANY"
-        }
-      end
+             in Firefox
+               {
+                 "browserName"         => "firefox",
+                 "acceptInsecureCerts" => true,
+               }
+             in Chrome, Chromium
+               {
+                 "browserName" => "chrome",
+                 "version"     => "",
+                 "platform"    => "ANY",
+               }
+             in Edge
+               {
+                 "browserName" => "MicrosoftEdge",
+                 "version"     => "",
+                 "platform"    => "ANY",
+               }
+             in InternetExplorer
+               {
+                 "browserName" => "internet explorer",
+                 "version"     => "",
+                 "platform"    => "WINDOWS",
+               }
+             in Opera
+               {
+                 "browserName" => "opera",
+                 "version"     => "",
+                 "platform"    => "ANY",
+               }
+             in Safari
+               {
+                 "browserName" => "safari",
+                 "version"     => "",
+                 "platform"    => "MAC",
+               }
+             in PhantomJS
+               {
+                 "browserName"       => "phantomjs",
+                 "version"           => "",
+                 "platform"          => "ANY",
+                 "javascriptEnabled" => true,
+               }
+             in Android
+               {
+                 "browserName" => "android",
+                 "version"     => "",
+                 "platform"    => "ANDROID",
+               }
+             in WebkitGTK
+               {
+                 "browserName" => "MiniBrowser",
+                 "version"     => "",
+                 "platform"    => "ANY",
+               }
+             in WPEWebkit
+               {
+                 "browserName" => "MiniBrowser",
+                 "version"     => "",
+                 "platform"    => "ANY",
+               }
+             end
 
       caps.transform_values { |v| JSON::Any.new(v) }
     end

@@ -431,7 +431,7 @@ module Marionette
       if @session.w3c?
         pointer_actions = [] of Action
         key_actions = [] of Action
-        (0 ... @w3c_key_actions.size).each do |i|
+        (0...@w3c_key_actions.size).each do |i|
           key_action = @w3c_key_actions[i]
           pointer_action = @w3c_pointer_actions[i]
 
@@ -479,19 +479,19 @@ module Marionette
       {
         actions: [
           {
-            type: "key",
-            id: UUID.random.to_s,
-            actions: key_actions.map { |a| make_action_object(a, debug_mouse_move: debug_mouse_move) }
+            type:    "key",
+            id:      UUID.random.to_s,
+            actions: key_actions.map { |a| make_action_object(a, debug_mouse_move: debug_mouse_move) },
           },
           {
-            type: "pointer",
-            id: UUID.random.to_s,
+            type:       "pointer",
+            id:         UUID.random.to_s,
             parameters: {
-              pointerType: pointer_type.to_s
+              pointerType: pointer_type.to_s,
             },
-            actions: pointer_actions.map { |a| make_action_object(a, debug_mouse_move: debug_mouse_move) }
-          }
-        ]
+            actions: pointer_actions.map { |a| make_action_object(a, debug_mouse_move: debug_mouse_move) },
+          },
+        ],
       }
     end
 
@@ -507,9 +507,9 @@ module Marionette
       when Action::PointerPause, Action::KeyPause
         if is_w3c
           {
-            type: action.name,
-            value: action.duration.total_milliseconds.to_i,
-            duration: action.duration.total_milliseconds.to_i
+            type:     action.name,
+            value:    action.duration.total_milliseconds.to_i,
+            duration: action.duration.total_milliseconds.to_i,
           }
         else
           NamedTuple.new
