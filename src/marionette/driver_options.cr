@@ -6,15 +6,13 @@ module Marionette
                        extensions = [] of String | IO,
                        binary = nil,
                        debugger_address = nil,
-                       page_load_strategy : PageLoadStrategy? = nil,
                        experimental_options = {} of String => String,
                        logging_prefs = {} of String => String,
-                       capabilities = {} of String => String)
-      caps = capabilities
+                       **capabilities)
+      caps = capabilities.to_h
       opts = experimental_options
 
       opts = opts.merge({"args" => args}) unless args.empty?
-      opts = opts.merge({"pageLoadStrategy" => page_load_strategy}) if page_load_strategy
       opts = opts.merge({"binary" => binary}) if binary
       opts = opts.merge({"debuggerAddress" => debugger_address}) if debugger_address
 
@@ -39,32 +37,32 @@ module Marionette
 
     def firefox_options(args = [] of String,
                         binary = nil,
-                        page_load_strategy : PageLoadStrategy? = nil,
-                        log_level = nil)
+                        log_level = nil,
+                        **capabilities)
+      caps = capabilities.to_h
       opts = {} of String => JSON::Any
 
       opts = opts.merge({"args" => args}) unless args.empty?
-      opts = opts.merge({"pageLoadStrategy" => page_load_strategy.to_s.downcase}) if page_load_strategy
       opts = opts.merge({"binary" => binary}) if binary
       opts = opts.merge({"log" => {"level" => log_level}}) if log_level
 
-      {"moz:firefoxOptions" => opts}
+      caps.merge({"moz:firefoxOptions" => opts})
     end
 
     def edge_options(args = [] of String,
                      page_load_strategy : PageLoadStrategy? = nil,
                      is_legacy = false,
-                     browser_name = nil)
+                     browser_name = nil,
+                     **capabilities)
+      caps = capabilities.to_h
       opts = {} of String => JSON::Any
 
       opts = opts.merge({"args" => args}) unless args.empty?
-      if is_legacy
-        opts = opts.merge({"pageLoadStrategy" => page_load_strategy.to_s.downcase}) if page_load_strategy
-      else
+      unless is_legacy
         opts = opts.merge({"browserName" => browser_name}) if browser_name
       end
 
-      {"ms:edgeOptions" => opts}
+      caps.merge({"ms:edgeOptions" => opts})
     end
 
     def ie_options(args = [] of String,
@@ -83,7 +81,9 @@ module Marionette
                    require_window_focus = nil,
                    use_per_process_proxy = nil,
                    validate_cookie_document_type = nil,
-                   additional_options = {} of String => String)
+                   additional_options = {} of String => String,
+                   **capabilities)
+      caps = capabilities.to_h
       opts = {} of String => JSON::Any
 
       opts = opts.merge({"id.browserCommandLineSwitches" => args.join(' ')}) unless args.empty?
@@ -103,45 +103,49 @@ module Marionette
       opts = opts.merge({"ie.usePerProcessProxy" => use_per_process_proxy}) if use_per_process_proxy
       opts = opts.merge({"ie.validateCookieDocumentType" => validate_cookie_document_type}) if validate_cookie_document_type
 
-      {"se:ieOptions" => opts}
+      caps.merge({"se:ieOptions" => opts})
     end
 
     def webkit_gtk_options(args = [] of String,
                            binary = nil,
-                           overlay_scrollbars = nil)
+                           overlay_scrollbars = nil,
+                           **capabilities)
+      caps = capabilities.to_h
       opts = {} of String => JSON::Any
 
       opts = opts.merge({"args" => args}) unless args.empty?
       opts = opts.merge({"binary" => binary}) if binary
       opts = opts.merge({"useOverlayScrollbars" => overlay_scrollbars}) if overlay_scrollbars
 
-      {"webkitgtk:browserOptions" => opts}
+      caps.merge({"webkitgtk:browserOptions" => opts})
     end
 
     def wpe_webkit_options(args = [] of String,
-                           binary = nil)
+                           binary = nil,
+                           **capabilities)
+      caps = capabilities.to_h
       opts = {} of String => JSON::Any
 
       opts = opts.merge({"args" => args}) unless args.empty?
       opts = opts.merge({"binary" => binary}) if binary
 
-      {"webkitgtk:browserOptions" => opts}
+      caps.merge({"webkitgtk:browserOptions" => opts})
     end
 
     def opera_options(args = [] of String,
-                      page_load_strategy : PageLoadStrategy? = nil,
                       android_package_name = nil,
                       android_device_socket = nil,
-                      android_command_line_file = nil)
+                      android_command_line_file = nil,
+                      **capabilities)
+      caps = capabilities.to_h
       opts = {} of String => JSON::Any
 
       opts = opts.merge({"args" => args}) unless args.empty?
-      opts = opts.merge({"pageLoadStrategy" => page_load_strategy.to_s.downcase}) if page_load_strategy
       opts = opts.merge({"androidPackage" => android_package_name}) if android_package_name
       opts = opts.merge({"androidDeviceSocket" => android_device_socket}) if android_device_socket
       opts = opts.merge({"androidCommandLineFile" => android_command_line_file}) if android_command_line_file
 
-      {"operaOptions" => opts}
+      caps.merge({"operaOptions" => opts})
     end
   end
 end

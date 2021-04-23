@@ -38,7 +38,7 @@ module Marionette
       # Merge user capabilities with the desired capabilities
       # for the given browser.
       caps = driver.browser.desired_capabilities
-      caps = capabilities.merge(capabilities)
+      caps = capabilities.merge(caps)
 
       params = {
         "capabilities"         => Utils.to_w3c_caps(caps),

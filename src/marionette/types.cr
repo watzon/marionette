@@ -4,8 +4,8 @@ module Marionette
     Normal
     Eager
 
-    def to_s(io)
-      io << super.downcase
+    def to_s
+      super.downcase
     end
   end
 
