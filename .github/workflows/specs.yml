@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: nanasess/setup-chromedriver@master
+    - uses: browser-actions/setup-chrome@latest
     - name: Install dependencies
       run: shards install
     - name: Run tests
