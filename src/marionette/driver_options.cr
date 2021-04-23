@@ -10,7 +10,8 @@ module Marionette
                        logging_prefs = {} of String => String,
                        **capabilities)
       caps = capabilities.to_h
-      opts = experimental_options
+      opts = {} of String => String | Array(String)
+      opts = opts.merge(experimental_options)
 
       opts = opts.merge({"args" => args}) unless args.empty?
       opts = opts.merge({"binary" => binary}) if binary
