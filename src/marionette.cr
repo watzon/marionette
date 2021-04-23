@@ -28,7 +28,7 @@ module Marionette
   extend DriverOptions
 end
 
-options = Marionette.chrome_options(experimental_options: { "excludeSwitches" => ["enable-automation"] })
+options = Marionette.chrome_options(experimental_options: {"excludeSwitches" => ["enable-automation"]})
 session = Marionette::WebDriver.create_session(:chrome, capabilities: options)
 
 # Navigate to crystal-lang.org
