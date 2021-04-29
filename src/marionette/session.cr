@@ -287,21 +287,48 @@ module Marionette
 
     # Get the cookie with the specified name. Returns `nil` if no cookie was found.
     def get_cookie(name : String)
-      begin
-        value = execute("GetCookie", {"name" => name})
-        HTTP::Cookie.from_json(value.to_json)
-      rescue ex : Error::NoSuchCookie
-        Log.warn { "Cookie not found with name '#{name}'" }
-        nil
-      end
+      value = execute("GetCookie", {"name" => name})
+      HTTP::Cookie.from_json(value.to_json)
     end
 
     # Delete the cookie with the specified name.
     def delete_cookie(name : String)
-      begin
-        execute("DeleteCookie", {"name" => name})
-      rescue ex : Error::NoSuchCookie
-        Log.warn { "Cookie not found with name '#{name}'" }
+      execute("DeleteCookie", {"name" => name})
+    end
+
+    # Add a cookie with the given name, value, and other options.
+    def add_cookie(name : String,
+                   value : String,
+                   path : String = "/",
+                   domain : String? = nil,
+                   secure : Bool = false,
+                   http_only : Bool = false,
+                   expires : Time | Int32 | Nil = nil,
+                   same_site : Bool? = nil)
+      cookie = {
+        "name" => name,
+        "value" => value,
+        "path" => path,
+        "domain" => domain,
+        "secure" => secure,
+        "httpOnly" => http_only,
+        "expiry" => expires.is_a?(Time) ? expires.to_unix : expires,
+        "sameSite" => same_site,
+      }
+      execute("AddCookie", {
+        "cookie" => cookie.compact
+      })
+    end
+
+    # Add a cookie from an `HTTP::Cookie` instance.
+    def add_cookie(cookie c : HTTP::Cookie)
+      add_cookie(c.name, c.value, c.path, c.domain, c.secure, c.http_only, c.expires, c.same_site)
+    end
+
+    # Add multiple cookies from an `HTTP::Cookies` instance.
+    def add_cookies(cookies : HTTP::Cookies)
+      cookies.each do |cookie|
+        add_cookie(cookie)
       end
     end
 
@@ -410,11 +437,7 @@ module Marionette
     # Find a child of the given element. Returns `nil` if no element with the given
     # selector was found.
     def find_element_child(element, selector, strategy : LocationStrategy = :css)
-      begin
-        find_element_child!(element, selector, strategy)
-      rescue ex : Error::NoSuchElement
-        nil
-      end
+      find_element_child!(element, selector, strategy)
     end
 
     # Find a child of the given element. Raises an exception if no element with the
@@ -435,14 +458,10 @@ module Marionette
       element_id = element.is_a?(Element) ? element.id : element
       params = Utils.selector_params(selector, strategy, w3c?)
       params["$elementId"] = element_id
-      begin
-        response = execute("FindChildElements", params)
-        response.as_a.map do |v|
-          id = v.as_h.values[0].as_s
-          Element.new(self, id)
-        end
-      rescue ex : Error::NoSuchElement
-        [] of Element
+      response = execute("FindChildElements", params)
+      response.as_a.map do |v|
+        id = v.as_h.values[0].as_s
+        Element.new(self, id)
       end
     end
 
