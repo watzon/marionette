@@ -304,19 +304,19 @@ module Marionette
                    secure : Bool = false,
                    http_only : Bool = false,
                    expires : Time | Int32 | Nil = nil,
-                   same_site : Bool? = nil)
+                   same_site : HTTP::Cookie::SameSite? = nil)
       cookie = {
-        "name" => name,
-        "value" => value,
-        "path" => path,
-        "domain" => domain,
-        "secure" => secure,
+        "name"     => name,
+        "value"    => value,
+        "path"     => path,
+        "domain"   => domain,
+        "secure"   => secure,
         "httpOnly" => http_only,
-        "expiry" => expires.is_a?(Time) ? expires.to_unix : expires,
-        "sameSite" => same_site,
+        "expiry"   => expires.is_a?(Time) ? expires.to_unix : expires,
+        "sameSite" => same_site.to_s,
       }
       execute("AddCookie", {
-        "cookie" => cookie.compact
+        "cookie" => cookie.compact,
       })
     end
 
