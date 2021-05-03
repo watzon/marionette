@@ -1,6 +1,6 @@
 # Marionette
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/watzon/marionette/specs?style=flat-square)  ![License](https://img.shields.io/github/license/watzon/marionette?style=flat-square)  ![Crystal Version](https://img.shields.io/badge/Crystal-0.35.1-%23333333?style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/watzon/marionette/specs?style=flat-square)  ![License](https://img.shields.io/github/license/watzon/marionette?style=flat-square)  ![Crystal Version](https://img.shields.io/badge/Crystal-1.0.0-%23333333?style=flat-square)
 
 <div align="center">
   <img src="./assets/code.png">
