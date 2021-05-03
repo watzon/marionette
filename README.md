@@ -498,4 +498,4 @@ end
 
 ## Contributors
 
-- [watzon](https://github.com/watzon)  - creator, maintainer
+This project exists thanks to all the people who contribute. <a href="https://github.com/cadmiumcr/Cadmium/graphs/contributors"><img src="https://opencollective.com/Cadmium/contributors.svg?width=890&button=false" /></a>
