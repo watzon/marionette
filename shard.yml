@@ -12,6 +12,7 @@ dependencies:
     github: NeuraLegion/mt_helpers
     branch: master
 
-crystal: 0.35.0
+# TODO: Update to "~> 1" once the time comes.
+crystal: ">= 0.35, < 2"
 
 license: MIT
