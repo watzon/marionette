@@ -7,7 +7,7 @@ authors:
 dependencies:
   har:
     github: NeuraLegion/har
-    version: ~> 1.1.0
+    branch: master
   mt_helpers:
     github: NeuraLegion/mt_helpers
     branch: master
