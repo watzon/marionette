@@ -461,6 +461,12 @@ module Marionette
       cookie[0]?
     end
 
+    # delete all cookies
+    def delete_cookies
+      response = @transport.request("WebDriver:DeleteAllCookies")
+      Log.debug { "All cookies removed" }
+    end
+
     # Check if element is enabled
     def element_enabled?(el)
       id = el.is_a?(HTMLElement) ? el.id : el
