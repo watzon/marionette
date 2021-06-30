@@ -463,7 +463,7 @@ module Marionette
 
     # delete all cookies
     def delete_cookies
-      response = @transport.request("WebDriver:DeleteAllCookies")
+      @transport.request("WebDriver:DeleteAllCookies")
       Log.debug { "All cookies removed" }
     end
 
