@@ -125,7 +125,7 @@ module Marionette
     end
 
     def fullscreen
-      execute("FullScreenWindow")
+      execute("FullscreenWindow")
     end
 
     def execute(command, params = {} of String => String)
