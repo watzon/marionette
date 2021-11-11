@@ -467,6 +467,12 @@ module Marionette
       Log.debug { "All cookies removed" }
     end
 
+    def reduce_memory_usage
+      Log.debug { "Reducing memory usage..." }
+      navigate("about:memory")
+      execute_script("doMMU();")
+    end
+
     # Check if element is enabled
     def element_enabled?(el)
       id = el.is_a?(HTMLElement) ? el.id : el
