@@ -22,8 +22,11 @@ module Marionette
                    @service = nil,
                    @w3c = false)
       at_exit do
-        if (svc = @service) && !svc.closed?
-          stop
+        begin
+          if (svc = @service) && !svc.closed?
+            stop
+          end
+        rescue
         end
       end
     end
