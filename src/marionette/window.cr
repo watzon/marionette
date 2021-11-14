@@ -69,10 +69,7 @@ module Marionette
         if @handle != @session.current_window.handle
           Log.warn { "Only current window is supported for W3C Compatible browsers" }
         end
-        rect = self.rect
-        rect.width = size.width
-        rect.height = size.height
-        self.rect = rect
+        self.rect = self.rect.copy_with(width: size.width, height: size.height)
       else
         execute("SetWindowSize", {"width" => size.width, "height" => size.height})
       end

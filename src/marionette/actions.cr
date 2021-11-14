@@ -6,8 +6,6 @@ module Marionette
   # The easiest way to use `ActionBuilder` is through `Session#actions` and
   # `Session#perform_actions`.
   class ActionBuilder
-    DEBUG_MOUSE_MOVE_SCRIPT = {{ read_file("#{__DIR__}/scripts/debug_mouse_move.js") }}
-
     getter session : Session
 
     getter w3c_key_actions : Array(Action)
@@ -497,7 +495,7 @@ module Marionette
 
     private def make_action_object(action : Action, debug_mouse_move = false)
       is_w3c = @session.w3c?
-      case action
+      result = case action
       when Action::KeyUp, Action::KeyDown
         if is_w3c
           {type: action.name, value: action.value}
@@ -552,7 +550,7 @@ module Marionette
             y = action.y.to_i
 
             if debug_mouse_move
-              @session.execute_script(DEBUG_MOUSE_MOVE_SCRIPT, [element, x, y])
+              session.execute_atom(:debugMouseMove, [element, x, y])
             end
 
             if is_w3c
@@ -583,7 +581,7 @@ module Marionette
           y = action.y.to_i
 
           if debug_mouse_move
-            @session.execute_script(DEBUG_MOUSE_MOVE_SCRIPT, [element, x, y])
+            session.execute_atom(:debugMouseMove, [element, x, y])
           end
 
           if is_w3c
@@ -609,12 +607,10 @@ module Marionette
               }
             end
           end
-        else
-          raise "Unreachable"
         end
-      else
-        raise "Unreachable"
       end
+
+      result.not_nil!
     end
   end
 

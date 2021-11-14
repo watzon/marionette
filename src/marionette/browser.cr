@@ -106,23 +106,59 @@ module Marionette
     def default_exe
       case self
       in Firefox
+        {% if flag?(:windows) %}
+        "geckodriver.exe"
+        {% else %}
         "geckodriver"
+        {% end %}
       in Chrome, Chromium
+        {% if flag?(:windows) %}
+        "chromedriver.exe"
+        {% else %}
         "chromedriver"
+        {% end %}
       in Edge
+        {% if flag?(:windows) %}
         "MicrosoftWebDriver.exe"
+        {% else %}
+        "msedgedriver"
+        {% end %}
       in InternetExplorer
+        {% if flag?(:windows) %}
         "IEDriverServer.exe"
+        {% else %}
+        raise Error::InvalidDriverError.new("Internet Explorer is only supported on Windows")
+        {% end %}
       in Opera
+        {% if flag?(:windows) %}
+        "operadriver.exe"
+        {% else %}
         "operadriver"
+        {% end %}
       in Safari
+        {% if flag?(:darwin) %}
         "/usr/bin/safaridriver"
+        {% else %}
+        raise Error::InvalidDriverError.new("Safari is only supported on Mac OS X")
+        {% end %}
       in PhantomJS
+        {% if flag?(:windows) %}
+        "phantomjs.exe"
+        {% else %}
         "phantomjs"
+        {% end %}
       in WebkitGTK
+        {% if flag?(:windows) %}
+        "WebKitWebDriver.exe"
+        {% else %}
         "WebKitWebDriver"
+        {% end %}
       in WPEWebkit
+        {% if flag?(:windows) %}
+        "WPEWebDriver.exe"
+        {% else %}
         "WPEWebDriver"
+        {% end %}
       in Android
         raise "There is no service executable for Android. Please use a remote webdriver instead."
       end

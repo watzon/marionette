@@ -1,6 +1,7 @@
 module Marionette
   class Session
     include Logger
+    include Atoms
 
     property! service : Service?
 
@@ -14,6 +15,8 @@ module Marionette
 
     getter capabilities : Hash(String, JSON::Any)
 
+    private getter mutex : Mutex
+
     # :nodoc:
     def initialize(@driver : WebDriver,
                    @id : String,
@@ -21,6 +24,7 @@ module Marionette
                    @capabilities : Hash(String, JSON::Any),
                    @service = nil,
                    @w3c = false)
+      @mutex = Mutex.new
       at_exit do
         if (svc = @service) && !svc.closed?
           stop
@@ -84,10 +88,19 @@ module Marionette
       case @type
       in Type::Local
         service.stop
+        service = nil
       in Type::Remote
         # Do nothing
       end
       result
+    end
+
+    def running?
+      @service && service.open?
+    end
+
+    def stopped?
+      !running?
     end
 
     #   ____                _
@@ -360,7 +373,7 @@ module Marionette
     # into the script should be provided as an array.
     #
     # For now the result is returned as raw JSON.
-    def execute_script(script, args = nil)
+    def execute_script(script, *args)
       params = {"script" => script, "args" => args || [] of String}
       if w3c?
         execute("W3CExecuteScript", params)
@@ -373,7 +386,7 @@ module Marionette
     # into the script should be provided as an array.
     #
     # This is an async process and does not return a result.
-    def execute_script_async(script, args = nil)
+    def execute_script_async(script, *args)
       params = {"script" => script, "args" => args || [] of String}
       if w3c?
         execute("W3CExecuteScriptAsync", params)
@@ -403,9 +416,9 @@ module Marionette
     # Find an element using the given `selector`. The `strategy` can be any
     # `LocationStrategy`. Default is `LocationStrategy::Css`. Returns
     # `nil` if no element with the given selector was found.
-    def find_element(selector, strategy : LocationStrategy = :css)
+    def find_element(selector, strategy : LocationStrategy = :css, parent : Element? = nil)
       begin
-        find_element!(selector, strategy)
+        find_element!(selector, strategy, parent)
       rescue ex : Error::NoSuchElement
         nil
       end
@@ -414,24 +427,42 @@ module Marionette
     # Find an element using the given `selector`. The `strategy` can be any
     # `LocationStrategy`. Default is `LocationStrategy::Css`. Raises an
     # exception if no element with the given selector was found.
-    def find_element!(selector, strategy : LocationStrategy = :css)
-      response = execute("FindElement", Utils.selector_params(selector, strategy, w3c?))
-      id = response.as_h.values[0].as_s
-      Element.new(self, id)
+    def find_element!(selector, strategy : LocationStrategy = :css, parent : Element? = nil)
+      how, what = strategy.convert_locator(selector)
+
+      # TODO: Add support for this via Support::RelativeLocator
+      # return execute_atom(:findElements, Support::RelativeLocator.new(what).as_json).first if how == 'relative'
+
+      if parent
+        # if parent.type == :element
+          id = parent.execute("FindChildElement", { using: how, value: what.to_s })
+        # else :shadow_root
+        #   execute("FindShadowChildElement", { id: parent_id, using: how, value: what.to_s })
+      else
+        id = execute("FindElement", { using: how, value: what.to_s })
+      end
+
+      Element.new(self, element_id_from(id))
     end
 
     # Find multiple elements with the given selector and return them as
     # an array.
     def find_elements(selector, strategy : LocationStrategy = :css)
-      begin
-        response = execute("FindElements", Utils.selector_params(selector, strategy, w3c?))
-        response.as_a.map do |v|
-          id = v.as_h.values[0].as_s
-          Element.new(self, id)
-        end
-      rescue ex : Error::NoSuchElement
-        [] of Element
+      how, what = strategy.convert_locator(selector)
+
+      # TODO: Add support for this via Support::RelativeLocator
+      # return execute_atom(:findElements, Support::RelativeLocator.new(what).as_json) if how == 'relative'
+
+      if parent
+        # if parent.type == :element
+          id = parent.execute("FindChildElements", { using: how, value: what.to_s })
+        # else :shadow_root
+        #   execute("FindShadowChildElements", { id: parent_id, using: how, value: what.to_s })
+      else
+        id = execute("FindElements", { using: how, value: what.to_s })
       end
+
+      ids.map { |id| Element.new(self, element_id_from(id)) }
     end
 
     # Find a child of the given element. Returns `nil` if no element with the given
@@ -443,26 +474,13 @@ module Marionette
     # Find a child of the given element. Raises an exception if no element with the
     # given selector was found.
     def find_element_child!(element, selector, strategy : LocationStrategy = :css)
-      element_id = element.is_a?(Element) ? element.id : element
-      params = Utils.selector_params(selector, strategy, w3c?)
-      params["$elementId"] = element_id
-
-      response = execute("FindChildElement", params)
-      id = response.as_h.values[0].as_s
-      Element.new(self, id)
+      find_element!(selector, strategy, element)
     end
 
     # Find multiple children of the given `element` with the given selector and
     # return them as an array.
     def find_element_children(element, selector, strategy : LocationStrategy = :css)
-      element_id = element.is_a?(Element) ? element.id : element
-      params = Utils.selector_params(selector, strategy, w3c?)
-      params["$elementId"] = element_id
-      response = execute("FindChildElements", params)
-      response.as_a.map do |v|
-        id = v.as_h.values[0].as_s
-        Element.new(self, id)
-      end
+      find_elements!(selector, strategy, element)
     end
 
     # Wait the given amount of time for an element to be available.
@@ -477,10 +495,13 @@ module Marionette
       loop do
         begin
           if element = find_element(selector, strategy)
-            return yield element
+            yield element
+            break
           end
         rescue ex
+          break
         end
+
         if Time.monotonic - start_time > timeout
           stop
           raise Error::GenericError.new("Waiting for element '#{selector}' failed")
@@ -513,7 +534,11 @@ module Marionette
             return yield elements
           end
         rescue ex
+          puts ex
+          puts ex.backtrace.join("\n")
+          break
         end
+
         if Time.monotonic - start_time > timeout
           stop
           raise Error::GenericError.new("Waiting for elements '#{selector}' failed")
@@ -535,6 +560,13 @@ module Marionette
     # Switch the context to the given `frame` or `iframe` element.
     def switch_to_frame(frame : Element)
       execute("SwitchToFrame", {"id" => frame})
+    end
+
+    # Switch the context to the given `frame` or `iframe` element.
+    def switch_to_frame(frame : Element, &block)
+      execute("SwitchToFrame", {"id" => frame})
+      yield frame
+      execute("SwitchToParentFrame")
     end
 
     # Switch the context to the parent of the given `frame` or `iframe` element.
@@ -602,7 +634,9 @@ module Marionette
     # Take a screenshot of the current visible portion of the screen. The PNG
     # is returned as a Base64 encoded string.
     def take_screenshot
-      execute("Screenshot").as_s
+      result = execute("Screenshot")
+      puts result
+      result.as_s
     end
 
     # Take a screenshot of the element with the given `element_id`. If `scroll` is
@@ -841,16 +875,22 @@ module Marionette
 
     # Execute an arbitrary command with the given permissions. See `Commands`
     # for all available commands.
-    def execute(command, params = {} of String => String)
-      new_params = {} of String => JSON::Any
+    def execute(command, params : Hash | NamedTuple = {} of String => String)
+      @mutex.synchronize do
+        new_params = {} of String => JSON::Any
 
-      new_params["$sessionId"] = JSON::Any.new(@id)
-      params.each do |k, v|
-        new_params[k.to_s] = JSON.parse(v.to_json)
+        new_params["$sessionId"] = JSON::Any.new(@id)
+        params.each do |k, v|
+          new_params[k.to_s] = JSON.parse(v.to_json)
+        end
+
+        result = @driver.execute(command, new_params)
+        result["value"]
       end
+    end
 
-      result = @driver.execute(command, new_params)
-      result["value"]
+    private def element_id_from(id)
+      (id["ELEMENT"]? || id[Element::ELEMENT_KEY]).as_s
     end
 
     private def assert_browser(browser : Browser)

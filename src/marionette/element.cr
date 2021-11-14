@@ -2,6 +2,8 @@ module Marionette
   struct Element
     include Logger
 
+    ELEMENT_KEY = "element-6066-11e4-a52e-4f735466cecf"
+
     # :nodoc:
     SUBMIT_SCRIPT = <<-JS
       var e = arguments[0].ownerDocument.createEvent('Event');
@@ -39,31 +41,31 @@ module Marionette
     end
 
     def tag_name
-      @tag_name ||= execute("GetElementTagName").as_s
+      @tag_name ||= execute("GetElementTagName").try(&.as_s)
     end
 
     def text
-      property("innerText").as_s
+      property("innerText").try(&.as_s)
     end
 
     def visible_text
-      execute("GetElementText").as_s
+      execute("GetElementText").try(&.as_s)
     end
 
     def value
-      execute("GetElementValue").as_s
+      execute("GetElementValue").try(&.as_s)
     end
 
     def selected?
-      execute("IsElementSelected").as_bool
+      execute("IsElementSelected").try(&.as_bool)
     end
 
     def enabled?
-      execute("IsElementEnabled").as_bool
+      execute("IsElementEnabled").try(&.as_bool)
     end
 
     def displayed?
-      execute("IsElementDisplayed").as_bool
+      execute("IsElementDisplayed").try(&.as_bool)
     end
 
     def scroll_to
@@ -127,11 +129,20 @@ module Marionette
       size.height
     end
 
-    def property(name : String)
+    def property(name)
       execute("GetElementProperty", {"name" => name})
     end
 
-    def css_property_value(name : String)
+    def attribute(name)
+      Log.info { "Using script for :getAttribute of #{name}" }
+      session.execute_atom(:getAttribute, self, name)
+    end
+
+    def dom_attribute(name)
+      execute("GetElementAttribute", {"name" => name})
+    end
+
+    def css_property_value(name)
       execute("GetElementValueOfCssProperty", {"name" => name})
     end
 
@@ -144,8 +155,12 @@ module Marionette
       execute("ClearElement")
     end
 
-    def click
-      execute("ClickElement")
+    def click(js = false)
+      if js
+        session.execute_script("arguments[0].click();", self)
+      else
+        execute("ClickElement")
+      end
     end
 
     def submit
@@ -185,6 +200,15 @@ module Marionette
       @session.save_screenshot(path, @id, scroll)
     end
 
+    def execute(command, params = {} of String => String)
+      params = params.to_h.transform_keys(&.to_s).transform_values(&.to_s)
+      params["$elementId"] = @id
+      params["$sessionId"] = @session.id
+
+      result = @session.driver.execute(command, params)
+      result["value"]
+    end
+
     def to_json(builder : JSON::Builder)
       builder.start_object
       builder.field("ELEMENT", @id)
@@ -192,13 +216,20 @@ module Marionette
       builder.end_object
     end
 
-    def execute(command, params = {} of String => String)
-      params = params.to_h.transform_keys(&.to_s)
-      params["$elementId"] = @id
-      params["$sessionId"] = @session.id
-
-      result = @session.driver.execute(command, params)
-      result["value"]
+    def to_s(io)
+      io.puts "  - tag_name: #{tag_name}"
+      # io.puts "    text: #{text}"
+      # io.puts "    value: #{value}"
+      # io.puts "    selected: #{selected?}"
+      # io.puts "    enabled: #{enabled?}"
+      # io.puts "    displayed: #{displayed?}"
+      # io.puts "    location: #{location}"
+      # io.puts "    size: #{size}"
+      # io.puts "    rect: #{rect}"
+      # io.puts "    x: #{x}"
+      # io.puts "    y: #{y}"
+      # io.puts "    width: #{width}"
+      # io.puts "    height: #{height}"
     end
   end
 end

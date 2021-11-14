@@ -35,6 +35,8 @@ module Marionette
        66 => InvalidCoordinates,
        67 => InvalidSessionId,
        68 => UnknownMethod,
+       69 => UnsupportedOperationError,
+      403 => InvalidDriverError,
       404 => ReachedErrorPage,
       405 => MethodNotAllowed,
       406 => GenericError,

@@ -3,7 +3,7 @@ require "socket"
 module Marionette
   class Service
     SERVICE_CHECK_INTERVAL = 100.milliseconds
-    SERVICE_RETRY_LIMIT    = 10
+    SERVICE_RETRY_LIMIT    = 50
 
     getter browser : Browser
 
