@@ -114,7 +114,7 @@ module Marionette
     getter? extended : Bool
 
     # id of the marionette browser , used for logging.
-    getter id : String
+    getter id : String?
 
     def initialize(@address : String, @port : Int32, @extended = false, @timeout : Time::Span = 60.seconds, warmup_timeout = 3.seconds)
       @transport = warmup_transport(Time.utc + warmup_timeout) || init_transport
