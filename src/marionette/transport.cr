@@ -9,8 +9,10 @@ module Marionette
     getter timeout : Time::Span
     getter last_id : Int32
     getter dissmised_alerts : Array(String)
-
+    # id of the marionette Transport , used for logging.
+    getter id : String
     @socket : TCPSocket
+    @socket_mutex : Mutex = Mutex.new
 
     # Creates a new Transport instance with the
     # provided `timeout`.
@@ -22,6 +24,7 @@ module Marionette
       @max_packet_length = 2048
       @min_protocol_level = 3
       @dissmised_alerts = Array(String).new
+      @id = UUID.random.hexstring[..8]
     end
 
     # Initiates a TCP connection to a running Firefox instance
@@ -63,7 +66,7 @@ module Marionette
           end
         end
       end
-
+      Log.trace { "(#{@id}) Marionette receive id: #{id.as_s}" }
       Message.new(type.as_i, id.as_i, command.as_s?, params)
     end
 
@@ -83,9 +86,9 @@ module Marionette
     def send(command, params = nil)
       msg_id = @last_id += 1
       params ||= {} of String => String
-      data = params.to_json
       payload = [0, msg_id, command, params]
       json = payload.to_json
+      Log.trace { "(#{@id}) Marionette send #{json.bytesize}:#{json}" }
       @socket.send("#{json.bytesize}:#{json}")
     end
 
@@ -97,8 +100,10 @@ module Marionette
     # optional `params` and `receive` a `Message`
     # response.
     def request(command, params = nil)
-      send(command, params)
-      receive
+      @socket_mutex.synchronize do
+        send(command, params)
+        receive
+      end
     end
   end
 
