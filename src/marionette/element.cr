@@ -64,17 +64,26 @@ module Marionette
       execute("IsElementEnabled").try(&.as_bool)
     end
 
-    def displayed?
-      execute("IsElementDisplayed").try(&.as_bool)
+    def displayed?(js = false)
+      if (js)
+        Log.info { "Using script for :isDisplayed" }
+        session.execute_atom(:isDisplayed, self)
+      else
+        execute("IsElementDisplayed").try(&.as_bool)
+      end
+    end
+
+    def wait_until_displayed(js = false, **wait_options)
+      Wait.until(**wait_options) { displayed?(js) }
     end
 
     def scroll_to
-      @session.execute_script(SCROLL_TO_SCRIPT, [self])
+      @session.execute_script(SCROLL_TO_SCRIPT, self)
     end
 
     def location
       if w3c?
-        result = @session.execute_script(LOCATION_SCRIPT, [self])
+        result = @session.execute_script(LOCATION_SCRIPT, self)
       else
         result = execute("GetElementLocation")
       end
@@ -84,7 +93,7 @@ module Marionette
 
     def location_once_scrolled_to
       if w3c?
-        result = @session.execute_script(SCROLLED_TO_LOCATION_SCRIPT, [self])
+        result = @session.execute_script(SCROLLED_TO_LOCATION_SCRIPT, self)
       else
         result = execute("GetElementLocationOnceScrolledIntoView")
       end

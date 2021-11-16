@@ -3,6 +3,7 @@ module Marionette
     extend self
 
     def chrome_options(args = [] of String,
+                       page_load_strategy : PageLoadStrategy? = nil,
                        extensions = [] of String | IO,
                        binary = nil,
                        debugger_address = nil,
@@ -10,6 +11,8 @@ module Marionette
                        logging_prefs = {} of String => String,
                        **capabilities)
       caps = capabilities.to_h
+      caps = caps.merge({"pageLoadStrategy" => page_load_strategy.to_s}) if page_load_strategy
+
       opts = {} of String => String | Array(String)
       opts = opts.merge(experimental_options)
 
@@ -37,12 +40,14 @@ module Marionette
     end
 
     def firefox_options(args = [] of String,
+                        page_load_strategy : PageLoadStrategy? = nil,
                         binary = nil,
                         log_level = nil,
                         **capabilities)
       caps = capabilities.to_h
-      opts = {} of String => JSON::Any
+      caps = caps.merge({"pageLoadStrategy" => page_load_strategy.to_s}) if page_load_strategy
 
+      opts = {} of String => JSON::Any
       opts = opts.merge({"args" => args}) unless args.empty?
       opts = opts.merge({"binary" => binary}) if binary
       opts = opts.merge({"log" => {"level" => log_level}}) if log_level

@@ -493,13 +493,8 @@ module Marionette
       start_time = Time.monotonic
 
       loop do
-        begin
-          if element = find_element(selector, strategy)
-            yield element
-            break
-          end
-        rescue ex
-          break
+        if element = find_element(selector, strategy)
+          return yield element
         end
 
         if Time.monotonic - start_time > timeout
@@ -529,19 +524,13 @@ module Marionette
       start_time = Time.monotonic
 
       loop do
-        begin
-          if elements = find_elements(selector, strategy)
-            return yield elements
-          end
-        rescue ex
-          puts ex
-          puts ex.backtrace.join("\n")
-          break
+        if elements = find_elements(selector, strategy)
+          return yield elements
         end
 
         if Time.monotonic - start_time > timeout
           stop
-          raise Error::GenericError.new("Waiting for elements '#{selector}' failed")
+          raise Error::Timeout.new("Waiting for elements '#{selector}' failed")
         end
 
         sleep poll_time
@@ -634,9 +623,7 @@ module Marionette
     # Take a screenshot of the current visible portion of the screen. The PNG
     # is returned as a Base64 encoded string.
     def take_screenshot
-      result = execute("Screenshot")
-      puts result
-      result.as_s
+      execute("Screenshot").as_s
     end
 
     # Take a screenshot of the element with the given `element_id`. If `scroll` is
