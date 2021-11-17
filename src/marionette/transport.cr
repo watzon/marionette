@@ -66,7 +66,7 @@ module Marionette
           end
         end
       end
-      Log.trace { "(#{@id}) Marionette receive id: #{id.as_s}" }
+      Log.trace { "(#{@id}) Marionette receive id: #{id}" }
       Message.new(type.as_i, id.as_i, command.as_s?, params)
     end
 
