@@ -100,9 +100,14 @@ module Marionette
     # optional `params` and `receive` a `Message`
     # response.
     def request(command, params = nil)
-      @socket_mutex.synchronize do
-        send(command, params)
-        receive
+      begin
+        @socket_mutex.synchronize do
+          send(command, params)
+          receive
+        end
+      rescue e : Exception
+        Log.error(exception: e) { "(#{id}) Marionette request failed: #{e.inspect_with_backtrace}" }
+        raise "Marionette request error"
       end
     end
   end
