@@ -107,5 +107,17 @@ module Marionette
       options = options.merge(element: @id)
       @browser.save_screenshot(file, **options)
     end
+    
+    # The select method is used to find an option element under the current node.
+    # As the value is can be send either a innerText or a value of "value" attribute of option node.
+    def select(value)
+      opt = find_element(Browser::LocatorStrategy::XPATH, ".//option[contains(text(), \"#{value}\")] | .//option[@value = \"#{value}\"]")
+
+      if !opt.nil?
+        opt.click unless opt.selected?
+      end
+
+      raise "Cannot locate option with value: #{value.inspect}"
+    end
   end
 end
