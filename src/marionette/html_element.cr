@@ -67,18 +67,18 @@ module Marionette
     # Returns true if the element is selected
     def selected?
       response = @browser.transport.request("WebDriver:IsElementSelected", {id: @id})
-      response["value"].as_b
+      response["value"].as_bool
     end
 
     # Returns true if the element is enabled
     def enabled?
       response = @browser.transport.request("WebDriver:IsElementEnabled", {id: @id})
-      response["value"].as_b
+      response["value"].as_bool
     end
 
     def displayed?
       response = @browser.transport.request("WebDriver:IsElementDisplayed", {id: @id})
-      response["value"].as_b
+      response["value"].as_bool
     end
 
     # Returns the element's bounding rectangle
