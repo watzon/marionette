@@ -74,7 +74,15 @@ module Marionette
     # a command and returns the raw string.
     # TODO: Add timeout
     def receive_raw
-      len = @socket.gets(':').to_s.chomp(':').to_i
+      s = @socket.gets(':')
+      unless s
+        raise "Unable to read anything from marionette socket"
+      end
+      begin
+        len = s.chomp(':').to_i
+      rescue e
+        raise "Unable to get marionette message length from #{s.dump}: #{e.inspect_with_backtrace}"
+      end
       data = Bytes.new(len)
       @socket.read_fully?(data)
       String.new(data)
