@@ -1,4 +1,5 @@
 require "socket"
+require "uuid"
 require "json"
 
 module Marionette

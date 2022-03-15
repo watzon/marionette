@@ -477,6 +477,87 @@ module Marionette
       execute_script("doMMU();")
     end
 
+    # Clear browser's history by emulating user actions in preferences
+    # Navigate to about:preferences and execute script, that emulates
+    # opening "Clear History" dialog and erasing all browser history.
+    def clear_history
+      Log.debug { "(#{@id}) Clearing history" }
+      execute_script(%[window.stop();])
+      navigate("about:preferences#privacy")
+      sleep 0.5.seconds
+      cnt = 0
+      # Wait for the page to open. Logic stolen from WebDriver shard.
+      loop do
+        state = execute_script("return document.readyState;").try &.as_s?
+        break if state == "complete"
+        break if cnt >= 10
+        cnt += 1
+        sleep 0.1.seconds
+      end
+      Log.debug { "Document ready" }
+      # Open "Clear History" dialog
+      # execute_script(%[document.getElementById("clearHistoryButton").click();])
+      # Wait for the dialog to open, check everything and click OK
+      wait_and_click = <<-JS
+        function waitForButton(attempts) {
+          console.log("Waiting for button, attempts: " + attempts);
+          if (attempts > 5) {
+            console.log("button not found");
+	          return;
+	        }
+          var btn = document.getElementById("clearHistoryButton");
+          if (btn) {
+            btn.click();
+            return;
+          }
+          setTimeout(waitForButton, 300, attempts + 1);
+        }
+
+        function waitForDialog(attempts) {
+          console.log("Waiting for dialog, attempts: " + attempts);
+          if (attempts > 5) {
+            console.log("dialog not found");
+            return;
+          }
+          var dlg = document.getElementsByClassName("dialogFrame")[0].contentDocument.getElementById("SanitizeDialog");
+          if (dlg) {
+            console.log("Found dialog" + dlg);
+            // Find combo box at the beginning
+            var combo = document.getElementsByClassName("dialogFrame")[0].contentDocument.getElementById("sanitizeDurationChoice");
+            // Find all checkboxes
+            var checks = dlg.getElementsByTagName("checkbox");
+            // Find OK button
+            var btn = dlg.getElementsByTagName("dialog")[0].shadowRoot.getElementsByAttribute("dlgtype", "accept")[0];
+            console.log("Found combo" + combo + ", checkboxes:" + checks + " (" + checks.length + ")" +
+                        ", button: " + btn);
+
+            if (combo && checks && btn) {
+              // Find the right value for "Clear Everything" option
+              var clear_everything = combo.getElementsByAttribute("data-l10n-id", "clear-time-duration-value-everything")[0].value;
+              combo.value = clear_everything;
+
+              // Check all checkboxes
+              for (const cb of checks) {
+                cb.checked = true;
+              }
+
+              // click OK
+              btn.click();
+              return;
+            }
+          }
+          setTimeout(waitForDialog, 300, attempts + 1);
+        }
+
+        waitForButton(1);
+        waitForDialog(1);
+      JS
+      execute_script(wait_and_click, timeout: 5.seconds, new_sandbox: true)
+      # Timeout is necessary, because script never executes synchronously
+      sleep 1.seconds
+      Log.debug { "(#{@id}) History cleared" }
+    end
+
     # Check if element is enabled
     def element_enabled?(el)
       id = el.is_a?(HTMLElement) ? el.id : el
