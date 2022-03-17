@@ -508,6 +508,7 @@ module Marionette
           var btn = document.getElementById("clearHistoryButton");
           if (btn) {
             btn.click();
+            setTimeout(waitForDialog, 300, 1);
             return;
           }
           setTimeout(waitForButton, 300, attempts + 1);
@@ -538,23 +539,45 @@ module Marionette
 
               // Check all checkboxes
               for (const cb of checks) {
-                cb.checked = true;
+                cb.disabled = false;
+                if (!cb.checked) {
+                  cb.click();
+                }
               }
 
-              // click OK
-              btn.click();
+              // click OK. This should be done in separate call to make sure
+              // that combos and checks are changed.
+              setTimeout(waitForClose, 300, 1);
               return;
             }
           }
           setTimeout(waitForDialog, 300, attempts + 1);
         }
 
+        function waitForClose(attempts) {
+          console.log("Waiting to close the dialog, attempts: " + attempts);
+          if (attempts > 5) {
+            console.log("button not found");
+	          return;
+	        }
+          var dlg = document.getElementsByClassName("dialogFrame")[0].contentDocument.getElementById("SanitizeDialog");
+          if (dlg) {
+            var btn = dlg.getElementsByTagName("dialog")[0].shadowRoot.getElementsByAttribute("dlgtype", "accept")[0];
+            if (btn) {
+              console.log("Clicking the button");
+              btn.disabled = false;
+              btn.click();
+              return;
+            }
+          }
+          setTimeout(waitForClose, 300, attempts + 1);
+        }
+
         waitForButton(1);
-        waitForDialog(1);
       JS
       execute_script(wait_and_click, timeout: 5.seconds, new_sandbox: true)
       # Timeout is necessary, because script never executes synchronously
-      sleep 1.seconds
+      sleep 3.seconds
       Log.debug { "(#{@id}) History cleared" }
     end
 
