@@ -26,6 +26,7 @@ module Marionette
       @min_protocol_level = 3
       @dissmised_alerts = Array(String).new
       @id = UUID.random.hexstring[..8]
+      Log.debug { "(#{@id}) Marionette create transport timeout: #{@timeout}" }
     end
 
     # Initiates a TCP connection to a running Firefox instance
@@ -71,11 +72,24 @@ module Marionette
       Message.new(type.as_i, id.as_i, command.as_s?, params)
     end
 
+    private def get_string
+      3.times do |i|
+        s = @socket.gets(':')
+        Log.trace { "(#{@id}) Marionette received message id: #{@last_id} after #{i} tries" }
+        return s
+      rescue Error::TimeoutError
+        Log.error { "(#{@id}) Marionette can not receive message id: #{@last_id}, timeout #{@timeout} after #{i} tries" }
+        sleep 1.seconds
+      end
+      raise "Error reading from the socket after 3 attempts"
+    end
+
     # Receives a message from the browser following
     # a command and returns the raw string.
     # TODO: Add timeout
     def receive_raw
-      s = @socket.gets(':')
+      s = get_string
+
       unless s
         raise "Unable to read anything from marionette socket"
       end
