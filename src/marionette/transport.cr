@@ -127,6 +127,9 @@ module Marionette
           send(command, params)
           receive
         end
+      rescue e : Socket::Error | IO::Error
+        Log.error(exception: e) { "(#{id}) Broken pipe request failed: #{e.inspect_with_backtrace}" }
+        raise e
       rescue e : Exception
         Log.error(exception: e) { "(#{id}) Marionette request failed: #{e.inspect_with_backtrace}" }
         raise "Marionette request error"

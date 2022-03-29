@@ -240,6 +240,12 @@ module Marionette
       else
         navigate(url)
       end
+    rescue e : Socket::Error | IO::Error
+      Log.error(exception: e) { "(#{id}) Broken pipe Browser request failed on #{url}: #{e.inspect_with_backtrace}" }
+      raise e
+    rescue e : Exception
+      Log.error(exception: e) { "(#{id}) Browser request failed on #{url}: #{e.inspect_with_backtrace}" }
+      raise "Browser request error"
     end
 
     # :nodoc:
