@@ -447,7 +447,7 @@ module Marionette
 
     # Find multiple elements with the given selector and return them as
     # an array.
-    def find_elements(selector, strategy : LocationStrategy = :css)
+    def find_elements(selector, strategy : LocationStrategy = :css, parent : Element? = nil)
       how, what = strategy.convert_locator(selector)
 
       # TODO: Add support for this via Support::RelativeLocator
