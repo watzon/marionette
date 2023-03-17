@@ -480,7 +480,7 @@ module Marionette
     # Find multiple children of the given `element` with the given selector and
     # return them as an array.
     def find_element_children(element, selector, strategy : LocationStrategy = :css)
-      find_elements!(selector, strategy, element)
+      find_elements(selector, strategy, element)
     end
 
     # Wait the given amount of time for an element to be available.
