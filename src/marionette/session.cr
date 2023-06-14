@@ -452,17 +452,19 @@ module Marionette
 
       # TODO: Add support for this via Support::RelativeLocator
       # return execute_atom(:findElements, Support::RelativeLocator.new(what).as_json) if how == 'relative'
-
+      ids = Array(JSON::Any).new
       if parent
         # if parent.type == :element
           id = parent.execute("FindChildElements", { using: how, value: what.to_s })
+          ids << id
         # else :shadow_root
         #   execute("FindShadowChildElements", { id: parent_id, using: how, value: what.to_s })
       else
         id = execute("FindElements", { using: how, value: what.to_s })
+        ids << id
       end
 
-      ids.map { |id| Element.new(self, element_id_from(id)) }
+      ids.map { |id| Element.new(self, element_id_from(id[0])) }
     end
 
     # Find a child of the given element. Returns `nil` if no element with the given
