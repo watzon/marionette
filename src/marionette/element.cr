@@ -139,7 +139,7 @@ module Marionette
     end
 
     def property(name)
-      execute("GetElementProperty", {"name" => name})
+      execute("GetElementProperty", {"$name" => name})
     end
 
     def attribute(name)
@@ -148,16 +148,16 @@ module Marionette
     end
 
     def dom_attribute(name)
-      execute("GetElementAttribute", {"name" => name})
+      execute("GetElementAttribute", {"$name" => name})
     end
 
     def css_property_value(name)
-      execute("GetElementValueOfCssProperty", {"name" => name})
+      execute("GetElementValueOfCssProperty", {"$name" => name})
     end
 
     def send_keys(*keys)
       text = keys.map { |k| k.is_a?(Key) ? k.value.chr : k }.join
-      execute("SendKeysToElement", {"text" => text})
+      execute("SendKeysToElement", {"$text" => text})
     end
 
     def clear
