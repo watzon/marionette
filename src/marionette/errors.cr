@@ -35,6 +35,9 @@ module Marionette
        66 => InvalidCoordinates,
        67 => InvalidSessionId,
        68 => UnknownMethod,
+       69 => UnsupportedOperationError,
+      403 => InvalidDriverError,
+      404 => ReachedErrorPage,
       405 => MethodNotAllowed,
       406 => GenericError,
     }
@@ -48,7 +51,7 @@ module Marionette
         {% begin %}
           case str
           {% for code, error in CODE_MAP %}
-          when /{{ error.id.underscore.gsub(/_/, " ").id }}/
+          when /{{ error.id.underscore.gsub(/_/, " ").id }}/i
             return {{ error.id }}.new(str)
           {% end %}
           else

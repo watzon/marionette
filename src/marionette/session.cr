@@ -1,6 +1,7 @@
 module Marionette
   class Session
     include Logger
+    include Atoms
 
     property! service : Service?
 
@@ -10,8 +11,64 @@ module Marionette
 
     getter id : String
 
-    def initialize(@driver : WebDriver, @id : String, @type : Type)
-      at_exit { stop }
+    getter? w3c : Bool
+
+    getter capabilities : Hash(String, JSON::Any)
+
+    private getter mutex : Mutex
+
+    # :nodoc:
+    def initialize(@driver : WebDriver,
+                   @id : String,
+                   @type : Type,
+                   @capabilities : Hash(String, JSON::Any),
+                   @service = nil,
+                   @w3c = false)
+      @mutex = Mutex.new
+      at_exit do
+        if (svc = @service) && !svc.closed?
+          stop
+        end
+      end
+    end
+
+    # Start a new Session using the given `driver` and `type`. You can pass in any
+    # `capabilities` you want here, and they'll be merged with the browser's
+    # desired capabilities.
+    def self.start(driver : WebDriver,
+                   type : Type,
+                   capabilities = {} of String => String,
+                   service = nil)
+      # Merge user capabilities with the desired capabilities
+      # for the given browser.
+      caps = driver.browser.desired_capabilities
+      caps = capabilities.merge(caps)
+
+      params = {
+        "capabilities"         => Utils.to_w3c_caps(caps),
+        "desired_capabilities" => caps,
+      }
+
+      # Create a new session using the requested capabilities
+      response = driver.execute("NewSession", params)
+      response = response["value"] unless response["sessionId"]?
+
+      # If we were given a sessionId we're golden
+      if session_id = response["sessionId"]?
+        capabilities = response["value"]? || response["capabilities"]
+        w3c = response["status"]?.nil?
+
+        new(
+          driver,
+          id: session_id.as_s,
+          type: type,
+          capabilities: capabilities.as_h,
+          service: service,
+          w3c: w3c
+        )
+      else
+        raise "Session creation failed"
+      end
     end
 
     # Returns true if this is a local session.
@@ -31,10 +88,19 @@ module Marionette
       case @type
       in Type::Local
         service.stop
+        service = nil
       in Type::Remote
         # Do nothing
       end
       result
+    end
+
+    def running?
+      @service && service.open?
+    end
+
+    def stopped?
+      !running?
     end
 
     #   ____                _
@@ -44,11 +110,6 @@ module Marionette
     #  |____/ \___||___/___/_|\___/|_| |_|
     #
 
-    # Return's true if the driver being used is W3C compatible.
-    def w3c?
-      @driver.w3c?
-    end
-
     # Return the status of the current driver as a JSON object.
     def status
       execute("Status")
@@ -56,7 +117,7 @@ module Marionette
 
     # Close the current session.
     def close
-      execute("Quit", stop_on_exception: false)
+      execute("Quit")
     end
 
     # Add an implicit wait that will occur before calls are made in a newly opened page.
@@ -82,11 +143,11 @@ module Marionette
     # will throw an `Error::TimeoutError`.
     def page_load_timeout(time : Time::Span)
       begin
-        execute("SetTimeouts", {"pageLoad" => time.total_milliseconds.to_i}, stop_on_exception: false)
+        execute("SetTimeouts", {"pageLoad" => time.total_milliseconds.to_i})
       rescue ex : Error
         execute("SetTimeouts", {
           "type" => "page load",
-          "ms" => time.total_milliseconds.to_i
+          "ms"   => time.total_milliseconds.to_i,
         })
       end
     end
@@ -114,6 +175,15 @@ module Marionette
       else
         execute("SetScreenOrientation", {"orientation" => orientation.to_s})
       end
+    end
+
+    def log(log_type : String)
+      response = execute("GetLog", {"type" => log_type})
+      logs = Array(LogItem).from_json(response.to_json)
+    end
+
+    def log_types
+      execute("GetAvailableLogTypes")
     end
 
     #  __        ___           _
@@ -230,21 +300,48 @@ module Marionette
 
     # Get the cookie with the specified name. Returns `nil` if no cookie was found.
     def get_cookie(name : String)
-      begin
-        value = execute("GetCookie", {"name" => name}, stop_on_exception: false)
-        HTTP::Cookie.from_json(value.to_json)
-      rescue ex : Error::NoSuchCookie
-        Log.warn { "Cookie not found with name '#{name}'" }
-        nil
-      end
+      value = execute("GetCookie", {"name" => name})
+      HTTP::Cookie.from_json(value.to_json)
     end
 
     # Delete the cookie with the specified name.
     def delete_cookie(name : String)
-      begin
-        execute("DeleteCookie", {"name" => name}, stop_on_exception: false)
-      rescue ex : Error::NoSuchCookie
-        Log.warn { "Cookie not found with name '#{name}'" }
+      execute("DeleteCookie", {"name" => name})
+    end
+
+    # Add a cookie with the given name, value, and other options.
+    def add_cookie(name : String,
+                   value : String,
+                   path : String = "/",
+                   domain : String? = nil,
+                   secure : Bool = false,
+                   http_only : Bool = false,
+                   expires : Time | Int32 | Nil = nil,
+                   same_site : HTTP::Cookie::SameSite? = nil)
+      cookie = {
+        "name"     => name,
+        "value"    => value,
+        "path"     => path,
+        "domain"   => domain,
+        "secure"   => secure,
+        "httpOnly" => http_only,
+        "expiry"   => expires.is_a?(Time) ? expires.to_unix : expires,
+        "sameSite" => same_site.to_s,
+      }
+      execute("AddCookie", {
+        "cookie" => cookie.compact,
+      })
+    end
+
+    # Add a cookie from an `HTTP::Cookie` instance.
+    def add_cookie(cookie c : HTTP::Cookie)
+      add_cookie(c.name, c.value, c.path, c.domain, c.secure, c.http_only, c.expires, c.same_site)
+    end
+
+    # Add multiple cookies from an `HTTP::Cookies` instance.
+    def add_cookies(cookies : HTTP::Cookies)
+      cookies.each do |cookie|
+        add_cookie(cookie)
       end
     end
 
@@ -276,7 +373,7 @@ module Marionette
     # into the script should be provided as an array.
     #
     # For now the result is returned as raw JSON.
-    def execute_script(script, args = nil)
+    def execute_script(script, *args)
       params = {"script" => script, "args" => args || [] of String}
       if w3c?
         execute("W3CExecuteScript", params)
@@ -289,7 +386,7 @@ module Marionette
     # into the script should be provided as an array.
     #
     # This is an async process and does not return a result.
-    def execute_script_async(script, args = nil)
+    def execute_script_async(script, *args)
       params = {"script" => script, "args" => args || [] of String}
       if w3c?
         execute("W3CExecuteScriptAsync", params)
@@ -319,9 +416,9 @@ module Marionette
     # Find an element using the given `selector`. The `strategy` can be any
     # `LocationStrategy`. Default is `LocationStrategy::Css`. Returns
     # `nil` if no element with the given selector was found.
-    def find_element(selector, strategy : LocationStrategy = :css)
+    def find_element(selector, strategy : LocationStrategy = :css, parent : Element? = nil)
       begin
-        find_element!(selector, strategy)
+        find_element!(selector, strategy, parent)
       rescue ex : Error::NoSuchElement
         nil
       end
@@ -330,63 +427,62 @@ module Marionette
     # Find an element using the given `selector`. The `strategy` can be any
     # `LocationStrategy`. Default is `LocationStrategy::Css`. Raises an
     # exception if no element with the given selector was found.
-    def find_element!(selector, strategy : LocationStrategy = :css)
-      response = execute("FindElement", Utils.selector_params(selector, strategy, w3c?), stop_on_exception: false)
-      id = response.as_h.values[0].as_s
-      Element.new(self, id)
+    def find_element!(selector, strategy : LocationStrategy = :css, parent : Element? = nil)
+      how, what = strategy.convert_locator(selector)
+
+      # TODO: Add support for this via Support::RelativeLocator
+      # return execute_atom(:findElements, Support::RelativeLocator.new(what).as_json).first if how == 'relative'
+
+      if parent
+        # if parent.type == :element
+          id = parent.execute("FindChildElement", { using: how, value: what.to_s })
+        # else :shadow_root
+        #   execute("FindShadowChildElement", { id: parent_id, using: how, value: what.to_s })
+      else
+        id = execute("FindElement", { using: how, value: what.to_s })
+      end
+
+      Element.new(self, element_id_from(id))
     end
 
     # Find multiple elements with the given selector and return them as
     # an array.
-    def find_elements(selector, strategy : LocationStrategy = :css)
-      begin
-        response = execute("FindElements", Utils.selector_params(selector, strategy, w3c?), stop_on_exception: false)
-        response.as_a.map do |v|
-          id = v.as_h.values[0].as_s
-          Element.new(self, id)
-        end
-      rescue ex : Error::NoSuchElement
-        [] of Element
+    def find_elements(selector, strategy : LocationStrategy = :css, parent : Element? = nil)
+      how, what = strategy.convert_locator(selector)
+
+      # TODO: Add support for this via Support::RelativeLocator
+      # return execute_atom(:findElements, Support::RelativeLocator.new(what).as_json) if how == 'relative'
+      ids = Array(JSON::Any).new
+      if parent
+        # if parent.type == :element
+          id = parent.execute("FindChildElements", { using: how, value: what.to_s })
+          ids << id
+        # else :shadow_root
+        #   execute("FindShadowChildElements", { id: parent_id, using: how, value: what.to_s })
+      else
+        id = execute("FindElements", { using: how, value: what.to_s })
+        ids << id
       end
+
+      ids.map { |id| Element.new(self, element_id_from(id[0])) }
     end
 
     # Find a child of the given element. Returns `nil` if no element with the given
     # selector was found.
     def find_element_child(element, selector, strategy : LocationStrategy = :css)
-      begin
-        find_element_child!(element, selector, strategy)
-      rescue ex : Error::NoSuchElement
-        nil
-      end
+      find_element_child!(element, selector, strategy)
     end
 
     # Find a child of the given element. Raises an exception if no element with the
     # given selector was found.
     def find_element_child!(element, selector, strategy : LocationStrategy = :css)
-      element_id = element.is_a?(Element) ? element.id : element
-      params = Utils.selector_params(selector, strategy, w3c?)
-      params["$elementId"] = element_id
-
-      response = execute("FindChildElement", params, stop_on_exception: false)
-      id = response.as_h.values[0].as_s
-      Element.new(self, id)
+      find_element!(selector, strategy, element)
     end
 
     # Find multiple children of the given `element` with the given selector and
     # return them as an array.
     def find_element_children(element, selector, strategy : LocationStrategy = :css)
-      element_id = element.is_a?(Element) ? element.id : element
-      params = Utils.selector_params(selector, strategy, w3c?)
-      params["$elementId"] = element_id
-      begin
-        response = execute("FindChildElements", params, stop_on_exception: false)
-        response.as_a.map do |v|
-          id = v.as_h.values[0].as_s
-          Element.new(self, id)
-        end
-      rescue ex : Error::NoSuchElement
-        [] of Element
-      end
+      find_elements(selector, strategy, element)
     end
 
     # Wait the given amount of time for an element to be available.
@@ -399,12 +495,10 @@ module Marionette
       start_time = Time.monotonic
 
       loop do
-        begin
-          if element = find_element(selector, strategy)
-            return yield element
-          end
-        rescue ex
+        if element = find_element(selector, strategy)
+          return yield element
         end
+
         if Time.monotonic - start_time > timeout
           stop
           raise Error::GenericError.new("Waiting for element '#{selector}' failed")
@@ -412,6 +506,14 @@ module Marionette
 
         sleep poll_time
       end
+    end
+
+    # :ditto:
+    def wait_for_element(selector : String,
+                         strategy : LocationStrategy = :css,
+                         timeout = 3.seconds,
+                         poll_time = 50.milliseconds)
+      wait_for_element(selector, strategy, timeout, poll_time) { |e| e }
     end
 
     # Wait the given amount of time for elements to be available.
@@ -424,24 +526,38 @@ module Marionette
       start_time = Time.monotonic
 
       loop do
-        begin
-          if elements = find_elements(selector, strategy)
-            return yield elements
-          end
-        rescue ex
+        if elements = find_elements(selector, strategy)
+          return yield elements
         end
+
         if Time.monotonic - start_time > timeout
           stop
-          raise Error::GenericError.new("Waiting for elements '#{selector}' failed")
+          raise Error::Timeout.new("Waiting for elements '#{selector}' failed")
         end
 
         sleep poll_time
       end
     end
 
+    # :ditto:
+    def wait_for_elements(selector : String,
+                          strategy : LocationStrategy = :css,
+                          timeout = 3.seconds,
+                          poll_time = 50.milliseconds,
+                          &block)
+      wait_for_elements(selector, strategy, timeout, poll_time) { |e| e }
+    end
+
     # Switch the context to the given `frame` or `iframe` element.
     def switch_to_frame(frame : Element)
       execute("SwitchToFrame", {"id" => frame})
+    end
+
+    # Switch the context to the given `frame` or `iframe` element.
+    def switch_to_frame(frame : Element, &block)
+      execute("SwitchToFrame", {"id" => frame})
+      yield frame
+      execute("SwitchToParentFrame")
     end
 
     # Switch the context to the parent of the given `frame` or `iframe` element.
@@ -509,7 +625,7 @@ module Marionette
     # Take a screenshot of the current visible portion of the screen. The PNG
     # is returned as a Base64 encoded string.
     def take_screenshot
-      execute("Screenshot")
+      execute("Screenshot").as_s
     end
 
     # Take a screenshot of the element with the given `element_id`. If `scroll` is
@@ -517,14 +633,14 @@ module Marionette
     #
     # The PNG data is returned as a Base64 encoded string.
     def take_screenshot(element_id : String, scroll = true)
-      execute("ElementScreenshot", {"$elementId" => element_id, "scroll" => scroll})
+      execute("ElementScreenshot", {"$elementId" => element_id, "scroll" => scroll}).as_s
     end
 
     # Take a screenshot and save it as a PNG at the given `path`. If `scroll` is
     # set to `true` the element will be scrolled to before taking the screenshot.
     def save_screenshot(path, element_id = nil, scroll = true)
       b64 = element_id ? take_screenshot(element_id, scroll) : take_screenshot
-      data = Base64.decode(b64.as_s)
+      data = Base64.decode(b64)
       File.write(path, data)
     end
 
@@ -714,7 +830,7 @@ module Marionette
     # Get the currently set Safari permisisons.
     #
     # NOTE: Available for Safari only.
-    def perimissions
+    def permissions
       assert_browser(:safari)
       response = execute("GetPermissions")
       Hash(String, Bool).from_json(response["permissions"].to_json)
@@ -748,36 +864,29 @@ module Marionette
 
     # Execute an arbitrary command with the given permissions. See `Commands`
     # for all available commands.
-    def execute(command, params = {} of String => String, stop_on_exception = true)
-      new_params = {} of String => JSON::Any
+    def execute(command, params : Hash | NamedTuple = {} of String => String)
+      @mutex.synchronize do
+        new_params = {} of String => JSON::Any
 
-      new_params["$sessionId"] = JSON::Any.new(@id)
-      params.each do |k, v|
-        new_params[k.to_s] = JSON.parse(v.to_json)
-      end
-
-      begin
-        result = @driver.execute(command, new_params)
-      rescue ex
-        if stop_on_exception
-          Log.fatal(exception: ex) {
-            "Unexpected exception caught while executing command #{command}. Closing session."
-          }
-          return stop
-        else
-          raise ex
+        new_params["$sessionId"] = JSON::Any.new(@id)
+        params.each do |k, v|
+          new_params[k.to_s] = JSON.parse(v.to_json)
         end
-      end
 
-      result["value"]
+        result = @driver.execute(command, new_params)
+        result["value"]
+      end
+    end
+
+    private def element_id_from(id)
+      (id["ELEMENT"]? || id[Element::ELEMENT_KEY]).as_s
     end
 
     private def assert_browser(browser : Browser)
-      if self.browser != browser
+      if driver.browser != browser
         raise Error::UnknownMethod.new("Command is valid for #{browser} only.")
       end
     end
-
 
     enum Type
       Local
@@ -794,10 +903,10 @@ module Marionette
     end
 
     record NetworkConditions,
-        offline : Bool,
-        latency : Int32,
-        download_throughput : Int32,
-        upload_throughput : Int32 do
+      offline : Bool,
+      latency : Int32,
+      download_throughput : Int32,
+      upload_throughput : Int32 do
       include JSON::Serializable
     end
   end

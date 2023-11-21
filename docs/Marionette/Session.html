@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Crystal Docs 0.34.0">
-<meta name="crystal_docs.project_version" content="develop-dev">
+<meta name="crystal_docs.project_version" content="master-dev">
 <meta name="crystal_docs.project_name" content="marionette">
 
 
@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="marionette">
-  <title>Marionette::Session - marionette develop-dev</title>
+  <title>Marionette::Session - marionette master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        develop-dev
+        master-dev
       </span>
     </div>
   </div>
@@ -281,6 +281,11 @@
       
     </li>
   
+  <li class=" " data-id="marionette/Marionette/Error/ReachedErrorPage" data-name="marionette::error::reachederrorpage">
+      <a href="../Marionette/Error/ReachedErrorPage.html">ReachedErrorPage</a>
+      
+    </li>
+  
   <li class=" " data-id="marionette/Marionette/Error/ScriptTimeout" data-name="marionette::error::scripttimeout">
       <a href="../Marionette/Error/ScriptTimeout.html">ScriptTimeout</a>
       
@@ -358,6 +363,11 @@
   
   <li class=" " data-id="marionette/Marionette/Logger" data-name="marionette::logger">
       <a href="../Marionette/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/LogItem" data-name="marionette::logitem">
+      <a href="../Marionette/LogItem.html">LogItem</a>
       
     </li>
   
@@ -555,24 +565,26 @@
 
 
 
+
+
   <h2>
-    <a id="constructors" class="anchor" href="#constructors">
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Constructors
+    Class Method Summary
   </h2>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new(driver:WebDriver,id:String,type:Type)-class-method" class="signature"><strong>.new</strong>(driver : WebDriver, id : String, type : Type)</a>
+        <a href="#start(driver:WebDriver,type:Type,capabilities=%7B%7DofString=%3EString,service=nil)-class-method" class="signature"><strong>.start</strong>(driver : WebDriver, type : Type, capabilities = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, service = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>Start a new Session using the given <code><a href="../Marionette/Session.html#driver:WebDriver-instance-method">#driver</a></code> and <code><a href="../Marionette/Session.html#type:Type-instance-method">#type</a></code>.</p></div>
         
       </li>
     
   </ul>
-
-
 
 
 
@@ -632,6 +644,11 @@
         <a href="#back-instance-method" class="signature"><strong>#back</strong></a>
         
           <div class="summary"><p>Go back in history.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#capabilities:Hash(String,JSON::Any)-instance-method" class="signature"><strong>#capabilities</strong> : Hash(String, JSON::Any)</a>
         
       </li>
     
@@ -725,7 +742,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#execute(command,params=%7B%7DofString=%3EString,stop_on_exception=true)-instance-method" class="signature"><strong>#execute</strong>(command, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, stop_on_exception = <span class="n">true</span>)</a>
+        <a href="#execute(command,params=%7B%7DofString=%3EString)-instance-method" class="signature"><strong>#execute</strong>(command, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
         
           <div class="summary"><p>Execute an arbitrary command with the given permissions.</p></div>
         
@@ -870,6 +887,16 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#log(log_type:String)-instance-method" class="signature"><strong>#log</strong>(log_type : String)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#log_types-instance-method" class="signature"><strong>#log_types</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#navigate(tourl:String%7CURI)-instance-method" class="signature"><strong>#navigate</strong>(to url : String | URI)</a>
         
           <div class="summary"><p>Go to the given URL.</p></div>
@@ -933,7 +960,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#perimissions-instance-method" class="signature"><strong>#perimissions</strong></a>
+        <a href="#permissions-instance-method" class="signature"><strong>#permissions</strong></a>
         
           <div class="summary"><p>Get the currently set Safari permisisons.</p></div>
         
@@ -1107,9 +1134,14 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#w3c?-instance-method" class="signature"><strong>#w3c?</strong></a>
+        <a href="#w3c?:Bool-instance-method" class="signature"><strong>#w3c?</strong> : Bool</a>
         
-          <div class="summary"><p>Return's true if the driver being used is W3C compatible.</p></div>
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#wait_for_element(selector:String,strategy:LocationStrategy=:css,timeout=3.seconds,poll_time=50.milliseconds)-instance-method" class="signature"><strong>#wait_for_element</strong>(selector : String, strategy : LocationStrategy = <span class="n">:css</span>, timeout = <span class="n">3</span>.seconds, poll_time = <span class="n">50</span>.milliseconds)</a>
+        
+          <div class="summary"><p>Wait the given amount of time for an element to be available.</p></div>
         
       </li>
     
@@ -1175,22 +1207,31 @@
 </div>
 
 
+
+
   <h2>
-    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Constructor Detail
+    Class Method Detail
   </h2>
   
-    <div class="entry-detail" id="new(driver:WebDriver,id:String,type:Type)-class-method">
+    <div class="entry-detail" id="start(driver:WebDriver,type:Type,capabilities={}ofString=>String,service=nil)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(driver : <a href="../Marionette/WebDriver.html">WebDriver</a>, id : String, type : <a href="../Marionette/Session/Type.html">Type</a>)
+        def self.<strong>start</strong>(driver : <a href="../Marionette/WebDriver.html">WebDriver</a>, type : <a href="../Marionette/Session/Type.html">Type</a>, capabilities = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, service = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#new(driver:WebDriver,id:String,type:Type)-class-method">#</a>
+        <a class="method-permalink" href="#start(driver:WebDriver,type:Type,capabilities=%7B%7DofString=%3EString,service=nil)-class-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Start a new Session using the given <code><a href="../Marionette/Session.html#driver:WebDriver-instance-method">#driver</a></code> and <code><a href="../Marionette/Session.html#type:Type-instance-method">#type</a></code>. You can pass in any
+<code><a href="../Marionette/Session.html#capabilities:Hash(String,JSON::Any)-instance-method">#capabilities</a></code> you want here, and they'll be merged with the browser's
+desired capabilities.</p>
+        </div>
       
       <br/>
       <div>
@@ -1198,8 +1239,6 @@
       </div>
     </div>
   
-
-
 
 
 
@@ -1341,6 +1380,20 @@ to call <code><a href="../Marionette/ActionBuilder.html#perform(debug_mouse_move
           
           <p>Go back in history.</p>
         </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="capabilities:Hash(String,JSON::Any)-instance-method">
+      <div class="signature">
+        
+        def <strong>capabilities</strong> : Hash(String, JSON::Any)
+
+        <a class="method-permalink" href="#capabilities:Hash(String,JSON::Any)-instance-method">#</a>
+      </div>
       
       <br/>
       <div>
@@ -1597,12 +1650,12 @@ clicking the "Cancel" button.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="execute(command,params={}ofString=>String,stop_on_exception=true)-instance-method">
+    <div class="entry-detail" id="execute(command,params={}ofString=>String)-instance-method">
       <div class="signature">
         
-        def <strong>execute</strong>(command, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, stop_on_exception = <span class="n">true</span>)
+        def <strong>execute</strong>(command, params = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
 
-        <a class="method-permalink" href="#execute(command,params=%7B%7DofString=%3EString,stop_on_exception=true)-instance-method">#</a>
+        <a class="method-permalink" href="#execute(command,params=%7B%7DofString=%3EString)-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -2021,6 +2074,34 @@ current session.</p>
       </div>
     </div>
   
+    <div class="entry-detail" id="log(log_type:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>log</strong>(log_type : String)
+
+        <a class="method-permalink" href="#log(log_type:String)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="log_types-instance-method">
+      <div class="signature">
+        
+        def <strong>log_types</strong>
+
+        <a class="method-permalink" href="#log_types-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="navigate(tourl:String|URI)-instance-method">
       <div class="signature">
         
@@ -2209,12 +2290,12 @@ on screen when the mouse changes location.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="perimissions-instance-method">
+    <div class="entry-detail" id="permissions-instance-method">
       <div class="signature">
         
-        def <strong>perimissions</strong>
+        def <strong>permissions</strong>
 
-        <a class="method-permalink" href="#perimissions-instance-method">#</a>
+        <a class="method-permalink" href="#permissions-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -2709,17 +2790,32 @@ is returned as a Base64 encoded string.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="w3c?-instance-method">
+    <div class="entry-detail" id="w3c?:Bool-instance-method">
       <div class="signature">
         
-        def <strong>w3c?</strong>
+        def <strong>w3c?</strong> : Bool
 
-        <a class="method-permalink" href="#w3c?-instance-method">#</a>
+        <a class="method-permalink" href="#w3c?:Bool-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="wait_for_element(selector:String,strategy:LocationStrategy=:css,timeout=3.seconds,poll_time=50.milliseconds)-instance-method">
+      <div class="signature">
+        
+        def <strong>wait_for_element</strong>(selector : String, strategy : <a href="../Marionette/LocationStrategy.html">LocationStrategy</a> = <span class="n">:css</span>, timeout = <span class="n">3</span>.seconds, poll_time = <span class="n">50</span>.milliseconds)
+
+        <a class="method-permalink" href="#wait_for_element(selector:String,strategy:LocationStrategy=:css,timeout=3.seconds,poll_time=50.milliseconds)-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Return's true if the driver being used is W3C compatible.</p>
+          <p>Wait the given amount of time for an element to be available.
+If no element is found an exception will be raised.</p>
         </div>
       
       <br/>

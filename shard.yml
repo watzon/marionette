@@ -1,14 +1,17 @@
 name: marionette
-version: 0.2.0
+version: 0.4.0-dev
 
 authors:
-  - Chris Watson <chris@watzon.me>
+  - Chris Watson <cawatson1993@gmail.com>
 
-dependencies:
-  har:
-    github: NeuraLegion/har
+development_dependencies:
+  spectator:
+    gitlab: arctic-fox/spectator
     branch: master
 
-crystal: 0.35.1
+crystal: ~> 1.8.0
 
 license: MIT
+
+crystalline:
+  main: .test.cr

@@ -37,8 +37,8 @@ module Marionette
         @session.execute("SetWindowRect", {
           "height" => rect.height,
           "width"  => rect.width,
-          "x"  => rect.x,
-          "y"  => rect.y
+          "x"      => rect.x,
+          "y"      => rect.y,
         })
       else
         @session.stop
@@ -69,10 +69,7 @@ module Marionette
         if @handle != @session.current_window.handle
           Log.warn { "Only current window is supported for W3C Compatible browsers" }
         end
-        rect = self.rect
-        rect.width = size.width
-        rect.height = size.height
-        self.rect = rect
+        self.rect = self.rect.copy_with(width: size.width, height: size.height)
       else
         execute("SetWindowSize", {"width" => size.width, "height" => size.height})
       end
@@ -101,17 +98,14 @@ module Marionette
         if @handle != @session.current_window.handle
           Log.warn { "Only current window is supported for W3C Compatible browsers" }
         end
-        rect = self.rect
-        rect.x = position.x
-        rect.y = position.y
-        self.rect = rect
+        self.rect = rect.copy_with(x: position.x, y: position.y)
       else
         execute("SetWindowSize", {"x" => position.x, "y" => position.y})
       end
     end
 
     def move_to(x, y)
-      position = Size.new(x: x.to_f, y: y.to_f)
+      position = Location.new(x: x.to_f, y: y.to_f)
       self.position = position
     end
 
@@ -128,7 +122,7 @@ module Marionette
     end
 
     def fullscreen
-      execute("FullScreenWindow")
+      execute("FullscreenWindow")
     end
 
     def execute(command, params = {} of String => String)

@@ -1,5 +1,11 @@
 # Marionette
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/watzon/marionette/specs?style=flat-square)  ![License](https://img.shields.io/github/license/watzon/marionette?style=flat-square)  ![Crystal Version](https://img.shields.io/badge/Crystal-1.0.0-%23333333?style=flat-square)
+
+<div align="center">
+  <img src="./assets/code.png">
+</div>
+
 Marionette is a one-size-fits-all approach to WebDriver adapters. It works with most all web driver implementations, including:
 
 - [x] Chrome
@@ -16,22 +22,26 @@ Marionette is a one-size-fits-all approach to WebDriver adapters. It works with 
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [WebDriver](#webdriver)
-  - [Firefox](#firefox)
-  - [Chrome](#chrome)
-  - [Opera](#opera)
-  - [Safari](#safari)
-  - [Edge](#edge)
-  - [Internet Explorer](#internet-explorer)
-- [Getting Started](#getting-started)
-  - [Driver Options](#driver-options)
-- [Browser Manipulation](#browser-manipulation)
-  - [Navigation](#navigation)
-  - [Windows and Tabs](#windows-and-tabs)
-  - [Frames and IFrames](#frames-and-iframes)
-  - [Window Management](#window-management)
-- [Working with Elements](#working-with-elements)
+- [Marionette](#marionette)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [WebDriver](#webdriver)
+    - [Firefox](#firefox)
+    - [Chrome](#chrome)
+    - [Opera](#opera)
+    - [Safari](#safari)
+    - [Edge](#edge)
+    - [Internet Explorer](#internet-explorer)
+  - [Getting Started](#getting-started)
+    - [Driver Capabilities](#driver-capabilities)
+  - [Browser Manipulation](#browser-manipulation)
+    - [Navigation](#navigation)
+    - [Windows and Tabs](#windows-and-tabs)
+    - [Frames and IFrames](#frames-and-iframes)
+    - [Window Management](#window-management)
+  - [Working with Elements](#working-with-elements)
+  - [Contributing](#contributing)
+  - [Contributors](#contributors)
 
 ## Installation
 
@@ -109,24 +119,24 @@ session.navigate("https://crystal-lang.org")
 
 # Start an action chain and perform it
 session.perform_actions do
-  # Click the "INSTALL" link, offsetting by 25 pixels so we make sure we hit it
-  click ".main-actions a:nth-child(1)", 25, 25
+  # Click the "INSTALL" link
+  click ".main-actions a:nth-child(1)"
 end
 
 sleep 5
 session.close
 ```
 
-### Driver Options
+### Driver Capabilities
 
-Different drivers have different options available to them. To make setting those options a little easier there's the `DriverOptions` module which is extended by `Marionette` itself. Take, for instance, Chrome:
+Different drivers have different capabilities available to them. To make setting them a little easier, there's the `DriverOptions` module which is extended by `Marionette` itself. Take, for instance, Chrome:
 
 ```crystal
 # Make this instance headless
 options = Marionette.chrome_options(args: ["headless"])
 
 # Create a Chrome session
-session = Marionette::WebDriver.create_session(:chrome, options: options)
+session = Marionette::WebDriver.create_session(:chrome, capabilities: options)
 ```
 
 `args` in this case are arguments to be passed to the browser itself rather than the driver. If you wish to pass arguments to the driver you can use the `args` parameter in the `create_session` method.
@@ -488,4 +498,4 @@ end
 
 ## Contributors
 
-- [watzon](https://github.com/watzon)  - creator, maintainer
+This project exists thanks to all the people who contribute. <a href="https://github.com/cadmiumcr/Cadmium/graphs/contributors"><img src="https://opencollective.com/Cadmium/contributors.svg?width=890&button=false" /></a>

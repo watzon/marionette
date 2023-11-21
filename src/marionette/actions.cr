@@ -6,8 +6,6 @@ module Marionette
   # The easiest way to use `ActionBuilder` is through `Session#actions` and
   # `Session#perform_actions`.
   class ActionBuilder
-    DEBUG_MOUSE_MOVE_SCRIPT = {{ read_file("src/marionette/scripts/debug_mouse_move.js") }}
-
     getter session : Session
 
     getter w3c_key_actions : Array(Action)
@@ -42,20 +40,19 @@ module Marionette
 
     # Add a non-W3C compatible action.
     def action(command : String, action : Action)
+      raise Error::UnknownCommand.new unless Commands.has_key?(command)
       actions << {command, action}
       self
     end
 
     # Create a new `KeyUp` action with the given value
     def create_key_up(key : Key | Char | String)
-      key = key.is_a?(Key) ? key.value.chr : key
       Action::KeyUp.new(key.to_s)
     end
 
     # Create a new `KeyDown` action with the given value
     def create_key_down(key : Key | Char | String)
-      key = key.is_a?(Key) ? key.value.chr : key
-      Action::KeyDown.new(key)
+      Action::KeyDown.new(key.to_s)
     end
 
     # Create a new `PointerDown` action for the given button with the
@@ -107,12 +104,12 @@ module Marionette
     end
 
     def create_pointer_move(element : Element, duration : Time::Span = 0.seconds)
-      create_pointer_move(-1.0, -1.0, element, duration)
+      create_pointer_move(1, 1, element, duration)
     end
 
     def create_pointer_move(selector : String, duration : Time::Span = 0.seconds, location_strategy : LocationStrategy = :css)
       Action::PointerMove.new(
-        x: -1, y: -1,
+        x: 1, y: 1,
         move_duration: duration,
         origin: Origin::ElementSelector.new(
           selector: selector,
@@ -432,7 +429,7 @@ module Marionette
       if @session.w3c?
         pointer_actions = [] of Action
         key_actions = [] of Action
-        (0 ... @w3c_key_actions.size).each do |i|
+        (0...@w3c_key_actions.size).each do |i|
           key_action = @w3c_key_actions[i]
           pointer_action = @w3c_pointer_actions[i]
 
@@ -480,25 +477,25 @@ module Marionette
       {
         actions: [
           {
-            type: "key",
-            id: UUID.random.to_s,
-            actions: key_actions.map { |a| make_action_object(a, debug_mouse_move: debug_mouse_move) }
+            type:    "key",
+            id:      UUID.random.to_s,
+            actions: key_actions.map { |a| make_action_object(a, debug_mouse_move: debug_mouse_move) },
           },
           {
-            type: "pointer",
-            id: UUID.random.to_s,
+            type:       "pointer",
+            id:         UUID.random.to_s,
             parameters: {
-              pointerType: pointer_type.to_s
+              pointerType: pointer_type.to_s,
             },
-            actions: pointer_actions.map { |a| make_action_object(a, debug_mouse_move: debug_mouse_move) }
-          }
-        ]
+            actions: pointer_actions.map { |a| make_action_object(a, debug_mouse_move: debug_mouse_move) },
+          },
+        ],
       }
     end
 
     private def make_action_object(action : Action, debug_mouse_move = false)
       is_w3c = @session.w3c?
-      case action
+      result = case action
       when Action::KeyUp, Action::KeyDown
         if is_w3c
           {type: action.name, value: action.value}
@@ -508,9 +505,9 @@ module Marionette
       when Action::PointerPause, Action::KeyPause
         if is_w3c
           {
-            type: action.name,
-            value: action.duration.total_milliseconds.to_i,
-            duration: action.duration.total_milliseconds.to_i
+            type:     action.name,
+            value:    action.duration.total_milliseconds.to_i,
+            duration: action.duration.total_milliseconds.to_i,
           }
         else
           NamedTuple.new
@@ -553,7 +550,7 @@ module Marionette
             y = action.y.to_i
 
             if debug_mouse_move
-              @session.execute_script(DEBUG_MOUSE_MOVE_SCRIPT, [element, x, y])
+              session.execute_atom(:debugMouseMove, [element, x, y])
             end
 
             if is_w3c
@@ -584,7 +581,7 @@ module Marionette
           y = action.y.to_i
 
           if debug_mouse_move
-            @session.execute_script(DEBUG_MOUSE_MOVE_SCRIPT, [element, x, y])
+            session.execute_atom(:debugMouseMove, [element, x, y])
           end
 
           if is_w3c
@@ -610,12 +607,10 @@ module Marionette
               }
             end
           end
-        else
-          raise "Unreachable"
         end
-      else
-        raise "Unreachable"
       end
+
+      result.not_nil!
     end
   end
 

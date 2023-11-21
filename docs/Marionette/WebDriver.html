@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Crystal Docs 0.34.0">
-<meta name="crystal_docs.project_version" content="develop-dev">
+<meta name="crystal_docs.project_version" content="master-dev">
 <meta name="crystal_docs.project_name" content="marionette">
 
 
@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="marionette">
-  <title>Marionette::WebDriver - marionette develop-dev</title>
+  <title>Marionette::WebDriver - marionette master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        develop-dev
+        master-dev
       </span>
     </div>
   </div>
@@ -281,6 +281,11 @@
       
     </li>
   
+  <li class=" " data-id="marionette/Marionette/Error/ReachedErrorPage" data-name="marionette::error::reachederrorpage">
+      <a href="../Marionette/Error/ReachedErrorPage.html">ReachedErrorPage</a>
+      
+    </li>
+  
   <li class=" " data-id="marionette/Marionette/Error/ScriptTimeout" data-name="marionette::error::scripttimeout">
       <a href="../Marionette/Error/ScriptTimeout.html">ScriptTimeout</a>
       
@@ -358,6 +363,11 @@
   
   <li class=" " data-id="marionette/Marionette/Logger" data-name="marionette::logger">
       <a href="../Marionette/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/LogItem" data-name="marionette::logitem">
+      <a href="../Marionette/LogItem.html">LogItem</a>
       
     </li>
   
@@ -566,7 +576,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new(browser:Browser,url:URI,client:HTTP::Client,keep_alive=false,w3c=false,capabilities=nil)-class-method" class="signature"><strong>.new</strong>(browser : Browser, url : URI, client : HTTP::Client, keep_alive = <span class="n">false</span>, w3c = <span class="n">false</span>, capabilities = <span class="n">nil</span>)</a>
+        <a href="#new(browser:Browser,url:URI,client:HTTP::Client,keep_alive=false)-class-method" class="signature"><strong>.new</strong>(browser : Browser, url : URI, client : HTTP::Client, keep_alive = <span class="n">false</span>)</a>
         
       </li>
     
@@ -585,7 +595,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#create_session(browser:Browser,exe_path=nil,port=nil,env=ENV.to_h,args=[]ofString,options=%7B%7DofString=%3EString)-class-method" class="signature"><strong>.create_session</strong>(browser : Browser, exe_path = <span class="n">nil</span>, port = <span class="n">nil</span>, env = <span class="t">ENV</span>.to_h, args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, options = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
+        <a href="#create_session(browser:Browser,exe_path=nil,port=nil,env=ENV.to_h,args=[]ofString,**options)-class-method" class="signature"><strong>.create_session</strong>(browser : Browser, exe_path = <span class="n">nil</span>, port = <span class="n">nil</span>, env = <span class="t">ENV</span>.to_h, args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, **options)</a>
         
           <div class="summary"><p>Create a new <code><a href="../Marionette/Session.html">Session</a></code> instance using the given <code><a href="../Marionette/WebDriver.html#browser:Browser-instance-method">#browser</a></code>.</p></div>
         
@@ -611,16 +621,6 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#capabilities:JSON::Any?-instance-method" class="signature"><strong>#capabilities</strong> : JSON::Any?</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#capabilities=(capabilities:JSON::Any?)-instance-method" class="signature"><strong>#capabilities=</strong>(capabilities : JSON::Any?)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
         <a href="#client:HTTP::Client-instance-method" class="signature"><strong>#client</strong> : HTTP::Client</a>
         
       </li>
@@ -636,7 +636,7 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#get_session(opts=%7B%7DofString=%3EString)-instance-method" class="signature"><strong>#get_session</strong>(opts = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
+        <a href="#get_session(type:Session::Type=:local,**options)-instance-method" class="signature"><strong>#get_session</strong>(type : Session::Type = <span class="n">:local</span>, **options)</a>
         
       </li>
     
@@ -657,11 +657,6 @@
     
       <li class="entry-summary">
         <a href="#url?:URI%7CNil?-instance-method" class="signature"><strong>#url?</strong> : URI | Nil?</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#w3c?:Bool-instance-method" class="signature"><strong>#w3c?</strong> : Bool</a>
         
       </li>
     
@@ -715,12 +710,12 @@
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="new(browser:Browser,url:URI,client:HTTP::Client,keep_alive=false,w3c=false,capabilities=nil)-class-method">
+    <div class="entry-detail" id="new(browser:Browser,url:URI,client:HTTP::Client,keep_alive=false)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(browser : <a href="../Marionette/Browser.html">Browser</a>, url : URI, client : HTTP::Client, keep_alive = <span class="n">false</span>, w3c = <span class="n">false</span>, capabilities = <span class="n">nil</span>)
+        def self.<strong>new</strong>(browser : <a href="../Marionette/Browser.html">Browser</a>, url : URI, client : HTTP::Client, keep_alive = <span class="n">false</span>)
 
-        <a class="method-permalink" href="#new(browser:Browser,url:URI,client:HTTP::Client,keep_alive=false,w3c=false,capabilities=nil)-class-method">#</a>
+        <a class="method-permalink" href="#new(browser:Browser,url:URI,client:HTTP::Client,keep_alive=false)-class-method">#</a>
       </div>
       
       <br/>
@@ -741,12 +736,12 @@
     Class Method Detail
   </h2>
   
-    <div class="entry-detail" id="create_session(browser:Browser,exe_path=nil,port=nil,env=ENV.to_h,args=[]ofString,options={}ofString=>String)-class-method">
+    <div class="entry-detail" id="create_session(browser:Browser,exe_path=nil,port=nil,env=ENV.to_h,args=[]ofString,**options)-class-method">
       <div class="signature">
         
-        def self.<strong>create_session</strong>(browser : <a href="../Marionette/Browser.html">Browser</a>, exe_path = <span class="n">nil</span>, port = <span class="n">nil</span>, env = <span class="t">ENV</span>.to_h, args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, options = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
+        def self.<strong>create_session</strong>(browser : <a href="../Marionette/Browser.html">Browser</a>, exe_path = <span class="n">nil</span>, port = <span class="n">nil</span>, env = <span class="t">ENV</span>.to_h, args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, **options)
 
-        <a class="method-permalink" href="#create_session(browser:Browser,exe_path=nil,port=nil,env=ENV.to_h,args=[]ofString,options=%7B%7DofString=%3EString)-class-method">#</a>
+        <a class="method-permalink" href="#create_session(browser:Browser,exe_path=nil,port=nil,env=ENV.to_h,args=[]ofString,**options)-class-method">#</a>
       </div>
       
         <div class="doc">
@@ -761,10 +756,8 @@ using the <code>port</code> parameter.</p>
 
 <p>The environment variables the driver is exposed to can be set using <code>env</code>.</p>
 
-<p>If you want to set arguments that should be passed to the driver itself,
-use <code>args</code> to set browser specific options you can use <code>options</code> in
-conjunction with one of the helper methods from the <code><a href="../Marionette/DriverOptions.html">DriverOptions</a></code>
-module.</p>
+<p>All other keyword arguments are passed directly into the <code><a href="../Marionette/WebDriver.html#get_session(type:Session::Type=:local,**options)-instance-method">#get_session</a></code> call,
+which are then passed into <code><a href="../Marionette/Session.html#start(driver:WebDriver,type:Type,capabilities=%7B%7DofString=%3EString,service=nil)-class-method">Session.start</a></code>.</p>
         </div>
       
       <br/>
@@ -791,34 +784,6 @@ module.</p>
         def <strong>browser</strong> : <a href="../Marionette/Browser.html">Browser</a>
 
         <a class="method-permalink" href="#browser:Browser-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="capabilities:JSON::Any?-instance-method">
-      <div class="signature">
-        
-        def <strong>capabilities</strong> : JSON::Any?
-
-        <a class="method-permalink" href="#capabilities:JSON::Any?-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="capabilities=(capabilities:JSON::Any?)-instance-method">
-      <div class="signature">
-        
-        def <strong>capabilities=</strong>(capabilities : JSON::Any?)
-
-        <a class="method-permalink" href="#capabilities=(capabilities:JSON::Any?)-instance-method">#</a>
       </div>
       
       <br/>
@@ -869,12 +834,12 @@ module.</p>
       </div>
     </div>
   
-    <div class="entry-detail" id="get_session(opts={}ofString=>String)-instance-method">
+    <div class="entry-detail" id="get_session(type:Session::Type=:local,**options)-instance-method">
       <div class="signature">
         
-        def <strong>get_session</strong>(opts = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
+        def <strong>get_session</strong>(type : <a href="../Marionette/Session/Type.html">Session::Type</a> = <span class="n">:local</span>, **options)
 
-        <a class="method-permalink" href="#get_session(opts=%7B%7DofString=%3EString)-instance-method">#</a>
+        <a class="method-permalink" href="#get_session(type:Session::Type=:local,**options)-instance-method">#</a>
       </div>
       
       <br/>
@@ -931,20 +896,6 @@ module.</p>
         def <strong>url?</strong> : URI | Nil?
 
         <a class="method-permalink" href="#url?:URI%7CNil?-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="w3c?:Bool-instance-method">
-      <div class="signature">
-        
-        def <strong>w3c?</strong> : Bool
-
-        <a class="method-permalink" href="#w3c?:Bool-instance-method">#</a>
       </div>
       
       <br/>

@@ -8,18 +8,12 @@ module Marionette
 
     getter client : HTTP::Client
 
-    getter? w3c : Bool
-
     getter? keep_alive : Bool
-
-    property capabilities : JSON::Any?
 
     def initialize(@browser : Browser,
                    @url : URI,
                    @client : HTTP::Client,
-                   @keep_alive = false,
-                   @w3c = false,
-                   @capabilities = nil)
+                   @keep_alive = false)
     end
 
     # Create a new `Session` instance using the given `browser`. If the driver is
@@ -32,61 +26,33 @@ module Marionette
     #
     # The environment variables the driver is exposed to can be set using `env`.
     #
-    # If you want to set arguments that should be passed to the driver itself,
-    # use `args` to set browser specific options you can use `options` in
-    # conjunction with one of the helper methods from the `DriverOptions`
-    # module.
+    # All other keyword arguments are passed directly into the `get_session` call,
+    # which are then passed into `Session.start`.
     def self.create_session(browser : Browser,
                             exe_path = nil,
                             port = nil,
                             env = ENV.to_h,
                             args = [] of String,
-                            options = {} of String => String)
+                            **options)
       service = Service.new(browser, exe_path, port, "127.0.0.1", args, env)
       service.start
       driver = browser.new_remote_web_driver(service.url, keep_alive: true)
-      result = driver.get_session(options)
+      result = driver.get_session(**options)
       result.service = service
       result
     end
 
-    def get_session(opts = {} of String => String)
-      capabilities = browser.desired_capabilities
-      capabilities = capabilities.merge(opts)
-
-      params = {
-        "capabilities" => Utils.to_w3c_caps(capabilities),
-        "desired_capabilities" => capabilities
-      }
-
-      response = execute("NewSession", params)
-
-      if !response["sessionId"]?
-        response = response["value"]
-      end
-
-      if session_id = response["sessionId"]?
-        @capabilities = response["value"]?
-
-        if !@capabilities
-          @capabilities = response["capabilities"]?
-        end
-
-        @w3c = !response["status"]?
-
-        Session.new(self, id: session_id.as_s, type: :local)
-      else
-        raise "Failed to start session"
-      end
+    def get_session(type : Session::Type = :local, **options)
+      Session.start(self, type, **options)
     end
 
     def connection_headers(url : String | URI, keep_alive : Bool = false)
       uri = url.is_a?(URI) ? url : URI.parse(url)
 
       headers = HTTP::Headers{
-        "Accept" => "application/json",
+        "Accept"       => "application/json",
         "Content-Type" => "application/json;charset=UTF-8",
-        "User-Agent" => "Marionette #{Marionette::VERSION} (Crystal #{Crystal::VERSION})"
+        "User-Agent"   => "Marionette #{Marionette::VERSION} (Crystal #{Crystal::VERSION})",
       }
 
       if uri.user

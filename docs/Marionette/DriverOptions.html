@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Crystal Docs 0.34.0">
-<meta name="crystal_docs.project_version" content="develop-dev">
+<meta name="crystal_docs.project_version" content="master-dev">
 <meta name="crystal_docs.project_name" content="marionette">
 
 
@@ -18,7 +18,7 @@
 </svg>
 
   <meta id="repository-name" content="marionette">
-  <title>Marionette::DriverOptions - marionette develop-dev</title>
+  <title>Marionette::DriverOptions - marionette master-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -39,7 +39,7 @@
       </h1>
 
       <span class="project-version">
-        develop-dev
+        master-dev
       </span>
     </div>
   </div>
@@ -281,6 +281,11 @@
       
     </li>
   
+  <li class=" " data-id="marionette/Marionette/Error/ReachedErrorPage" data-name="marionette::error::reachederrorpage">
+      <a href="../Marionette/Error/ReachedErrorPage.html">ReachedErrorPage</a>
+      
+    </li>
+  
   <li class=" " data-id="marionette/Marionette/Error/ScriptTimeout" data-name="marionette::error::scripttimeout">
       <a href="../Marionette/Error/ScriptTimeout.html">ScriptTimeout</a>
       
@@ -358,6 +363,11 @@
   
   <li class=" " data-id="marionette/Marionette/Logger" data-name="marionette::logger">
       <a href="../Marionette/Logger.html">Logger</a>
+      
+    </li>
+  
+  <li class=" " data-id="marionette/Marionette/LogItem" data-name="marionette::logitem">
+      <a href="../Marionette/LogItem.html">LogItem</a>
       
     </li>
   
@@ -549,7 +559,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#chrome_options(args=[]ofString,extensions=[]ofString,binary=nil,debugger_address=nil,page_load_strategy:PageLoadStrategy?=nil,experimental_options=%7B%7DofString=%3EString)-instance-method" class="signature"><strong>#chrome_options</strong>(args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, extensions = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, binary = <span class="n">nil</span>, debugger_address = <span class="n">nil</span>, page_load_strategy : PageLoadStrategy? = <span class="n">nil</span>, experimental_options = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
+        <a href="#chrome_options(args=[]ofString,extensions=[]ofString%7CIO,binary=nil,debugger_address=nil,page_load_strategy:PageLoadStrategy?=nil,experimental_options=%7B%7DofString=%3EString,logging_prefs=%7B%7DofString=%3EString,capabilities=%7B%7DofString=%3EString)-instance-method" class="signature"><strong>#chrome_options</strong>(args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, extensions = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span> <span class="o">|</span> <span class="t">IO</span>, binary = <span class="n">nil</span>, debugger_address = <span class="n">nil</span>, page_load_strategy : PageLoadStrategy? = <span class="n">nil</span>, experimental_options = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, logging_prefs = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, capabilities = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)</a>
         
       </li>
     
@@ -607,12 +617,12 @@
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="chrome_options(args=[]ofString,extensions=[]ofString,binary=nil,debugger_address=nil,page_load_strategy:PageLoadStrategy?=nil,experimental_options={}ofString=>String)-instance-method">
+    <div class="entry-detail" id="chrome_options(args=[]ofString,extensions=[]ofString|IO,binary=nil,debugger_address=nil,page_load_strategy:PageLoadStrategy?=nil,experimental_options={}ofString=>String,logging_prefs={}ofString=>String,capabilities={}ofString=>String)-instance-method">
       <div class="signature">
         
-        def <strong>chrome_options</strong>(args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, extensions = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, binary = <span class="n">nil</span>, debugger_address = <span class="n">nil</span>, page_load_strategy : <a href="../Marionette/PageLoadStrategy.html">PageLoadStrategy</a>? = <span class="n">nil</span>, experimental_options = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
+        def <strong>chrome_options</strong>(args = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, extensions = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span> <span class="o">|</span> <span class="t">IO</span>, binary = <span class="n">nil</span>, debugger_address = <span class="n">nil</span>, page_load_strategy : <a href="../Marionette/PageLoadStrategy.html">PageLoadStrategy</a>? = <span class="n">nil</span>, experimental_options = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, logging_prefs = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>, capabilities = {} <span class="k">of</span> <span class="t">String</span> => <span class="t">String</span>)
 
-        <a class="method-permalink" href="#chrome_options(args=[]ofString,extensions=[]ofString,binary=nil,debugger_address=nil,page_load_strategy:PageLoadStrategy?=nil,experimental_options=%7B%7DofString=%3EString)-instance-method">#</a>
+        <a class="method-permalink" href="#chrome_options(args=[]ofString,extensions=[]ofString%7CIO,binary=nil,debugger_address=nil,page_load_strategy:PageLoadStrategy?=nil,experimental_options=%7B%7DofString=%3EString,logging_prefs=%7B%7DofString=%3EString,capabilities=%7B%7DofString=%3EString)-instance-method">#</a>
       </div>
       
       <br/>
