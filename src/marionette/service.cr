@@ -62,7 +62,7 @@ module Marionette
         HTTP::Client.get(File.join(url.to_s, "shutdown"))
         0.upto(30).each do
           if open?
-            sleep 1000
+            sleep 1
           else
             break
           end
@@ -84,7 +84,11 @@ module Marionette
 
     def stop
       if process = @process
-        send_remote_shutdown
+        # geckodriver does not support remote shutdown, so don't try
+        # and wait for it to close gracefully.
+        unless @browser.is_a?(Browser::Firefox)
+          send_remote_shutdown
+        end
 
         begin
           process.signal(Signal::INT)
