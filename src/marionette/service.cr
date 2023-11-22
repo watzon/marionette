@@ -62,7 +62,7 @@ module Marionette
         HTTP::Client.get(File.join(url.to_s, "shutdown"))
         0.upto(30).each do
           if open?
-            sleep 1000
+            sleep 1
           else
             break
           end
