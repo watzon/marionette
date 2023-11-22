@@ -87,6 +87,4 @@ Spectator.describe Marionette::ActionBuilder do
       expect(mouse_up.click_duration).to eq(0.seconds)
     end
   end
-
-  # TODO: Continue
 end

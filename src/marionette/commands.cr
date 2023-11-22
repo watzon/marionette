@@ -1,35 +1,36 @@
 module Marionette
   Commands = {
     "Status"                                 => "status",
+
+    #
+    # Session Handling
+    #
     "NewSession"                             => "newSession",
     "GetAllSessions"                         => "getAllSessions",
     "DeleteSession"                          => "deleteSession",
-    "NewWindow"                              => "newWindow",
-    "Close"                                  => "close",
-    "Quit"                                   => "quit",
+
+    #
+    # Basic Driver
+    #
     "Get"                                    => "get",
     "GoBack"                                 => "goBack",
     "GoForward"                              => "goForward",
     "Refresh"                                => "refresh",
-    "AddCookie"                              => "addCookie",
-    "GetCookie"                              => "getCookie",
-    "GetAllCookies"                          => "getCookies",
-    "DeleteCookie"                           => "deleteCookie",
-    "DeleteAllCookies"                       => "deleteAllCookies",
-    "FindElement"                            => "findElement",
-    "FindElements"                           => "findElements",
-    "FindChildElement"                       => "findChildElement",
-    "FindChildElements"                      => "findChildElements",
-    "ClearElement"                           => "clearElement",
-    "ClickElement"                           => "clickElement",
-    "SendKeysToElement"                      => "sendKeysToElement",
-    "SendKeysToActiveElement"                => "sendKeysToActiveElement",
-    "SubmitElement"                          => "submitElement",
-    "UploadFile"                             => "uploadFile",
+    "Quit"                                   => "quit",
+    "GetTitle"                               => "getTitle",
+
+    #
+    # Window and Frame Handling
+    #
     "GetCurrentWindowHandle"                 => "getCurrentWindowHandle",
     "W3CgetCurrentWindowHandle"              => "w3cGetCurrentWindowHandle",
     "GetWindowHandles"                       => "getWindowHandles",
     "W3CgetWindowHandles"                    => "w3cGetWindowHandles",
+    "NewWindow"                              => "newWindow",
+    "Close"                                  => "close",
+    "SwitchToWindow"                         => "switchToWindow",
+    "SwitchToFrame"                          => "switchToFrame",
+    "SwitchToParentFrame"                    => "switchToParentFrame",
     "GetWindowSize"                          => "getWindowSize",
     "W3CgetWindowSize"                       => "w3cGetWindowSize",
     "W3CgetWindowPosition"                   => "w3cGetWindowPosition",
@@ -40,17 +41,25 @@ module Marionette
     "GetWindowRect"                          => "getWindowRect",
     "SetWindowPosition"                      => "setWindowPosition",
     "W3CsetWindowPosition"                   => "w3cSetWindowPosition",
-    "SwitchToWindow"                         => "switchToWindow",
-    "SwitchToFrame"                          => "switchToFrame",
-    "SwitchToParentFrame"                    => "switchToParentFrame",
+    "MaximizeWindow"                         => "windowMaximize",
+    "W3CmaximizeWindow"                      => "w3cMaximizeWindow",
+    "FullscreenWindow"                       => "fullscreenWindow",
+    "MinimizeWindow"                         => "minimizeWindow",
+
+    #
+    # Element
+    #
+    "FindElement"                            => "findElement",
+    "FindElements"                           => "findElements",
+    "FindChildElement"                       => "findChildElement",
+    "FindChildElements"                      => "findChildElements",
+    "ClearElement"                           => "clearElement",
+    "ClickElement"                           => "clickElement",
+    "SendKeysToElement"                      => "sendKeysToElement",
+    "SendKeysToActiveElement"                => "sendKeysToActiveElement",
+    "SubmitElement"                          => "submitElement",
     "GetActiveElement"                       => "getActiveElement",
     "W3CgetActiveElement"                    => "w3cGetActiveElement",
-    "GetCurrentUrl"                          => "getCurrentUrl",
-    "GetPageSource"                          => "getPageSource",
-    "GetTitle"                               => "getTitle",
-    "ExecuteScript"                          => "executeScript",
-    "W3CexecuteScript"                       => "w3cExecuteScript",
-    "W3CexecuteScriptAsync"                  => "w3cExecuteScriptAsync",
     "GetElementText"                         => "getElementText",
     "GetElementValue"                        => "getElementValue",
     "GetElementTagName"                      => "getElementTagName",
@@ -65,20 +74,45 @@ module Marionette
     "GetElementAttribute"                    => "getElementAttribute",
     "GetElementProperty"                     => "getElementProperty",
     "GetElementValueOfCssProperty"           => "getElementValueOfCssProperty",
-    "Screenshot"                             => "screenshot",
     "ElementScreenshot"                      => "elementScreenshot",
-    "ImplicitWait"                           => "implicitlyWait",
+
+    #
+    # Document Handling
+    #
+    "GetCurrentUrl"                          => "getCurrentUrl",
+    "GetPageSource"                          => "getPageSource",
+    "ExecuteScript"                          => "executeScript",
     "ExecuteAsyncScript"                     => "executeAsyncScript",
-    "SetScriptTimeout"                       => "setScriptTimeout",
+    "W3CexecuteScript"                       => "w3cExecuteScript",
+    "W3CexecuteScriptAsync"                  => "w3cExecuteScriptAsync",
+    "UploadFile"                             => "uploadFile",
+    "Screenshot"                             => "screenshot",
+
+    #
+    # Cookies
+    #
+    "AddCookie"                              => "addCookie",
+    "GetCookie"                              => "getCookie",
+    "GetAllCookies"                          => "getCookies",
+    "DeleteCookie"                           => "deleteCookie",
+    "DeleteAllCookies"                       => "deleteAllCookies",
+
+    #
+    # Timeouts
+    #
     "SetTimeouts"                            => "setTimeouts",
-    "MaximizeWindow"                         => "windowMaximize",
-    "W3CmaximizeWindow"                      => "w3cMaximizeWindow",
+    "SetScriptTimeout"                       => "setScriptTimeout",
+    "ImplicitWait"                           => "implicitlyWait",
+
+    #
+    # Logs
+    #
     "GetLog"                                 => "getLog",
     "GetAvailableLogTypes"                   => "getAvailableLogTypes",
-    "FullscreenWindow"                       => "fullscreenWindow",
-    "MinimizeWindow"                         => "minimizeWindow",
 
+    #
     # Alerts
+    #
     "DismissAlert"        => "dismissAlert",
     "W3CdismissAlert"     => "w3cDismissAlert",
     "AcceptAlert"         => "acceptAlert",
@@ -89,7 +123,9 @@ module Marionette
     "W3CgetAlertText"     => "w3cGetAlertText",
     "SetAlertCredentials" => "setAlertCredentials",
 
+    #
     # Advanced user interactions
+    #
     "W3Cactions"      => "actions",
     "W3CclearActions" => "clearActionState",
     "Click"           => "mouseClick",
@@ -98,11 +134,15 @@ module Marionette
     "MouseUp"         => "mouseButtonUp",
     "MoveTo"          => "mouseMoveTo",
 
+    #
     # Screen Orientation
+    #
     "SetScreenOrientation" => "setScreenOrientation",
     "GetScreenOrientation" => "getScreenOrientation",
 
+    #
     # Touch Actions
+    #
     "SingleTap"   => "touchSingleTap",
     "TouchDown"   => "touchDown",
     "TouchUp"     => "touchUp",
@@ -112,7 +152,9 @@ module Marionette
     "LongPress"   => "touchLongPress",
     "Flick"       => "touchFlick",
 
+    #
     # Html 5
+    #
     "ExecuteSql" => "executeSql",
 
     "GetLocation" => "getLocation",
@@ -136,14 +178,18 @@ module Marionette
     "ClearSessionStorage"      => "clearSessionStorage",
     "GetSessionStorageSize"    => "getSessionStorageSize",
 
+    #
     # Mobile
+    #
     "GetNetworkConnection" => "getNetworkConnection",
     "SetNetworkConnection" => "setNetworkConnection",
     "CurrentContextHandle" => "getCurrentContextHandle",
     "ContextHandles"       => "getContextHandles",
     "SwitchToContext"      => "switchToContext",
 
+    #
     # Firefox
+    #
     "GetContext"                              => "GET_CONTEXT",
     "SetContext"                              => "SET_CONTEXT",
     "ElementGetAnonymousChildren"             => "ELEMENT_GET_ANONYMOUS_CHILDREN",
@@ -152,12 +198,16 @@ module Marionette
     "UninstallAddon"                          => "UNINSTALL_ADDON",
     "FullPageScreenshot"                      => "FULL_PAGE_SCREENSHOT",
 
+    #
     # Safari
+    #
     "GetPermissions" => "GET_PERMISSIONS",
     "SetPermissions" => "SET_PERMISSIONS",
     "AttachDebugger" => "ATTACH_DEBUGGER",
 
+    #
     # Chromium / Chrome
+    #
     "LaunchApp"            => "launchApp",
     "SetNetworkConditions" => "setNetworkConditions",
     "GetNetworkConditions" => "getNetworkConditions",
@@ -168,7 +218,9 @@ module Marionette
     "StartTabMirroring"    => "startTabMirroring",
     "StopCasting"          => "stopCasting",
 
+    #
     # Custom
+    #
     "Pause" => "marionettePause",
   }
 
@@ -203,6 +255,7 @@ module Marionette
     "FindElements"                           => {:post, SessionIdPath + "/elements"},
     "W3CGetActiveElement"                    => {:get, SessionIdPath + "/element/active"},
     "GetActiveElement"                       => {:post, SessionIdPath + "/element/active"},
+    "GetElementShadowRoot"                   => {:get, SessionIdPath + ElementIdPath + "/shadow"},
     "FindChildElement"                       => {:post, SessionIdPath + ElementIdPath + "/element"},
     "FindChildElements"                      => {:post, SessionIdPath + ElementIdPath + "/elements"},
     "ClickElement"                           => {:post, SessionIdPath + ElementIdPath + "/click"},
@@ -239,6 +292,7 @@ module Marionette
     "ExecuteAsyncScript"                     => {:post, SessionIdPath + "/execute_async"},
     "SetScriptTimeout"                       => {:post, SessionIdPath + "/timeouts/async_script"},
     "SetTimeouts"                            => {:post, SessionIdPath + "/timeouts"},
+    "GetTimeouts"                            => {:get, SessionIdPath + "/timeouts"},
     "DismissAlert"                           => {:post, SessionIdPath + "/dismiss_alert"},
     "W3CDismissAlert"                        => {:post, SessionIdPath + "/alert/dismiss"},
     "AcceptAlert"                            => {:post, SessionIdPath + "/accept_alert"},

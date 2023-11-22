@@ -77,8 +77,8 @@ GeckoDriver is implemented and supported by Mozilla directly.
 
 ChromeDriver is implemented and supported by the Chromium Project.
 
-- [Downloads](https://sites.google.com/a/chromium.org/chromedriver/downloads)
-- [Documentation](https://sites.google.com/a/chromium.org/chromedriver/)
+- [Downloads](https://chromedriver.chromium.org/downloads)
+- [Documentation](https://chromedriver.chromium.org/documentation)
 
 ### Opera
 

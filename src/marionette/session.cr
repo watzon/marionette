@@ -376,10 +376,11 @@ module Marionette
     def execute_script(script, *args)
       params = {"script" => script, "args" => args || [] of String}
       if w3c?
-        execute("W3CExecuteScript", params)
+        result = execute("W3CExecuteScript", params)
       else
-        execute("ExecuteScript", params)
+        result = execute("ExecuteScript", params)
       end
+      unwrap_script_result(result)
     end
 
     # Execute arbitrary JavaScript in the context of the given document. Any args to be passed
@@ -389,10 +390,11 @@ module Marionette
     def execute_script_async(script, *args)
       params = {"script" => script, "args" => args || [] of String}
       if w3c?
-        execute("W3CExecuteScriptAsync", params)
+        result = execute("W3CExecuteScriptAsync", params)
       else
-        execute("ExecuteAsyncScript", params)
+        result = execute("ExecuteAsyncScript", params)
       end
+      unwrap_script_result(result)
     end
 
     #   _____ _                           _
@@ -427,17 +429,18 @@ module Marionette
     # Find an element using the given `selector`. The `strategy` can be any
     # `LocationStrategy`. Default is `LocationStrategy::Css`. Raises an
     # exception if no element with the given selector was found.
-    def find_element!(selector, strategy : LocationStrategy = :css, parent : Element? = nil)
+    def find_element!(selector, strategy : LocationStrategy = :css, parent : Element | ShadowRoot | Nil = nil)
       how, what = strategy.convert_locator(selector)
 
       # TODO: Add support for this via Support::RelativeLocator
       # return execute_atom(:findElements, Support::RelativeLocator.new(what).as_json).first if how == 'relative'
 
       if parent
-        # if parent.type == :element
-          id = parent.execute("FindChildElement", { using: how, value: what.to_s })
-        # else :shadow_root
-        #   execute("FindShadowChildElement", { id: parent_id, using: how, value: what.to_s })
+        if parent.is_a?(Element)
+          id = parent.find_element(selector, strategy)
+        else
+          id = execute("FindShadowChildElement", { id: parent.id, using: how, value: what.to_s })
+        end
       else
         id = execute("FindElement", { using: how, value: what.to_s })
       end
@@ -447,24 +450,22 @@ module Marionette
 
     # Find multiple elements with the given selector and return them as
     # an array.
-    def find_elements(selector, strategy : LocationStrategy = :css, parent : Element? = nil)
+    def find_elements(selector, strategy : LocationStrategy = :css, parent : Element | ShadowRoot | Nil = nil)
       how, what = strategy.convert_locator(selector)
 
       # TODO: Add support for this via Support::RelativeLocator
       # return execute_atom(:findElements, Support::RelativeLocator.new(what).as_json) if how == 'relative'
-      ids = Array(JSON::Any).new
       if parent
-        # if parent.type == :element
-          id = parent.execute("FindChildElements", { using: how, value: what.to_s })
-          ids << id
-        # else :shadow_root
-        #   execute("FindShadowChildElements", { id: parent_id, using: how, value: what.to_s })
+        if parent.is_a?(Element)
+          ids = parent.find_elements(selector, strategy)
+        else
+          ids = execute("FindShadowChildElements", { id: parent.id, using: how, value: what.to_s })
+        end
       else
-        id = execute("FindElements", { using: how, value: what.to_s })
-        ids << id
+        ids = execute("FindElements", { using: how, value: what.to_s })
       end
 
-      ids.map { |id| Element.new(self, element_id_from(id[0])) }
+      ids.map { |id| Element.new(self, element_id_from(id)) }
     end
 
     # Find a child of the given element. Returns `nil` if no element with the given
@@ -546,6 +547,11 @@ module Marionette
                           poll_time = 50.milliseconds,
                           &block)
       wait_for_elements(selector, strategy, timeout, poll_time) { |e| e }
+    end
+
+    def shadow_root(element : Element)
+      id = execute("GetElementShadowRoot", { id: element.id })
+      ShadowRoot.new(self, shadow_root_id_from(id))
     end
 
     # Switch the context to the given `frame` or `iframe` element.
@@ -878,8 +884,29 @@ module Marionette
       end
     end
 
+    private def unwrap_script_result(arg)
+      case arg
+      when Array
+        arg.map { |r| unwrap_script_result(r) }
+      when Hash
+        element_id = element_id_from(arg)
+        return Element.new(self, element_id) if element_id
+
+        shadow_root_id = shadow_root_id_from(arg)
+        return ShadowRoot.new(self, shadow_root_id) if shadow_root_id
+
+        arg.each { |k, v| arg[k] = unwrap_script_result(v) }
+      else
+        arg
+      end
+    end
+
     private def element_id_from(id)
       (id["ELEMENT"]? || id[Element::ELEMENT_KEY]).as_s
+    end
+
+    private def shadow_root_id_from(id)
+      id[ShadowRoot::ROOT_KEY].as_s
     end
 
     private def assert_browser(browser : Browser)

@@ -1,6 +1,11 @@
+require "./search_context"
+require "./takes_screenshot"
+
 module Marionette
   struct Element
     include Logger
+    include SearchContext
+    include TakesScreenshot
 
     ELEMENT_KEY = "element-6066-11e4-a52e-4f735466cecf"
 
@@ -157,7 +162,7 @@ module Marionette
 
     def send_keys(*keys)
       text = keys.map { |k| k.is_a?(Key) ? k.value.chr : k }.join
-      execute("SendKeysToElement", {"$text" => text})
+      execute("SendKeysToElement", {"text" => text})
     end
 
     def clear
@@ -193,22 +198,6 @@ module Marionette
       send_keys(value)
     end
 
-    def find_child(selector, strategy : LocationStrategy = :css)
-      @session.find_element_child(self, selector, strategy)
-    end
-
-    def find_children(selector, strategy : LocationStrategy = :css)
-      @session.find_element_children(self, selector, strategy)
-    end
-
-    def take_screenshot(scroll = true)
-      @session.take_screenshot(@id, scroll)
-    end
-
-    def save_screenshot(path, scroll = true)
-      @session.save_screenshot(path, @id, scroll)
-    end
-
     def execute(command, params = {} of String => String)
       params = params.to_h.transform_keys(&.to_s).transform_values(&.to_s)
       params["$elementId"] = @id
@@ -220,25 +209,24 @@ module Marionette
 
     def to_json(builder : JSON::Builder)
       builder.start_object
-      builder.field("ELEMENT", @id)
-      builder.field("element-6066-11e4-a52e-4f735466cecf", @id)
+      builder.field(ELEMENT_KEY, @id)
       builder.end_object
     end
 
     def to_s(io)
       io.puts "  - tag_name: #{tag_name}"
-      # io.puts "    text: #{text}"
-      # io.puts "    value: #{value}"
-      # io.puts "    selected: #{selected?}"
-      # io.puts "    enabled: #{enabled?}"
-      # io.puts "    displayed: #{displayed?}"
-      # io.puts "    location: #{location}"
-      # io.puts "    size: #{size}"
-      # io.puts "    rect: #{rect}"
-      # io.puts "    x: #{x}"
-      # io.puts "    y: #{y}"
-      # io.puts "    width: #{width}"
-      # io.puts "    height: #{height}"
+      io.puts "    text: #{text}"
+      io.puts "    value: #{value}"
+      io.puts "    selected: #{selected?}"
+      io.puts "    enabled: #{enabled?}"
+      io.puts "    displayed: #{displayed?}"
+      io.puts "    location: #{location}"
+      io.puts "    size: #{size}"
+      io.puts "    rect: #{rect}"
+      io.puts "    x: #{x}"
+      io.puts "    y: #{y}"
+      io.puts "    width: #{width}"
+      io.puts "    height: #{height}"
     end
   end
 end

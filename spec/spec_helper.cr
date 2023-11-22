@@ -26,8 +26,3 @@ W3C_TEST_SESSION = Marionette::Session.new(
   w3c: true,
   capabilities: TEST_DRIVER.browser.desired_capabilities
 )
-
-Spectator.configure do |config|
-  config.randomize
-  config.profile
-end
