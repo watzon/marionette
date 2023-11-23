@@ -157,7 +157,7 @@ module Marionette
 
     def send_keys(*keys)
       text = keys.map { |k| k.is_a?(Key) ? k.value.chr : k }.join
-      execute("SendKeysToElement", {"$text" => text})
+      execute("SendKeysToElement", {"text" => text})
     end
 
     def clear
